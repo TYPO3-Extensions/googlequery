@@ -89,7 +89,7 @@ $TCA['tx_googlequery_queries2'] = array(
 			'config' => array(
 				'type' => 'input',	
 				'size' => '30',	
-				'eval' => 'required,trim',
+				'eval' => 'trim',
 			)
 		),
 		'metatags_requested' => array(		
@@ -120,9 +120,27 @@ $TCA['tx_googlequery_queries2'] = array(
 				'eval' => 'int',
 			)
 		),
+		'results_from_dam' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.results_from_dam',
+			'config'  => array(
+				'type'    => 'check',
+				'default' => '0'
+			)
+		),
+		'dam_root_folder' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.dam_root_folder',
+			'config' => array(
+				'type' => 'input',
+				'size' => '30',
+				'eval' => 'trim',
+				'default'=>'fileadmin/',
+			)
+		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, server_address;;;;3-3-3, client_frontend;;;;4-4-4, collection;;;;5-5-5, output_format;;;;6-6-6,--div--;LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.tab.metatags, maintable;;;;1-1-1, metatags_required;;;;2-2-2, metatags_requested;;;;3-3-3,--div--;LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.tab.advanced, cache_duration')
+		'0' => array('showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, server_address;;;;3-3-3, client_frontend;;;;4-4-4, collection;;;;5-5-5, output_format;;;;6-6-6, --div--;LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.tab.metatags, maintable;;;;1-1-1, metatags_required;;;;2-2-2, metatags_requested;;;;3-3-3,--div--;LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.tab.dam_integration, results_from_dam;;;;1-1-1,dam_root_folder;;;;2-2-2,--div--;LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries.tab.advanced, cache_duration')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => 'description'),

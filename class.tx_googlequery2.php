@@ -71,7 +71,7 @@ class tx_googlequery2 extends tx_googlequery {
 	 * @return	string	type of the provided data structure
 	 */
 	public function getProvidedDataStructure() {
-		return tx_basecontroller::$idlistStructureType;
+		return tx_tesseract::IDLIST_STRUCTRURE_TYPE;
 	}
 
 	/**
@@ -81,7 +81,7 @@ class tx_googlequery2 extends tx_googlequery {
 	 * @return	boolean		true if it can handle the requested type, false otherwise
 	 */
 	public function providesDataStructure($type) {
-		return $type == tx_basecontroller::$idlistStructureType;
+		return $type == tx_tesseract::IDLIST_STRUCTRURE_TYPE;
 	}
 
 	/**
@@ -126,7 +126,59 @@ class tx_googlequery2 extends tx_googlequery {
 		return;
 	}
     
-	/**
+    /**
+     * This method gets the DataStructure from cache, if possible, otherwise builds the DataStructure from the Google query's result
+     *
+     *  @return	array
+     */
+    protected function buildDataStructure() {
+
+        // If the cache duration is not set to 0, try to find a cached query
+        if (!empty($this->providerData['cache_duration'])) {
+            try {
+                $dataStructure = $this->getCachedStructure();
+                $hasStructure = true;
+            }
+            // No structure was found, set flag that there's no structure yet
+            catch (Exception $e) {
+                $hasStructure = false;
+            }
+        }
+        // No cache, no structure
+        else {
+            $hasStructure = false;
+        }
+        // If there's no structure yet, assemble it
+        if (!$hasStructure) {
+            $this->loadQuery();
+            $this->__setConfigParams();
+            $this->__setSelectedFields();
+            // Assemble filters, if defined
+
+
+            if (is_array($this->filter) && count($this->filter) > 0)
+                $this->gquery_Parser->addFilter($this->filter);
+
+            // Use idList from input SDS, if defined
+            if (is_array($this->structure) && isset($this->structure['uidListWithTable']))
+                $this->addIdList($this->structure['uidListWithTable']);
+
+            if ($this->providerData['results_from_dam']) {
+                $this->gquery_Parser->gquery_queryparams['q'] = $this->gquery_Parser->gquery_queryparams['q'].urlencode(' inurl:'.$this->providerData['dam_root_folder']);
+            }
+
+            // Build the complete url
+            $this->gquery_query = $this->gquery_Parser->buildQuery();
+
+            // Execute the query
+            $res = $this->__getXmlStructure();
+            // Prepare the full data structure
+            $dataStructure = $this->prepareFullStructure($res);
+        }
+        return $dataStructure;
+    }
+
+    /**
      * This method loads the query and gets the list of tables and fields,
      * complete with localized labels
      *
@@ -137,6 +189,68 @@ class tx_googlequery2 extends tx_googlequery {
 	public function getTablesAndFields($language = '') {
         return null;
     }        
+
+
+    /**
+     * This method prepares a full data structure with overlays if needed but without limits and offset
+     * This is the structure that will be cached (at the end of method) to be called again from the cache when appropriate
+     *
+     * @param	pointer		$res: database resource from the executed query
+     * @return	array		The full data structure
+     */
+    protected function prepareFullStructure($res) { 
+
+        if ($this->providerData['results_from_dam']) {
+
+            $totalCount = 0;
+            $uidList = array();
+			$uidListWithTable = array();
+            $order = array();
+
+            if(count($res) > 0) {
+                $where = ' deleted=0 AND hidden=0 AND ( ';
+                $x = 0;
+                foreach($res as $id => $record) {
+                    $totalCount = $record['googleInfos$total'];
+                    $url = parse_url($record['googleInfos$url']);
+                    $pathinfo = pathinfo($url['path']);
+                    $url = array_merge($url,$pathinfo);
+                    $url['dirname'] = substr($url['dirname'],1).'/';
+                    $order[$url['dirname'].$url['basename']] = $x;
+                    $x++;
+
+                    if ($where != ' deleted=0 AND hidden=0 AND ( ') $where .= ' OR ';
+                    $where .= "( `file_name` = '". addslashes($url['basename']) ."' AND `file_path` = '". addslashes($url['dirname'])."' )\n";
+                }
+                $where .= ' ) ';
+
+                $dam_res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, file_name, file_path', 'tx_dam', $where);
+
+                while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dam_res)) {
+                    $uidList[$order[$row['file_path'].$row['file_name']]] = $row['uid'];
+                    $uidListWithTable[$order[$row['file_path'].$row['file_name']]] = 'tx_dam_'.$row['uid'];
+                    $x++;
+                }
+            }
+            ($uidList != '') ? ksort($uidList) : '';
+            ($uidListWithTable != '') ? ksort($uidListWithTable) : '';
+
+            $dataStructure = array(
+                    'name' => 'tx_dam',
+                    'trueName' => 'tx_dam',
+                    'uniqueTable' => 'tx_dam',
+                    'count' => count($uidList),
+                    'totalCount' => count($uidList),
+                    'uidList' => implode(',', $uidList),
+                    'uidListWithTable' => implode(',', $uidListWithTable),
+                    'records' => array(),
+            );
+            return $dataStructure;
+        }
+        else {
+            return parent::prepareFullStructure($res);
+        }
+    }
 }
 
 

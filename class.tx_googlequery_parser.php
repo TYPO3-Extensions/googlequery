@@ -49,8 +49,6 @@
  *
  */
 
-//require_once(t3lib_extMgm::extPath('overlays', 'class.tx_overlays.php'));
-
 /**
  * This class is used to parse a SELECT SQL query into a structured array
  * It can automatically handle a number of TYPO3 constructs, like enable fields and language overlays
@@ -64,34 +62,34 @@ class tx_googlequery_parser {
 	public $subtables = array(); // List of all subtables, i.e. tables in the JOIN statements
 	public $queryFields = array(); // List of all fields being queried, arranged per table (aliased)
 	protected $aliases = array(); // The keys to this array are the aliases of the tables used in the query and they point to the true table names
-	
+
 	protected $__requiredfields = array();	// Filter list (refers to the whole meta tag content)
 	protected $__partialfields = array();   // Filter list (refers to part of the meta tag content)
 	protected $args_request = array();   // Arguments list for the request
 	public $gquery_getfields = array();   // Fields selected
-	
-	
+
+
 	public $gquery_serverurl = false; // Google's URL server
 	protected $gquery_query; // Full url returning the xml results from Google Mini
 	public $gquery_uri; // Full uri returning the xml results from Google Mini
-	
+
 	public $limit_from = false;
 	public $limit_numitems = false;
 	public $total_counter = 0;
-	
+
 	/**
 	 * This method is used to parse a list of metas required to be returned
-	 * 
+	 *
 	 *
 	 * @param	string		list of metas names to be parsed
 	 * @return	mixed		array containing the query parts or false if $metas was empty or invalid
 	 */
-	public function parseQuery(){
+	public function parseQuery() {
 		foreach ($this->gquery_getfields as $key=>$name) {
-			
+
 			$parts = explode("$",$name);
 			if (count($parts)<2) {
-				// OTHER META TAGS OF THE RECORD
+				// more meta tags from the record
 				$name = 'more_metas$'.$name;
 				$this->gquery_getfields[$key] = $name;
 				$parts = explode("$",$name);
@@ -99,20 +97,20 @@ class tx_googlequery_parser {
 			$table = $parts[0];
 			$fieldname = $parts[1];
 			$this->aliases[$table] = $table;
-			
+
 			if (!isset($this->queryFields[$table])) {
 				$this->queryFields[$table] = array('name' => $alias, 'table' => $table, 'fields' => array());
 			}
 			$this->queryFields[$table]['fields'][$fieldname] = $fieldname;
-			
+
 		}
 		foreach($this->queryFields as $tablename=>$data)
 			if (!in_array($tablename.'$uid',$this->gquery_getfields))
 				array_push($this->gquery_getfields,$tablename.'$uid');
 		array_push($this->gquery_getfields,'gquery_MainTableName');
 	}
-	
-	
+
+
 
 	/**
 	 * This method gets the localized labels for all tables and fields in the query in the given language
@@ -121,8 +119,8 @@ class tx_googlequery_parser {
 	 * @return	array		list of all localized labels
 	 */
 	public function getLocalizedLabels($language = '') {
-			// Make sure we have a lang object available
-			// Use the global one, if it exists
+		// Make sure we have a lang object available
+		// Use the global one, if it exists
 		if (isset($GLOBALS['lang'])) {
 			$lang = $GLOBALS['lang'];
 		}
@@ -148,7 +146,7 @@ class tx_googlequery_parser {
 			}
 			$lang->init($languageCode);
 		}
-		
+
 		// Now that we have a properly initialised language object,
 		// loop on all labels and get any existing localised string
 		$hasFullTCA = false;
@@ -179,9 +177,6 @@ class tx_googlequery_parser {
 					$this->queryFields[$alias]['fields'][$key] = $fieldName;
 				}
 			}
-			// By default disable language overlays for all tables
-			// Overlays are activated again on a case by case basis in addTypo3Mechanisms()
-			//			$this->doOverlays[$alias] = false;
 		}
 
 		return $this->queryFields;
@@ -192,20 +187,19 @@ class tx_googlequery_parser {
 	 *
 	 * @param	array		$filter: Data Filter structure
 	 * @return	void
-	 * 
-	 * @todo	faire les tests d'urlencode... il faudrait les double-encoder ?
+	 *
 	 * @see		Note: All specified meta tag names and values must be double URL-encoded. See example above.
-	 * 		juste au dessus de http://code.google.com/apis/searchappliance/documentation/46/xml_reference.html#inmeta_filter
+	 *			just over http://code.google.com/apis/searchappliance/documentation/46/xml_reference.html#inmeta_filter
 	 */
-	public function addFilter($filter) { // OK
-//echo __LINE__."<pre>".print_r($filter,1)."</pre>";
+	public function addFilter($filter) {
+
 		// First handle the "filter" part, which will be turned into uri string
 		$completeFilter = '';
 		$localPartialfields = $localRequiredfields = array();
 		$logicalOperator = (empty($filter['logicalOperator']) || $filter['logicalOperator']=='AND') ? '.' : '|';
 		if (isset($filter['filters']) && is_array($filter['filters'])) {
 			foreach ($filter['filters'] as $filterData) {
-				// Hack de correction des filtres avec un $ ˆ l'intŽrieur
+				// Hack to correct filters with a '$' in it
 				$parts = explode("$",$filterData['field']);
 				if (count($parts)==2) {
 					$filterData['table'] = $parts[0];
@@ -217,12 +211,12 @@ class tx_googlequery_parser {
 				if ($field!="q" && $field!="eq") {
 					$fullFied = $table.'$'.$field;
 					foreach ($filterData['conditions'] as $conditionData) {
-						
+
 						// "andgroup" and "orgroup" requires more handling
 						// The associated value is a list of comma-separated values and each of these values must be handled separately
 						// Furthermore each value will be tested against a comma-separated list of values too, so the test is not so simple
 						if ($conditionData['operator'] == 'andgroup' ||
-						    $conditionData['operator'] == 'orgroup') {
+							$conditionData['operator'] == 'orgroup') {
 							$values = explode(',', $conditionData['value']);
 							$condition = '';
 							if ($conditionData['operator'] == 'andgroup') {
@@ -235,13 +229,8 @@ class tx_googlequery_parser {
 								if (!empty($condition)) $condition .= $operator;
 								$condition .= $fullFied.':'.$value;
 							}
-							/**
-							 * @todo	Check which array must be filled...
-							 */
 							$localPartialfields[] = "(".$condition.")";
-							//$localRequiredfields[] = "(".$condition.")";
 						}
-						// If the operator is "like", "start" or "end", the SQL operator is always LIKE, but different wildcards are used
 						elseif ($conditionData['operator'] == 'like') {
 							$localRequiredfields[] = $fullFied.':'.$conditionData['value'];
 						}
@@ -257,7 +246,7 @@ class tx_googlequery_parser {
 							$localRequiredfields[] = $fullFied.':'.$conditionData['value'];
 						}
 						else {
-							
+
 							// Those operators cannot be handled by Google Mini
 							/**
 							 * @todo	Warning message explaining that those operators cannot be used with Google Mini
@@ -267,9 +256,6 @@ class tx_googlequery_parser {
 				}
 				else {
 					if ($filterData['field']=="q") {
-						/**
-						 * @todo TESTER LE PASSAGE D'UN Q AVEC PLUSIEURS MOTS (DONC DES ESPACES)
-						 */
 						$kw_strings['kw'] = urlencode($filterData['conditions'][0]['value']);
 					}
 					// A excluded keyword has been set
@@ -289,9 +275,9 @@ class tx_googlequery_parser {
 				}
 			}
 			if (count($localRequiredfields)>0)
-			$this->__requiredfields[] = '('.implode('.',$localRequiredfields).')';
+				$this->__requiredfields[] = '('.implode('.',$localRequiredfields).')';
 			if (count($localPartialfields)>0)
-			$this->__partialfields[] = '('.implode('.',$localPartialfields).')';
+				$this->__partialfields[] = '('.implode('.',$localPartialfields).')';
 		}
 
 	}
@@ -307,14 +293,14 @@ class tx_googlequery_parser {
 		if (!empty($idList)) {
 			$idArray = t3lib_div::trimExplode(',', $idList);
 			$idlistsPerTable = array();
-				// First assemble a list of all uid's for each table
+			// First assemble a list of all uid's for each table
 			foreach ($idArray as $item) {
-					// Code inspired from t3lib_loadDBGroup
-					// String is reversed before exploding, to get uid first
+				// Code inspired from t3lib_loadDBGroup
+				// String is reversed before exploding, to get uid first
 				list($uid, $table) = explode('_', strrev($item), 2);
-					// Exploded parts are reversed back
+				// Exploded parts are reversed back
 				$uid = strrev($uid);
-					// If table is not defined, assume it's the main table
+				// If table is not defined, assume it's the main table
 				if (empty($table)) {
 					$table = $this->mainTable;
 				}
@@ -344,22 +330,17 @@ class tx_googlequery_parser {
 	 * @return	string
 	 */
 	public function buildQuery() { // OK
-		
+
 		if (count($this->__requiredfields)>0)
 			$this->args_request['requiredfields'] = implode ('.',$this->__requiredfields);
 		if (count($this->__partialfields)>0)
 			$this->args_request['partialfields'] = implode ('.',$this->__partialfields);
-		
-		// If we start is bigger than total_counter, no item is returned
-		// By default, google starts the request from the first item
-		//if ($this->limit_numitems) $this->args_request['num']=$this->limit_numitems;
-		
+
 		// Always return 100 items
 		$this->args_request['num']=100;
 		
-		//if ($this->limit_from == 'l') $this->args_request['num'] = 0;
 		if ($this->limit_from) $this->args_request['start']=$this->limit_from;
-		
+
 		$args = array_merge($this->gquery_queryparams, $this->args_request);
 		$first = true;
 		$gets = '';
@@ -368,19 +349,18 @@ class tx_googlequery_parser {
 				$gets = '?'.$key.'='.$value;
 				$first = false;
 			} else {
-				$gets .= '&'.$key.'='.$value;   
+				$gets .= '&'.$key.'='.$value;
 			}
 		}
-		
-		
-		
-		if (substr($this->gquery_serverurl,-1,1)!="/") $this->gquery_serverurl = $this->gquery_serverurl."/";
+
+
+
 		$this->gquery_uri = $gets;
-		tx_basecontroller_parser::setExtraData(array('query_uri'=>$this->gquery_uri));
-		$this->gquery_query = $this->gquery_serverurl."search".$this->gquery_uri;
+		tx_expressions_parser::setExtraData(array('query_uri'=>$this->gquery_uri));
+		$this->gquery_query = $this->gquery_serverurl.$this->gquery_uri;
 		return $this->gquery_query;
 	}
-	
+
 
 	/**
 	 * This method returns the name (alias) of the main table of the query,
@@ -404,7 +384,7 @@ class tx_googlequery_parser {
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/googlequery/class.tx_googlequery_parser.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/googlequery/class.tx_googlequery_parser.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/googlequery/class.tx_googlequery_parser.php']);
 }
 

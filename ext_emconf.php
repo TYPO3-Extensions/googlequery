@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "googlequery"
 #
-# Auto generated 08-05-2008 11:14
+# Auto generated 03-12-2009 15:07
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -29,12 +29,11 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => '',
-	'version' => '0.2.0',
+	'version' => '0.3.0',
 	'constraints' => array(
 		'depends' => array(
-			'displaycontroller' => '',
-			'overlays' => '0.2.0-0.0.0',
-			'basecontroller' => '',
+			'expressions' => '',
+			'tesseract' => '0.3.0-0.0.0',
 		),
 		'conflicts' => array(
 		),

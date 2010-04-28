@@ -1,6 +1,7 @@
 #
 # Table structure for table 'tx_googlequery_queries'
 #
+
 CREATE TABLE tx_googlequery_queries (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -35,16 +36,15 @@ CREATE TABLE tx_googlequery_queries (
 );
 
 CREATE TABLE tx_googlequery_cache (
-#	query_id int(11) DEFAULT '0' NOT NULL,
-#	page_id int(11) DEFAULT '0' NOT NULL,
 	cache_hash varchar(32) DEFAULT '' NOT NULL,
 	tstamp int(11) DEFAULT '0' NOT NULL,
 	structure_cache mediumtext NOT NULL,
 	query_uri text NOT NULL
-) ENGINE = InnoDB;
+)	ENGINE = InnoDB;
 #
 # Table structure for table 'tx_googlequery_queries2'
 #
+
 CREATE TABLE tx_googlequery_queries2 (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -66,6 +66,8 @@ CREATE TABLE tx_googlequery_queries2 (
 	description text NOT NULL,
 	server_address text NOT NULL,
 	output_format text NOT NULL,
+	results_from_dam tinyint(4) DEFAULT '0' NOT NULL,
+	dam_root_folder text NOT NULL,
 	client_frontend text NOT NULL,
 	collection text NOT NULL,
 	metatags_requested text,
