@@ -71,7 +71,7 @@ class tx_googlequery2 extends tx_googlequery {
 	 * @return	string	type of the provided data structure
 	 */
 	public function getProvidedDataStructure() {
-		return tx_tesseract::IDLIST_STRUCTRURE_TYPE;
+		return tx_tesseract::IDLIST_STRUCTURE_TYPE;
 	}
 
 	/**
@@ -81,7 +81,7 @@ class tx_googlequery2 extends tx_googlequery {
 	 * @return	boolean		true if it can handle the requested type, false otherwise
 	 */
 	public function providesDataStructure($type) {
-		return $type == tx_tesseract::IDLIST_STRUCTRURE_TYPE;
+		return $type == tx_tesseract::IDLIST_STRUCTURE_TYPE;
 	}
 
 	/**

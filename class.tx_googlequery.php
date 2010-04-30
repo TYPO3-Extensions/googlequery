@@ -544,7 +544,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return	string		type of the provided data structure
 	 */
 	public function getProvidedDataStructure() {
-		return tx_tesseract::RECORDSET_STRUCTRURE_TYPE;
+		return tx_tesseract::RECORDSET_STRUCTURE_TYPE;
 	}
 
 	/**
@@ -554,7 +554,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return	boolean		true if it can handle the requested type, false otherwise
 	 */
 	public function providesDataStructure($type) {
-		return $type == tx_tesseract::RECORDSET_STRUCTRURE_TYPE;
+		return $type == tx_tesseract::RECORDSET_STRUCTURE_TYPE;
 	}
 
 	/**
@@ -563,7 +563,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return	string		type of used data structures
 	 */
 	public function getAcceptedDataStructure() {
-		return tx_tesseract::IDLIST_STRUCTRURE_TYPE;
+		return tx_tesseract::IDLIST_STRUCTURE_TYPE;
 	}
 
 	/**
@@ -573,7 +573,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return	boolean		true if it can use the requested type, false otherwise
 	 */
 	public function acceptsDataStructure($type) {
-		return $type == tx_tesseract::IDLIST_STRUCTRURE_TYPE;
+		return $type == tx_tesseract::IDLIST_STRUCTURE_TYPE;
 	}
 
 	/**
