@@ -681,7 +681,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		if ($this->configuration['debug'] || TYPO3_DLOG)
 			t3lib_div::devLog($query, $this->extKey,0,$data);
 
-		if ($output = t3libdiv::getURL($query,1,$header)) {
+		if ($output = t3lib_div::getURL($query,0,$header)) {
 
 			$xml = simplexml_load_string($output);
 			$results = array();
