@@ -21,7 +21,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 *
-* $Id: class.tx_googlequery.php 137 2009-03-04 17:34:47Z rpresedo $
+* $Id: class.tx_googlequery.php 280 2010-04-30 07:53:46Z rpresedo $
 ***************************************************************/
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]

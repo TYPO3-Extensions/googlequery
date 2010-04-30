@@ -1,7 +1,7 @@
-10-04-28 Roberto Presedo (Cobweb) <support@cobweb.ch>
+10-04-30 Roberto Presedo (Cobweb) <support@cobweb.ch>
 	v0.3.0
-	* Update to last tesseract version (0.3-0)
-	* Changing url call using t3lib_div librairies
+	* Adapting code to last tesseract version
+	* Using core functions to get xml response
 
 10-01-19 Roberto Presedo (Cobweb)  <support@cobweb.ch>
         v0.2.4
