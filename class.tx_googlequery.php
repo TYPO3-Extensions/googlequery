@@ -338,7 +338,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		foreach ($mainRecords as $aRecord) {
 			$uidList[] = $aRecord['uid'];
 			$theFullRecord = $aRecord;
-			$theFullRecord['sds:subtables'] = array();
+			$theFullRecord['__substructure'] = array();
 			// Check if there are any subtables in the query
 			if ($numSubtables > 0) {
 				foreach ($subtables as $table) {
@@ -365,7 +365,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 							// If there are indeed items, add the subtable to the record
 							$numItems = count($subUidList);
 							if ($numItems > 0) {
-								$theFullRecord['sds:subtables'][$table] = array(
+								$theFullRecord['__substructure'][$table] = array(
 									'name' => $table,
 									'trueName' => $table,
 									'count' => count($subUidList),
@@ -681,7 +681,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		if ($this->configuration['debug'] || TYPO3_DLOG)
 			t3lib_div::devLog($query, $this->extKey,0,$data);
 
-		if ($output = t3lib_div::getURL($query,0,$header)) {
+		if ($output = t3libdiv::getURL($query,1,$header)) {
 
 			$xml = simplexml_load_string($output);
 			$results = array();
