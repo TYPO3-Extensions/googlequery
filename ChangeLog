@@ -8,11 +8,8 @@
 
 10-01-19 Roberto Presedo (Cobweb)  <support@cobweb.ch>
         v0.2.4
-	* Changing Google server url settings. The full url must be setted now, not only the server name or IP
+	* Changing Google server url settings. The full url must be set now, not only the server name or IP
           Example : http://gsearch.mywebsite.com/search
-
-10-01-19 Roberto Presedo (Cobweb)  <support@cobweb.ch>
-	* New Feature : get ID from DAM if a document is returned by Google.
 
 09-12-03 Roberto Presedo (Cobweb)  <support@cobweb.ch>
 	* Use of Expressions parser instead of Basecontroller parser.

@@ -513,9 +513,9 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		}
 		// Retriving infos from Google
 		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$url';
-		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$titre';
-		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$passage';
-		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$pagelangue';
+		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$title';
+		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$snippet';
+		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$pagelang';
 		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$crawldate';
 		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$rankpage';
 		$this->gquery_Parser->gquery_getfields[] = 'googleInfos$resultnumber';
@@ -716,11 +716,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 						$results[$res]['googleInfos$url'] = (string) $infos->U;
 						// Result's title
-						$results[$res]['googleInfos$titre'] = (string) $infos->T;
+						$results[$res]['googleInfos$title'] = (string) $infos->T;
 						// Result's passage
-						$results[$res]['googleInfos$passage'] = (string) $infos->S;
+						$results[$res]['googleInfos$snippet'] = (string) $infos->S;
 						// Result's lang
-						$results[$res]['googleInfos$pagelangue'] = (string) $infos->LANG;
+						$results[$res]['googleInfos$pagelang'] = (string) $infos->LANG;
 						// Result's crawl date
 						$results[$res]['googleInfos$crawldate'] = (string) $infos->CRAWLDATE;
 						// Result's rankpage

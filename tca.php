@@ -90,7 +90,8 @@ $TCA['tx_googlequery_queries'] = array(
 				'type' => 'input',	
 				'size' => '30',	
 				'eval' => 'required,trim',
-			)
+				'default' => 'googleInfos'
+			),
 		),
 		'metatags_requested' => array(		
 			'exclude' => 0,		
