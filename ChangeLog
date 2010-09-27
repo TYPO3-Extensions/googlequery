@@ -1,4 +1,8 @@
-10-04-30 Roberto Presedo (Cobweb) <support@cobweb.ch>
+2010-09-27 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v1.0.0
+	# First public release
+
+2010-04-30 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v0.3.1
 	* Small syntax correction
 
@@ -6,17 +10,17 @@
 	* Adapting code to last tesseract version
 	* Using core functions to get xml response
 
-10-01-19 Roberto Presedo (Cobweb)  <support@cobweb.ch>
+2010-01-19 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
         v0.2.4
 	* Changing Google server url settings. The full url must be set now, not only the server name or IP
           Example : http://gsearch.mywebsite.com/search
 
-09-12-03 Roberto Presedo (Cobweb)  <support@cobweb.ch>
+2009-12-03 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
 	* Use of Expressions parser instead of Basecontroller parser.
 
-09-01-28 Roberto Presedo (Cobweb)  <support@cobweb.ch>
+2009-01-28 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
 	* URI is parsed with basecontroller_parser
         * Google Mini Collections can now be selected
 
-08-11-20 Roberto Presedo (Cobweb)  <support@cobweb.ch>
+2008-11-20 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
 	* Initial release
