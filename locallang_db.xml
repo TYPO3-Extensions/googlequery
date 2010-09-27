@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'googlequery'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_googlequery_queries">Google Queries</label>
+			<label index="tx_googlequery_queries2">Google Queries</label>
+			<label index="tx_googlequery_queries.tab.advanced">Advanced</label>
+			<label index="tx_googlequery_queries.tab.metatags">Meta tags</label>
+			<label index="tx_googlequery_queries2.tab.uids">Ids</label>
+			<label index="tx_googlequery_queries.title">Title</label>
+			<label index="tx_googlequery_queries.description">Description</label>>
+			<label index="tx_googlequery_queries.server_address">Google's server url (example : https://www.mygoogleserver.com/search) </label>
+			<label index="tx_googlequery_queries.output_format">Output format</label>
+			<label index="tx_googlequery_queries.client_frontend">Frontend</label>
+			<label index="tx_googlequery_queries.collection">Collection</label>
+			<label index="tx_googlequery_queries.maintable">Main table</label>
+			<label index="tx_googlequery_queries.tab.dam_integration">DAM integration</label>
+			<label index="tx_googlequery_queries.results_from_dam">Get returned element's ID from the DAM</label>
+			<label index="tx_googlequery_queries.dam_root_folder">DAM root folder</label>
+			<label index="tx_googlequery_queries.metatags_required">Required metatags (only pages containing those tags will be returned) - One tag per line</label>
+			<label index="tx_googlequery_queries2.metatags_required">ID to return</label>
+			<label index="tx_googlequery_queries.metatags_requested">Selected metatags - One tag per line</label>
+			<label index="tx_googlequery_queries.cache_duration">Cache duration (in seconds)</label>
+			<label index="wizards.add_googlequery">Add a new Google Query</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tx_googlequery_queries">Requêtes Google</label>
+			<label index="tx_googlequery_queries2">Requêtes Google</label>
+			<label index="tx_googlequery_queries.tab.advanced">Avancé</label>
+			<label index="tx_googlequery_queries.tab.metatags">Meta tags</label>
+			<label index="tx_googlequery_queries2.tab.uids">Identifiants</label>
+			<label index="tx_googlequery_queries.title">Titre</label>
+			<label index="tx_googlequery_queries.description">Description</label>
+			<label index="tx_googlequery_queries.server_address">Adresse du server Google (exemple : https://www.mygoogleserver.com/search) </label>
+			<label index="tx_googlequery_queries.output_format">Format de sortie</label>
+			<label index="tx_googlequery_queries.client_frontend">Nom du frontal</label>
+			<label index="tx_googlequery_queries.collection">Collection</label>
+			<label index="tx_googlequery_queries.maintable">Table principale</label>
+			<label index="tx_googlequery_queries.tab.dam_integration">Intégration avec le DAM</label>
+			<label index="tx_googlequery_queries.results_from_dam">Rechercher les identifiants des éléments retournées dans le DAM</label>
+			<label index="tx_googlequery_queries.dam_root_folder">Racine du DAM</label>
+			<label index="tx_googlequery_queries.metatags_required">Meta tags obligatoires (seuls les pages avec ces tags seront retournées) - Un tag par ligne</label>
+			<label index="tx_googlequery_queries2.metatags_required">Identifiant à retourner</label>
+			<label index="tx_googlequery_queries.metatags_requested">Meta tags à sélectionner - Un tag par ligne</label>
+			<label index="tx_googlequery_queries.cache_duration">Durée du cache (en secondes)</label>
+			<label index="wizards.add_googlequery">Ajouter une nouvelle requête Google</label>
+		</languageKey>
+	</data>
+</T3locallang>
