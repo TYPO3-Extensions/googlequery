@@ -1,3 +1,7 @@
+2010-09-30 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v1.0.1
+	# Bug fix : t3lib_div function name misspelled
+
 2010-09-27 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v1.0.0
 	# First public release
