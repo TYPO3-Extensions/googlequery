@@ -213,6 +213,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 			// Prepare the full data structure
 			$dataStructure = $this->prepareFullStructure($res);
+			
 		}
 		return $dataStructure;
 	}
@@ -315,7 +316,6 @@ class tx_googlequery extends tx_tesseract_providerbase {
 				}
 			}
 		}
-
 
 		// Prepare the header parts for all tables
 		$headers = array();
@@ -678,11 +678,9 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		$query = tx_expressions_parser::evaluateString($this->gquery_query);
 		$header[] = "Accept-language: fr";
 
-		if ($this->configuration['debug'] || TYPO3_DLOG)
+		if ($this->configuration['debug'])
 			t3lib_div::devLog($query, $this->extKey,0,$data);
-
-		if ($output = t3lib_div::getURL($query,1,$header)) {
-
+		if ($output = t3lib_div::getURL($query,0,$header)) {
 			$xml = simplexml_load_string($output);
 			$results = array();
 			$res = 0;
@@ -712,8 +710,9 @@ class tx_googlequery extends tx_tesseract_providerbase {
 				if ($xml->RES->R) {
 					foreach ($xml->RES->R as $infos) {
 						// Google Infos
+						$att = $infos->attributes();
+						$results[$res]['googleInfos$uid'] = (integer) $att['N'];
 						// Result's url
-
 						$results[$res]['googleInfos$url'] = (string) $infos->U;
 						// Result's title
 						$results[$res]['googleInfos$title'] = (string) $infos->T;
@@ -726,7 +725,6 @@ class tx_googlequery extends tx_tesseract_providerbase {
 						// Result's rankpage
 						$results[$res]['googleInfos$rankpage'] = (string) $infos->RK;
 						// Result's number
-						$att = $infos->attributes();
 						$results[$res]['googleInfos$resultnumber'] = (integer) $att['N']-1;
 						// Result's total number
 						$results[$res]['googleInfos$total'] = $total;
@@ -738,16 +736,16 @@ class tx_googlequery extends tx_tesseract_providerbase {
 								if ($a=='V') $value = $b;
 							}
 							if (isset($results[$res][$name]) && !is_array($results[$res][$name])) {
-								$first = $results[$res][$name];
-								$results[$res][$name] = array();
-								$results[$res][$name][] = $first;
-								$results[$res][$name][] = $value;
+								$first = $results[$res]['googleInfos$'.$name];
+								$results[$res]['googleInfos$'.$name] = array();
+								$results[$res]['googleInfos$'.$name][] = $first;
+								$results[$res]['googleInfos$'.$name][] = $value;
 							}
 							elseif(is_array($results[$res][$name])) {
-								$results[$res][$name][] = $value;
+								$results[$res]['googleInfos$'.$name][] = $value;
 							}
 							else {
-								$results[$res][$name] = $value;
+								$results[$res]['googleInfos$'.$name] = $value;
 							}
 
 						}
@@ -774,14 +772,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 							}
 						}
-
-
+						 	
 						$res++;
 					}
 				}
 			}
-
-
 			// SAVING RESULTS INFOS
 			foreach ($results as $num=>$infos) {
 				foreach ($infos as $name=>$value) {
