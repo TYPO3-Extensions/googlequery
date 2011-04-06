@@ -1,6 +1,6 @@
 /**
  *  author:		Timothy Groves - http://www.brandspankingnew.net
- *	          Roberto Presedo - http://www.cobweb.ch
+ *  updated by: Roberto Presedo - http://www.cobweb.ch
  *	version:	1.2 - 2006-11-17
  *              1.3 - 2006-12-04
  *              2.0 - 2007-02-07
@@ -53,7 +53,7 @@ _bsn.AutoSuggest = function (fldID, param) {
 
 	// defaults	
 	//
-	if (!this.oP.minchars)									this.oP.minchars = 1;
+	if (!this.oP.minchars)									this.oP.minchars = 3;
 	if (!this.oP.method)									this.oP.meth = "get";
 	if (!this.oP.varname)									this.oP.varname = "input";
 	if (!this.oP.className)									this.oP.className = "autosuggest";
@@ -65,6 +65,7 @@ _bsn.AutoSuggest = function (fldID, param) {
 	if (!this.oP.maxheight && this.oP.maxheight !== 0)		this.oP.maxheight = 250;
 	if (!this.oP.cache && this.oP.cache != false)			this.oP.cache = true;
 	if (!this.oP.GSformName)								this.oP.GSformName = "search_form";
+	if (!this.oP.loadingClassName)							this.oP.loadingClassName = "loading";
 
 
 	// set keyup handler for field
@@ -201,6 +202,7 @@ _bsn.AutoSuggest.prototype.getSuggestions = function (val) {
 	// do new request
 	//
 	{
+        this.fld.className = this.oP.loadingClassName;
 		this.sInput = val;
 		this.nInputChars = val.length;
 
@@ -225,10 +227,11 @@ _bsn.AutoSuggest.prototype.doAjaxRequest = function () {
 	var meth = this.oP.meth;
 
 	var onSuccessFunc = function (req) {
+        pointer.fld.className = "";
 		pointer.setSuggestions(req)
 	};
 	var onErrorFunc = function (status) {
-		alert("AJAX error: " + status);
+        pointer.fld.className = "";
 	};
 
 	var myAjax = new _bsn.Ajax();
@@ -506,6 +509,8 @@ _bsn.AutoSuggest.prototype.resetTimeout = function() {
 _bsn.AutoSuggest.prototype.clearSuggestions = function () {
 
 	this.killTimeout();
+
+    this.fld.className = "";
 
 	var ele = _bsn.DOM.getElement(this.idAs);
 	var pointer = this;

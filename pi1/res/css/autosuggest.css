@@ -154,3 +154,10 @@ div.autosuggest ul em {
 	font-style : normal;
 	color      : #6EADE7;
 }
+
+#tx_googlequery_searchform_ss_q {
+	padding-right: 20px;
+}
+#tx_googlequery_searchform_ss_q.loading {
+	background: #fff url(img/ajax-loader.gif) no-repeat 100%;
+}

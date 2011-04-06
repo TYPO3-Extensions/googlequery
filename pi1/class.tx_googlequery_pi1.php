@@ -171,7 +171,7 @@ class tx_googlequery_pi1 extends tslib_pibase {
 					noresults: "' . $this->pi_getLL( 'label.noresults' ) . '",
 					cache: false
 				};
-				var as_json = new AutoSuggest( \'q\', options);
+				var as_json = new AutoSuggest( \'tx_googlequery_searchform_ss_q\', options);
 
 			</script>';
 

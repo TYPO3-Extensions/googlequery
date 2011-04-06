@@ -30,12 +30,12 @@ class tx_googlequery_eID {
 
 		$url =  $gsahost[ 'scheme' ] . "://" . $gsahost[ 'host' ] .
 				   "/suggest?" .
-				   "q=" . t3lib_div::_GP( 'q' ) .
-				   "&site=" . t3lib_div::_GP( 'site' ) .
-				   "&client=" . t3lib_div::_GP( 'client' ) .
-				   "&access=" . t3lib_div::_GP( 'access' ) .
-				   "&format=" . t3lib_div::_GP( 'format' ) .
-				   "&max=" . t3lib_div::_GP( 'max' );
+				   "q=" . $this->encodeGP( 'q' ).
+				   "&site=" . $this->encodeGP( 'site' ) .
+				   "&client=" . $this->encodeGP( 'client' ) .
+				   "&access=" . $this->encodeGP( 'access' ) .
+				   "&format=" . $this->encodeGP( 'format' ) .
+				   "&max=" . $this->encodeGP( 'max' );
 
 		$json = t3lib_div::getURL( $url );
 
@@ -44,6 +44,10 @@ class tx_googlequery_eID {
 
 		echo $json;
 	}
+
+    function encodeGP ( $var ) {
+        return urlencode( t3lib_div::_GP( $var ) );
+    }
 
 }
 
