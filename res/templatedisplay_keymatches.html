@@ -1,0 +1,14 @@
+<!--LOOP(googleKeymatches)-->
+	<!-- IF (###COUNTER### == 0) -->
+<div class="block">
+	<p>###LLL:EXT:googlequery/res/locallang.xml:keymatches###</p>
+	<ul class="gsa_keymatchs">
+	<!-- ENDIF -->
+		<li>
+			<a ctype="keymatch" pos="###COUNTER###" rel="logclick" target="_blank" href="###FIELD.link###"> ###FIELD.label###</a>
+		</li>
+	<!--IF(###COUNTER### == ( ###SUBTOTAL_RECORDS### - 1 ) )-->
+	</ul>
+</div>
+	<!-- ENDIF -->
+<!--ENDLOOP-->

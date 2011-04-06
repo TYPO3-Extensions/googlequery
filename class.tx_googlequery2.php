@@ -24,8 +24,6 @@
 * $Id: class.tx_googlequery2.php 4041 2008-09-09 12:28:14Z fsuter $
 ***************************************************************/
 
-// Include googlequery main class
-require_once (t3lib_extMgm::extPath('googlequery').'class.tx_googlequery.php');
 /**
  * Secondary data provider using google mini results
  *

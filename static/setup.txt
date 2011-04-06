@@ -1,0 +1,25 @@
+plugin.tx_googlequery_pi1{
+	templateFile = {$plugin.tx_googlequery_pi1.templateFile}
+	targetId = {$plugin.tx_googlequery_pi1.targetId}
+	autoss = {$plugin.tx_googlequery_pi1.autoss}
+	autosscss = {$plugin.tx_googlequery_pi1.autosscss}
+	gsa_host = {$plugin.tx_googlequery_pi1.gsa_host}
+	frontend = {$plugin.tx_googlequery_pi1.frontend}
+	collection = {$plugin.tx_googlequery_pi1.collection}
+    searchEngineType = {$plugin.tx_googlequery_pi1.searchEngineType}
+    gss_id = {$plugin.tx_googlequery_pi1.gss_id}
+    clicklog = {$plugin.tx_googlequery_pi1.clicklog}
+}
+
+config.tx_googlequery_queries {
+    server_address = {$plugin.tx_googlequery_pi1.gsa_host}/search
+    client_frontend = {$plugin.tx_googlequery_pi1.frontend}
+    collection = {$plugin.tx_googlequery_pi1.collection}
+    maintable = {$plugin.tx_googlequery_pi1.maintable}
+    cache_duration = {$plugin.tx_googlequery_pi1.cache_duration}
+    searchEngineType = {$plugin.tx_googlequery_pi1.searchEngineType}
+    gss_id = {$plugin.tx_googlequery_pi1.gss_id}
+}
+
+
+config.tx_googlequery_queries2 < config.tx_googlequery_queries

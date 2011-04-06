@@ -1,0 +1,48 @@
+# customsubcategory=googlequery=LLL:EXT:googlequery/locallang_constants.xml:constants.tx_googlequery_queries
+# customsubcategory=googlequery_gss=LLL:EXT:googlequery/locallang_constants.xml:constants.tx_googlequery_queries_gss
+# customsubcategory=googlequery_gsa=LLL:EXT:googlequery/locallang_constants.xml:constants.tx_googlequery_queries_gsa
+
+
+#	cat=googlequery; type=int; label=LLL:EXT:googlequery/locallang_constants.xml:constants.cache_duration
+plugin.tx_googlequery_pi1.cache_duration = 0
+
+#	cat=googlequery; type=int; label=LLL:EXT:googlequery/locallang_constants.xml:constants.targetId
+plugin.tx_googlequery_pi1.targetId =
+
+#	cat=googlequery; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.TemplateFile
+plugin.tx_googlequery_pi1.templateFile = EXT:googlequery/pi1/res/template.html
+
+#	cat=googlequery; type=options[gsa,gss]; label=LLL:EXT:googlequery/locallang_constants.xml:constants.searchEngineType
+plugin.tx_googlequery_pi1.searchEngineType = gsa
+
+
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.maintable
+plugin.tx_googlequery_pi1.maintable= googleInfos
+
+#	cat=googlequery_gsa; type=boolean; label=LLL:EXT:googlequery/locallang_constants.xml:constants.clicklog
+plugin.tx_googlequery_pi1.clicklog = 
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.metatags_required
+plugin.tx_googlequery_pi1.metatags_required =
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.autosscss
+plugin.tx_googlequery_pi1.autosscss = EXT:googlequery/pi1/res/css/autosuggest.css
+
+#	cat=googlequery_gsa; type=boolean; label=LLL:EXT:googlequery/locallang_constants.xml:constants.autoss
+plugin.tx_googlequery_pi1.autoss =
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.gsa_host
+plugin.tx_googlequery_pi1.gsa_host =
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.collection
+plugin.tx_googlequery_pi1.collection = default_collection
+
+#	cat=googlequery_gsa; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.frontend
+plugin.tx_googlequery_pi1.frontend = default_frontend
+
+
+
+#	cat=googlequery_gss; type=text; label=LLL:EXT:googlequery/locallang_constants.xml:constants.gss_id
+plugin.tx_googlequery_pi1.gss_id =
+

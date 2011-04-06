@@ -1,0 +1,69 @@
+<div class="block">
+
+	<!--LOOP(googleInfos)-->
+
+	<!--EMPTY-->
+	<h3>###LLL:EXT:googlequery/res/locallang.xml:no_result###</h3>
+	<!--ENDEMPTY-->
+
+
+	<!--IF (###COUNTER### == 0) -->
+	<h3>###LLL:EXT:googlequery/res/locallang.xml:results_for### : ###EXPRESSION.gp:q###</h3>
+
+	<div class="gq_totals">
+		<p>###LLL:EXT:googlequery/res/locallang.xml:results### FUNCTION:tx_googlequery_tools::start_at( ###RECORD_OFFSET###, ###SUBTOTAL_RECORDS### ) - ###RECORD_OFFSET### ###LLL:EXT:googlequery/res/locallang.xml:of### <strong>###TOTAL_RECORDS###</strong> ###LLL:EXT:googlequery/res/locallang.xml:in_total###</p>
+	</div>
+
+    <div class="gsa_sorting">
+        <!--ENDIF-->
+        <!--IF ( ###EXPRESSION.gp:sort### == 'date' && ###COUNTER### == 0 ) -->
+            <a href="###OBJECT.actualurl###?q=###EXPRESSION.gp:q###&sort=etad">###LLL:EXT:googlequery/res/locallang.xml:sort_by_date_descending###</a>
+        <!--ENDIF-->
+        <!--IF ( ( ###EXPRESSION.gp:sort### != 'date' && ###EXPRESSION.gp:sort### IS NULL ) && ###COUNTER### == 0 ) -->
+            <a href="###OBJECT.actualurl###?q=###EXPRESSION.gp:q###&sort=date">###LLL:EXT:googlequery/res/locallang.xml:sort_by_date_ascending###</a>
+        <!--ENDIF-->
+        <!--IF ( ( ###EXPRESSION.gp:sort### == 'date' || ###EXPRESSION.gp:sort### == 'etad' ) && ###COUNTER### == 0 ) -->
+            <a href="###OBJECT.actualurl###?q=###EXPRESSION.gp:q###">###LLL:EXT:googlequery/res/locallang.xml:sort_by_relevance###</a>
+        <!--ENDIF-->
+
+	<!--IF (###COUNTER### == 0) -->
+    </div>
+	<script type="text/javascript">
+		// This is required for the "Advanced Search Reporting" feature
+		page_start = '###FIELD.rank###';
+	</script>
+
+	<ul>
+		<!--ENDIF-->
+
+		<li class="g">
+			<!-- ctype, pos and rel attributes are required for the "Advanced Search Reporting" feature -->
+			<a ctype="c" pos="###COUNTER###" rel="logclick" href="###FIELD.url###">
+				<!--IF(###FIELD.mimetype### != 'text-html' && ###FIELD.mimetype### != '')-->
+				<img src="/typo3/sysext/t3skin/images/icons/mimetypes/###FIELD.mimetype###.png" />
+				<!--ENDIF-->
+				<span class="l">###FIELD.title###</span>
+			</a>
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr>
+						<td class="s">
+							###FIELD.snippet###
+							<br>###FIELD.url### -
+							<!--IF(###FIELD.pagesize###)-->###FIELD.pagesize### -<!--ENDIF-->
+							<!--IF(###FIELD.crawldate###)-->###FIELD.crawldate### -<!--ENDIF-->
+							<!--IF(###FIELD.cached_url###)--><a ctype="cache" pos="###COUNTER###" rel="logclick" href="###FIELD.cached_url###" target="_blank" class="f">###LLL:EXT:googlequery/res/locallang.xml:cached###</a><!--ENDIF-->
+                            <!--LOOP(more_metas)-->
+							<!--IF(###FIELD.generator###)--><br>###LLL:EXT:googlequery/res/locallang.xml:page_generated_by### ###FIELD.generator###<!--ENDIF-->
+                            <!--ENDLOOP-->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<!--IF(###COUNTER### == ( ###SUBTOTAL_RECORDS### - 1 ) )-->
+	</ul>
+	<!--ENDIF-->
+	<!--ENDLOOP-->
+	###PAGE_BROWSER###
+</div>

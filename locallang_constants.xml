@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'googlequery'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+
+			<label index="constants.tx_googlequery_queries">Google Queries</label>
+			<label index="constants.tx_googlequery_queries_gsa">Google Queries : GSA</label>
+			<label index="constants.tx_googlequery_queries_gss">Google Queries : GSS</label>
+
+			<label index="constants.cache_duration">Cache duration : Number of seconds</label>
+			<label index="constants.targetId">Page results : Page id where GoogleQuery results are displayed</label>
+			<label index="constants.TemplateFile">Search form template : Name of the html template file for the search form</label>
+			<label index="constants.searchEngineType">Search Engine Type : Google Search Appliance/Mini (gsa) or Google Site Search (gss)</label>
+
+			<label index="constants.maintable">Type of information to return : GSA feature only - see documentation</label>
+			<label index="constants.clicklog">"Advanced Search Reporting" : GSA feature only - Allows the GSA to log which links are clicked by the users on the result page</label>
+			<label index="constants.metatags_required">Metatags required : GSA feature only - Only documents containing this meta tags will be returned - Comma separated values</label>
+			<label index="constants.autosscss">"Auto-Suggestion" CSS file : GSA feature only - CSS file for the "Auto-Suggestion" option</label>
+			<label index="constants.autoss">"Auto-Suggestion" : GSA feature only - Provides search suggestions when typing in the search form</label>
+			<label index="constants.collection">Collection : GSA feature only - Name of the collection</label>
+			<label index="constants.gsa_host">GSA Host : Example http://mygsa.mysite.com</label>
+			<label index="constants.frontend">Frontend : GSA feature only - Name of the frontend</label>
+
+			<label index="constants.gss_id">GSS Search engine unique ID : Find it on your search engine Control panel (http://www.google.com/cse/manage/all/)</label>
+
+		</languageKey>
+
+		<languageKey index="fr" type="array">
+
+			<label index="constants.tx_googlequery_queries">Requêtes Google</label>
+			<label index="constants.tx_googlequery_queries_gsa">Requêtes Google : GSA</label>
+			<label index="constants.tx_googlequery_queries_gss">Requêtes Google : GSS</label>
+
+			<label index="constants.cache_duration">Durée de cache : Nombre en secondes</label>
+			<label index="constants.targetId">Page de résultat : Id de la page qui affichera les résultats de recherche</label>
+			<label index="constants.TemplateFile">Formulaire de recherche : Nom du template affichant le formulaire de recherche</label>
+			<label index="constants.searchEngineType">Type de moteur de recherche : Google Search Appliance/Mini (gsa) ou Google Site Search (gss)</label>
+
+			<label index="constants.maintable">Type d'information retournée : option pour GSA seulement - voir la documentation</label>
+			<label index="constants.clicklog">"Rapport de recherche avancé" : option pour GSA seulement - Autorise le GSA à enregistrer les liens cliqués par les visiteurs sur les résultats de recherche</label>
+			<label index="constants.metatags_required">Metatags required : option pour GSA seulement - Seuls les documents contenant tous ces meta tags seront retournés par le GSA - Séparer les valeurs avec des virgules</label>
+			<label index="constants.autosscss">"Auto-Suggestion" CSS file : option pour GSA seulement - Fichier CSS pour l'option "Auto-Suggestion"</label>
+			<label index="constants.autoss">"Auto-Suggestion" : option pour GSA seulement - Affiche une liste de suggestion de recherche, en fonction de ce que l'utilisateur tape</label>
+			<label index="constants.collection">Collection : option pour GSA seulement - Name of the collection</label>
+			<label index="constants.gsa_host">Hôte GSA : Exemple http://mygsa.mysite.com</label>
+			<label index="constants.frontend">Frontend : option pour GSA seulement - Nom du frontal</label>
+
+			<label index="constants.gss_id">ID unique du moteur de recherche GSS : Vous le trouverez sur le panneau de configuration de votre moteur de recherche (http://www.google.com/cse/manage/all/)</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -8,45 +8,74 @@
 		<languageKey index="default" type="array">
 			<label index="tx_googlequery_queries">Google Queries</label>
 			<label index="tx_googlequery_queries2">Google Queries</label>
-			<label index="tx_googlequery_queries.tab.advanced">Advanced</label>
-			<label index="tx_googlequery_queries.tab.metatags">Meta tags</label>
-			<label index="tx_googlequery_queries2.tab.uids">Ids</label>
-			<label index="tx_googlequery_queries.title">Title</label>
-			<label index="tx_googlequery_queries.description">Description</label>>
-			<label index="tx_googlequery_queries.server_address">Google's server url (example : https://www.mygoogleserver.com/search) </label>
-			<label index="tx_googlequery_queries.output_format">Output format</label>
-			<label index="tx_googlequery_queries.client_frontend">Frontend</label>
-			<label index="tx_googlequery_queries.collection">Collection</label>
-			<label index="tx_googlequery_queries.maintable">Main table</label>
-			<label index="tx_googlequery_queries.tab.dam_integration">DAM integration</label>
-			<label index="tx_googlequery_queries.results_from_dam">Get returned element's ID from the DAM</label>
-			<label index="tx_googlequery_queries.dam_root_folder">DAM root folder</label>
-			<label index="tx_googlequery_queries.metatags_required">Required metatags (only pages containing those tags will be returned) - One tag per line</label>
-			<label index="tx_googlequery_queries2.metatags_required">ID to return</label>
-			<label index="tx_googlequery_queries.metatags_requested">Selected metatags - One tag per line</label>
-			<label index="tx_googlequery_queries.cache_duration">Cache duration (in seconds)</label>
+
+			<label index="tt_content.list_type_pi1">Google Query tt_content.list_type_pi1</label>
+
+			<label index="tca.title">Title</label>
+			<label index="tca.description">Description</label>
+
+			<label index="tca.searchEngine">Search Engine</label>
+			<label index="tca.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
+			<label index="tca.SearchEngineTypeGSS">Google Site Search</label>
+			<label index="tca.gss_id">Search engine unique ID (see control panel on http://www.google.com/cse/manage/all/)</label>
+			<label index="tca.gsa_host">Google Search Appliance result's url (example : https://www.mygsa.com/search)</label>
+			<label index="tca.frontend">Frontend</label>
+			<label index="tca.collection">Collection</label>
+			<label index="tca.maintable">Type of information returned</label>
+			<label index="tca.maintable.googleInfosTable">Search results</label>
+			<label index="tca.maintable.googleSuggestionsTable">Spelling suggestions</label>
+			<label index="tca.maintable.googleSynonymesTable">Related Queries</label>
+			<label index="tca.maintable.googleKeymatchesTable">Keymatches</label>
+			<label index="tca.maintable.tsconfig">Configured by TypoScript</label>
+			<label index="tca.metatags_requested">Selected metatags (only tags in this list can be mapped in a Data Consumer) - One tag per line</label>
+			<label index="tca.metatags_required">Required metatags (only results containing those tags will be returned) - One tag per line</label>
+			<label index="tca.cache_duration">Cache duration (in seconds)</label>
+
+			<label index="tca.tab.metatags">Meta tags</label>
+			<label index="tca.tab.advanced">Advanced</label>
+
+			<label index="tca2.dam_root_folder">DAM root folder</label>
+			<label index="tca2.results_from_dam">Get returned element's ID from the DAM</label>
+			<label index="tca2.tab.dam_integration">DAM integration</label>
+
 			<label index="wizards.add_googlequery">Add a new Google Query</label>
+
+
+
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="tx_googlequery_queries">Requêtes Google</label>
 			<label index="tx_googlequery_queries2">Requêtes Google</label>
-			<label index="tx_googlequery_queries.tab.advanced">Avancé</label>
-			<label index="tx_googlequery_queries.tab.metatags">Meta tags</label>
-			<label index="tx_googlequery_queries2.tab.uids">Identifiants</label>
-			<label index="tx_googlequery_queries.title">Titre</label>
-			<label index="tx_googlequery_queries.description">Description</label>
-			<label index="tx_googlequery_queries.server_address">Adresse du server Google (exemple : https://www.mygoogleserver.com/search) </label>
-			<label index="tx_googlequery_queries.output_format">Format de sortie</label>
-			<label index="tx_googlequery_queries.client_frontend">Nom du frontal</label>
-			<label index="tx_googlequery_queries.collection">Collection</label>
-			<label index="tx_googlequery_queries.maintable">Table principale</label>
-			<label index="tx_googlequery_queries.tab.dam_integration">Intégration avec le DAM</label>
-			<label index="tx_googlequery_queries.results_from_dam">Rechercher les identifiants des éléments retournées dans le DAM</label>
-			<label index="tx_googlequery_queries.dam_root_folder">Racine du DAM</label>
-			<label index="tx_googlequery_queries.metatags_required">Meta tags obligatoires (seuls les pages avec ces tags seront retournées) - Un tag par ligne</label>
-			<label index="tx_googlequery_queries2.metatags_required">Identifiant à retourner</label>
-			<label index="tx_googlequery_queries.metatags_requested">Meta tags à sélectionner - Un tag par ligne</label>
-			<label index="tx_googlequery_queries.cache_duration">Durée du cache (en secondes)</label>
+
+			<label index="tt_content.list_type_pi1">Requêtes Google tt_content.list_type_pi1</label>
+
+			<label index="tca.title">Titre</label>
+			<label index="tca.description">Description</label>
+
+			<label index="tca.searchEngine">Moteur de recherche</label>
+			<label index="tca.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
+			<label index="tca.SearchEngineTypeGSS">Google Site Search</label>
+			<label index="tca.gss_id">ID unique du moteur de recherche GSS (Voir sur le panneau de configuration de votre moteur de recherche sur http://www.google.com/cse/manage/all/)</label>
+			<label index="tca.gsa_host">Url des résultats du Google Search Appliance (example : https://www.mongsa.com/search)</label>
+			<label index="tca.frontend">Frontal</label>
+			<label index="tca.collection">Collection</label>
+			<label index="tca.maintable">Type d'information retournée</label>
+			<label index="tca.maintable.googleInfosTable">Résultats de recherche</label>
+			<label index="tca.maintable.googleSuggestionsTable">Suggestions orthographiques</label>
+			<label index="tca.maintable.googleSynonymesTable">Requêtes associées</label>
+			<label index="tca.maintable.googleKeymatchesTable">Correspondances</label>
+			<label index="tca.maintable.tsconfig">Configuré par TypoScript</label>
+			<label index="tca.metatags_requested">Meta tags sélectionnés (seuls les meta tags de cette liste pourront être mappés dans un Data Consumer) - Un tag par ligne</label>
+			<label index="tca.metatags_required">Meta tags requis (seuls les résultats contenant ces tags seront retournés) - Un tag par ligne</label>
+			<label index="tca.cache_duration">Durée du cache (en secondes)</label>
+
+			<label index="tca.tab.metatags">Meta tags</label>
+			<label index="tca.tab.advanced">Avancé</label>
+
+			<label index="tca2.dam_root_folder">Répertoire racine du DAM</label>
+			<label index="tca2.results_from_dam">Retourner les Id DAM des documents trouvés</label>
+			<label index="tca2.tab.dam_integration">Intégration DAM</label>
+
 			<label index="wizards.add_googlequery">Ajouter une nouvelle requête Google</label>
 		</languageKey>
 	</data>

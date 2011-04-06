@@ -22,12 +22,13 @@ CREATE TABLE tx_googlequery_queries (
 	title varchar(255) DEFAULT '' NOT NULL,
 	description text NOT NULL,
 	server_address text NOT NULL,
-	output_format text NOT NULL,
 	client_frontend text NOT NULL,
 	collection text NOT NULL,
 	metatags_requested text,
 	metatags_required text,
 	maintable text,
+	searchEngineType text,
+	gss_id text,
 	cache_duration int(11) DEFAULT '86400' NOT NULL
 	
 	PRIMARY KEY (uid),
@@ -65,7 +66,6 @@ CREATE TABLE tx_googlequery_queries2 (
 	title varchar(255) DEFAULT '' NOT NULL,
 	description text NOT NULL,
 	server_address text NOT NULL,
-	output_format text NOT NULL,
 	results_from_dam tinyint(4) DEFAULT '0' NOT NULL,
 	dam_root_folder text NOT NULL,
 	client_frontend text NOT NULL,
@@ -73,6 +73,8 @@ CREATE TABLE tx_googlequery_queries2 (
 	metatags_requested text,
 	metatags_required text,
 	maintable text,
+	searchEngineType text,
+	gss_id text,
 	cache_duration int(11) DEFAULT '86400' NOT NULL
 	
 	PRIMARY KEY (uid),

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+		"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>TEMPLATE FOR GOOGLE SEARCH FORM</title>
+	</head>
+	<body>
+
+		<!-- ###GOOGLEQUERY_SEARCHFORM### begin -->
+		<form action="###GQ_FORM_TARGET###" method="get" name="searchform" id="###GQ_FORM_ID###" onsubmit="return (this.q.value == '') ? false : true;">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td valign="middle">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<input type="text" name="q" size="32" maxlength="256" value="###GQ_Q###" autocomplete="off">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td valign="middle">
+					&nbsp;<input type="submit" name="btnG" value="###GQ_LABEL_SEARCH###">
+				</td>
+			</tr>
+		</table>
+		</form>
+
+		<!-- ###GOOGLEQUERY_SEARCHFORM### end -->
+
+		<!-- ###GOOGLEQUERY_SEARCHFORM_SS### begin -->
+		<form action="###GQ_FORM_TARGET###" method="get" name="searchform" id="###GQ_FORM_ID###">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td valign="middle">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<input type="text" name="q" id="q" size="32" maxlength="256" value="###GQ_Q###">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td valign="middle">
+					&nbsp;<input type="submit" name="btnG" value="###GQ_LABEL_SEARCH###">
+				</td>
+			</tr>
+		</table>
+		</form>
+
+		###GQ_GSA_JS###
+
+		###GQ_CLICKLOG###
+
+		<!-- ###GOOGLEQUERY_SEARCHFORM_SS### end -->
+
+
+	</body>
+</html>

@@ -1,2 +1,2 @@
-This extension is a Data Provider for the Tesseract Project. It sends queries to a Google Search Appliance (Google Mini or GSA) and returns the resulting data as a ÒrecordsetÓ-type Standardized Data Structure (see extension ÒtesseractÓ for a general explanation).
+This extension is a Data Provider for the Tesseract Project. It sends queries to a Google Search Appliance (Google Mini or GSA) or Google Site Search, and returns the resulting data as a ï¿½recordsetï¿½-type Standardized Data Structure (see extension ï¿½tesseractï¿½ for a general explanation).
 Please refer to the manual for more information

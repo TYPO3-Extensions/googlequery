@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to plugin 'googlequery'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi_flexform.list_type_pi1">GoogleQuery Search Form</label>
+			<label index="pi_flexform.sheetGeneral">Search Form</label>
+			<label index="pi_flexform.searchEngine">Search Engine</label>
+			<label index="pi_flexform.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
+			<label index="pi_flexform.SearchEngineTypeGSS">Google Site Search</label>
+			<label index="pi_flexform.targetId">Page displaying GoogleQuery results</label>
+			<label index="pi_flexform.TemplateFile">Template File</label>
+			<label index="pi_flexform.gsa_host">Google Search Appliance host</label>
+			<label index="pi_flexform.autoss">Enable "Auto-Suggestion"</label>
+			<label index="pi_flexform.autosscss">CSS file for the "Auto-Suggestion" option</label>
+			<label index="pi_flexform.frontend">Frontend</label>
+			<label index="pi_flexform.collection">Collection</label>
+			<label index="pi_flexform.clicklog">Enable "Advanced Search Reporting"</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi_flexform.list_type_pi1">Formulaire de recherche GoogleQuery</label>
+			<label index="pi_flexform.sheetGeneral">Formulaire de recherche</label>
+			<label index="pi_flexform.searchEngine">Moteur de recherche</label>
+			<label index="pi_flexform.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
+			<label index="pi_flexform.SearchEngineTypeGSS">Google Site Search</label>
+			<label index="pi_flexform.targetId">Page affichant les résultats de recherche</label>
+			<label index="pi_flexform.TemplateFile">Fichier de template</label>
+			<label index="pi_flexform.gsa_host">Hôte Google Search Appliance</label>
+			<label index="pi_flexform.autoss">Activer "Auto-Suggestion"</label>
+			<label index="pi_flexform.autosscss">Fichier CSS pour l'option "Auto-Suggestion"</label>
+			<label index="pi_flexform.frontend">Frontal</label>
+			<label index="pi_flexform.collection">Collection</label>
+			<label index="pi_flexform.clicklog">Activer "Rapport de recherche avancé"</label>
+		</languageKey>
+	</data>
+</T3locallang>

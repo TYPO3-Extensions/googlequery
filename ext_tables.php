@@ -44,7 +44,7 @@ $TCA['tx_googlequery_queries2'] = array (
 		'enablecolumns' => array (		
 			'disabled' => 'hidden',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca_googlequery2.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'res/icons/icon_tx_googlequery_queries2.gif',
 		'dividers2tabs' => 1,
 	),
@@ -86,4 +86,26 @@ $addgooglequery2Wizard = array(
 						);
 $TCA['tt_content']['columns']['tx_displaycontroller_provider']['config']['wizards']['add_googlequery'] = $addgooglequeryWizard;
 $TCA['tt_content']['columns']['tx_displaycontroller_provider2']['config']['wizards']['add_googlequery2'] = $addgooglequery2Wizard;
+
+
+// Activate the display of the plug-in flexform field and set FlexForm defintion
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:googlequery/flexform_ds.xml');
+
+t3lib_extMgm::addPlugin(array(
+	'LLL:EXT:googlequery/pi1/locallang_db.xml:pi_flexform.list_type_pi1',
+	$_EXTKEY . '_pi1',
+	t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
+),'list_type');
+
+
+	// Define the path to the static TS files
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'Google Query');
+
+	// Add context sensitive help (csh) for the FlexForm
+t3lib_extMgm::addLLrefForTCAdescr('tx_googlequery_queries', 'EXT:' . $_EXTKEY . '/locallang_csh_tx_googlequery_queries.xml');
+t3lib_extMgm::addLLrefForTCAdescr('tx_googlequery_queries2', 'EXT:' . $_EXTKEY . '/locallang_csh_tx_googlequery_queries2.xml');
+t3lib_extMgm::addLLrefForTCAdescr('tt_content.pi_flexform.googlequery_pi1.list', 'EXT:' . $_EXTKEY . '/locallang_csh_googlequery.xml');
+
+
 ?>

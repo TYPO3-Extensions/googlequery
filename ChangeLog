@@ -1,3 +1,24 @@
+2011-03-18 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v2.0.0_beta1
+	# New Feature : TypoScript Configuration
+	# New Feature : Auto-Suggestion for GSA based searches
+	# New Feature : Advanced Search Reporting for GSA based results
+	# New Feature : Use Google Site Search as a data provider instead of Google Mini or Google Search Appliance
+	# New Ressource : t3d file to create a sample structure with search forms and search results
+	# Several small bugs fixes
+
+2011-02-28 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v1.1.0
+	# New Feature : Search Form plugin
+	# New Tags :
+		- googleInfos$cachedurl : Url of the cached version added to the search results
+		- googleInfos$cachedpagesize : File size of the cached version added to the search results
+		- googleInfos$cachedencoding : Encoding of the cached version added to the search results
+		- googleInfos$mimetype : Mime type added to the search results
+
+	# Bug fix : Array values from filters were not handled properly
+
+
 2010-09-30 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v1.0.1
 	# Bug fix : t3lib_div function name misspelled

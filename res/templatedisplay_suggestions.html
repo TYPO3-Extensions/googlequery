@@ -1,0 +1,13 @@
+<!--LOOP(googleSuggestions)-->
+	<!-- IF (###COUNTER### == 0) -->
+<div class="block">
+	###LLL:EXT:googlequery/res/locallang.xml:did_you_mean###
+	<!-- ELSE -->
+	###LLL:EXT:googlequery/res/locallang.xml:or###
+	<!-- ENDIF -->
+	&nbsp;<a ctype="spell" pos="###COUNTER###" rel="logclick" href="###FIELD.actualurl###">###FIELD.label###</a>
+
+	<!--IF(###COUNTER### == ( ###SUBTOTAL_RECORDS### - 1 ) )-->
+</div>
+	<!-- ENDIF -->
+<!--ENDLOOP-->

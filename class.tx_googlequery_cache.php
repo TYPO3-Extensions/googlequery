@@ -20,8 +20,6 @@
 *  GNU General Public License for more details.
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
-*
-* $Id: class.tx_googlequery_cache.php 13346 2008-10-24 15:45:46Z francois $
 ***************************************************************/
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]

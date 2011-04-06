@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to plugin 'googlequery'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="label.noresults">No results found</label>
+			<label index="label.notitle">No title</label>
+			<label index="label.searchBtn">Search</label>
+		</languageKey>
+		
+		<languageKey index="fr" type="array">
+			<label index="label.noresults">Aucun résultat trouvé</label>
+			<label index="label.notitle">Pas de titre</label>
+			<label index="label.searchBtn">Recherche</label>
+		</languageKey>
+
+		<languageKey index="dk" type="array">
+			<label index="label.noresults">Ingen forslag</label>
+			<label index="label.notitle">Ingen titel</label>
+			<label index="label.searchBtn">Søg</label>
+		</languageKey>
+	</data>
+</T3locallang>

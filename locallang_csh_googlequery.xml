@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>CSH text for the googlequery pi_flexform options</description>
+		<type>CSH</type>
+		<csh_table></csh_table>
+		<fileId>EXT:googlequery/locallang_csh_googlequery.xml</fileId>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index=".alttitle">Google Query Search Form</label>
+			<label index=".description">Search Form generator to send formatted request to a search result page displaying a Tesseract element powered by a Googlequery provider </label>
+
+			<label index="targetId.description">Select the page that will display the search results.</label>
+			<label index="targetId.details">
+				If empty, the current page will be used as target
+			</label>
+
+			<label index="templateFile.description">HTML template file.</label>
+			<label index="templateFile.details">
+				If empty, the default template file will be loaded (EXT:/googlequery/pi1/res/template.html)
+			</label>
+
+			<label index="searchEngineType.description">Select the type of Google Search engine that will return the search results</label>
+
+			<label index="gsa_host.description">The root url of the Google Search Appliance. Example http://mygsa.mysite.com or http://123.123.123.123</label>
+
+			<label index="frontend.description">This is the name of the frontend used to display results. This is uses to build the "Auto-Suggestion" or the "Advanced Search Reporting" (if enabled - see below). BUT THIS IS UNRELATED TO THE GOOGLEQUERY DATAPROVIDER'S CONFIGURATION.</label>
+
+			<label index="collection.description">This is the name of the collection used to display results. This is uses to build the "Auto-Suggestion" or the "Advanced Search Reporting" (if enabled - see below). BUT THIS IS UNRELATED TO THE GOOGLEQUERY DATAPROVIDER'S CONFIGURATION.</label>
+
+			<label index="autoss.description">The "Auto-Suggestion" provides search suggestions to the users, while typing</label>
+			<label index="autoss.details">
+				The "Search-as-you-type" feature is only available on GSA Software version 6.0 and more.
+			</label>
+
+			<label index="autosscss.description">Name of the CSS file that stylizes the suggestions list provided by the "Search-as-you-type" feature</label>
+			<label index="autosscss.details">
+				If empty, the default CSS file will be loaded (EXT:googlequery/pi1/res/css/autosuggest.css)
+			</label>
+
+			<label index="clicklog.description">The "Advanced Search Reporting" allows the GSA to log which links are clicked by the users on the result page. GSA will use this information to update the page's rank</label>
+			<label index="clicklog.details">
+				The "Advanced Search Reporting" feature is only available on GSA Software version 5.2 and more.
+			</label>
+
+
+		</languageKey>
+
+		<languageKey index="fr" type="array">
+			<label index=".alttitle">Formulaire de recherche Google</label>
+			<label index=".description">Générateur de formulaire de recherche pour envoyer des requêtes formatées sur des pages affichant un élément Tesseract utilisant une Source de données de type "Googlequery"</label>
+
+			<label index="targetId.description">Sélectionnez la page qui va afficher les résulats de recherche.</label>
+			<label index="targetId.details">
+				Si vide, la page actuelle sera utilisée comme cible
+			</label>
+
+			<label index="templateFile.description">Fichier template HTML . Si vide, EXT:/googlequery/pi1/res/template.html sera utilisé</label>
+			<label index="templateFile.details">
+				Si vide, le template par défaut sera utilisé (EXT:/googlequery/pi1/res/template.html)
+			</label>
+
+			<label index="searchEngineType.description">Sélectionner le type de moteur de recherche Google qui sera utilisé pour afficher des résultats de recherche</label>
+
+			<label index="gsa_host.description">L'url de base du Google Search Appliance. Exemple http://mongsa.monsite.com oo http://123.123.123.123</label>
+
+			<label index="frontend.description">Nom du frontal utilisé pour afficher des résultats de recherche. Cette information est utilisée par les options "Auto-Suggestion" et "Rapport de recherche avancé" (si elles sont activées voir ci-dessous). PAR CONTRE, CE FRONTAL N'EST PAS FORCEMENT CELUI UTILISE DANS LES RESULTATS DE RECHERCHE. DANS CE CAS IL FAUT MODIFIER LA CONFIGURATION DE LA SOURCE DE DONNEES.</label>
+
+			<label index="collection.description">Nom de la collection utilisée pour afficher des résultats de recherche. Cette information est utilisée par les options "Auto-Suggestion" et "Rapport de recherche avancé" (si elles sont activées ci-dessous). PAR CONTRE, CETTE COLLECTION N'EST PAS FORCEMENT CELLE UTILISEE DANS LES RESULTATS DE RECHERCHE. DANS CE CAS IL FAUT MODIFIER LA CONFIGURATION DE LA SOURCE DE DONNES.</label>
+
+			<label index="autoss.description">L'option "Auto-Suggestion" affiche des suggestions de recherche lors de la saisie de la recherche</label>
+			<label index="autoss.details">
+				L'option "Auto-Suggestion" n'est disponible que dès la version 6.0 du logiciel du GSA.
+			</label>
+
+			<label index="autosscss.description">Nom de la feuille de style CSS qui configure le rendu de la liste de suggestions fournie par l'option "Auto-Suggestion".</label>
+			<label index="autosscss.details">
+				Si vide, la feuille de style par défaut est chargée (EXT:googlequery/pi1/res/css/autosuggest.css)
+			</label>
+
+			<label index="clicklog.description">L'option "Rapport de recherche avancé" permet au GSA d'enregistrer quels résultats de recherche ont été cliqués par les visiteurs du site. Le GSA va utiliser ces informations pour mettre à jour automatiquement la pertinence des résultats de recherche.</label>
+			<label index="clicklog.details">
+				L'option "Rapport de recherche avancé" n'est disponible que dès la version 5.2 du logiciel du GSA.
+			</label>
+
+
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,14 @@
+<!--LOOP(googleSynonymes)-->
+	<!--IF (###COUNTER### == 0) -->
+<div class="block gsa_relatedqueries">
+	###LLL:EXT:googlequery/res/locallang.xml:you_can_also_try###
+	<!-- ELSE -->
+	###LLL:EXT:googlequery/res/locallang.xml:or###
+	<!-- ENDIF -->
+
+	<a ctype="synonym" pos="###COUNTER###" rel="logclick" href="###FIELD.actualurl###"> <i>###FIELD.label###</i></a>
+
+	<!--IF(###COUNTER### == ( ###SUBTOTAL_RECORDS### - 1 ) )-->
+</div>
+	<!-- ENDIF -->
+<!--ENDLOOP-->
