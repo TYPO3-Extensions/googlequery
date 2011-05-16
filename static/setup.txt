@@ -11,7 +11,7 @@ plugin.tx_googlequery_pi1{
     clicklog = {$plugin.tx_googlequery_pi1.clicklog}
 }
 
-config.tx_googlequery_queries {
+config.tx_tesseract.tx_googlequery_queries.default {
     server_address = {$plugin.tx_googlequery_pi1.gsa_host}/search
     client_frontend = {$plugin.tx_googlequery_pi1.frontend}
     collection = {$plugin.tx_googlequery_pi1.collection}
@@ -22,4 +22,4 @@ config.tx_googlequery_queries {
 }
 
 
-config.tx_googlequery_queries2 < config.tx_googlequery_queries
+config.tx_tesseract.tx_googlequery_queries2.default < config.tx_tesseract.tx_googlequery_queries.default

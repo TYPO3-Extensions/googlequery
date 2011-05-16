@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Gets search information from a Google Search Appliance (GSA or mini) or Google Site Search service, and acts as a Data Provider for Tesseract components. More info on http://www.typo3-tesseract.com/',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '2.0.0-beta3',
+	'version' => '2.0.0-beta4',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -35,7 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'expressions' => '',
-			'tesseract' => '1.0.0-0.0.0',
+			'tesseract' => '1.1.0-0.0.0',
 			'typo3' => '4.3.0-0.0.0',
 		),
 		'conflicts' => array(

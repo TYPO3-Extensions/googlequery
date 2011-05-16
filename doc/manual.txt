@@ -1,16 +1,3 @@
-﻿
-EXT: Google Query (Data Provider)
-Extension Key: googlequery
-Language: en
-Keywords: forAdmins, forintermediates
-Copyright 2000-2010, Roberto Presedo, <typo3@cobweb.ch>
-
-This document is published under the Open Content License
-available from http://www.opencontent.org/opl.shtml
-
-The content of this document is related to TYPO3 
-- a GNU/GPL CMS/Framework available from www.typo3.org
-
 Table of Contents
 EXT: Google Query (Data Provider)	1
 Introduction	3
@@ -35,13 +22,13 @@ About some special GSA features	15
 “Auto-suggestion”	15
 “Advanced Search Reporting” 	15
 Quick start : a Google search engine in 4 steps	17
-Step 1	19
-Step 2	20
-Step 3	20
-Step 4	21
-Known problems	22
-To-Do list	23
-ChangeLog	24
+Step 1	18
+Step 2	19
+Step 3	19
+Step 4	20
+Known problems	21
+To-Do list	22
+ChangeLog	23
 
 Introduction
 What does it do?
@@ -239,7 +226,7 @@ Configuration for GSS and GSA
 Page displaying GoogleQuery results
 Select the page that will display the search results. If empty, the current page will be used as target.
 Template File
-HTML template file. If empty, the default template file will be loaded (EXT:/GoogleQuery/pi1/res/template.html).
+HTML template file. If empty, the default template file will be loaded (EXT:/googlequery/pi1/res/template.html).
 Search Engine
 Select the type of Google Search engine that will return the search results, GSS or GSA
 Options for GSA
@@ -255,7 +242,7 @@ Enable "Auto-Suggestion"
 The "Auto-Suggestion" provides search suggestions to the users while typing. 
 The "Search-as-you-type" feature is only available on GSA Software version 6.0 and more.
 CSS file for the "Auto-Suggestion" option
-Name of the CSS file that stylizes the suggestions list provided by the "Search-as-you-type" feature. If empty, the default CSS file will be loaded (EXT:GoogleQuery/pi1/res/css/autosuggest.css)
+Name of the CSS file that stylizes the suggestions list provided by the "Search-as-you-type" feature. If empty, the default CSS file will be loaded (EXT:googlequery/pi1/res/css/autosuggest.css)
 Enable "Advanced Search Reporting"
 The "Advanced Search Reporting" allows the GSA to log which links are clicked by the users on the result page. GSA will use this information to update the page's rank.
 The "Advanced Search Reporting" feature is only available on GSA Software version 5.2 and more. 
@@ -265,11 +252,11 @@ Default HTML template for the search form is located in the extension's pi1/res/
 The following subparts are defined on the top level:
 Subpart
 Description
-GoogleQuery_SEARCHFORM
+GOOGLEQUERY_SEARCHFORM
 This subpart defines the markup for the simple search form (without “auto-suggestion” or  “Advanced Search Reporting”)
-GoogleQuery_SEARCHFORM_SS
+GOOGLEQUERY_SEARCHFORM_SS
 This subpart defines the markup for the extended search form (with “auto-suggestion” and “Advanced Search Reporting”)
-The following table describes subparts inside the GoogleQuery_SEARCHFORM top level subpart
+The following table describes subparts inside the GOOGLEQUERY_SEARCHFORM top level subpart
 Subpart
 Description
 GQ_FORM_TARGET
@@ -280,7 +267,7 @@ GQ_Q
 Value of the $_GET['q'] variable
 GQ_LABEL_SEARCH
 Localized label for the “Search” button
-The following table describes subparts inside the GoogleQuery_SEARCHFORM_SS top level subpart
+The following table describes subparts inside the GOOGLEQUERY_SEARCHFORM_SS top level subpart
 Subpart
 Description
 GQ_FORM_TARGET
@@ -305,36 +292,36 @@ General Configuration
 In the “Template” module, use the Constant Editor and choose the “GoogleQuery” category. Here you can set the following options.
 Field name
 Description
-plugin.tx_GoogleQuery_pi1.searchEngineType
+plugin.tx_googlequery_pi1.searchEngineType
 Search Engine Type
 gsa : Google Search Appliance/Mini
 gss : Google Site Search
-plugin.tx_GoogleQuery_pi1.templateFile
+plugin.tx_googlequery_pi1.templateFile
 Search form template - Name of the html template file for the search form
-plugin.tx_GoogleQuery_pi1.targetId
+plugin.tx_googlequery_pi1.targetId
 Page results - Page id where GoogleQuery results are displayed
-plugin.tx_GoogleQuery_pi1.cache_duration
+plugin.tx_googlequery_pi1.cache_duration
 Cache duration - Number of seconds
 GSA Configuration
-In the “Template” module, use the Constant Editor and choose the “GoogleQuery_GSA” category. Here you can set the following options.
+In the “Template” module, use the Constant Editor and choose the “GOOGLEQUERY_GSA” category. Here you can set the following options.
 Field name
 Description
-plugin.tx_GoogleQuery_pi1.gsa_host
+plugin.tx_googlequery_pi1.gsa_host
 GSA Host - Example : http://mygsa.mysite.com 
 DO NOT ADD SLASH AT THE END
-plugin.tx_GoogleQuery_pi1.collection
+plugin.tx_googlequery_pi1.collection
 Name of the collection
-plugin.tx_GoogleQuery_pi1.frontend
+plugin.tx_googlequery_pi1.frontend
 Name of the frontend
-plugin.tx_GoogleQuery_pi1.autoss
+plugin.tx_googlequery_pi1.autoss
 "Auto-Suggestion" - Provides search suggestions when typing in the search form (See the “About some special GSA features” section)
-plugin.tx_GoogleQuery_pi1.autosscss
+plugin.tx_googlequery_pi1.autosscss
 "Auto-Suggestion" CSS file - CSS file for the "autoss" option
-plugin.tx_GoogleQuery_pi1.clicklog
+plugin.tx_googlequery_pi1.clicklog
 "Advanced Search Reporting" - Allows the GSA to log which links are clicked by the users on the result page (See the “About some special GSA features” section)
-plugin.tx_GoogleQuery_pi1.metatags_required
+plugin.tx_googlequery_pi1.metatags_required
 Metatags required - Only documents containing this meta tags will be returned - Comma separated values
-plugin.tx_GoogleQuery_pi1.maintable
+plugin.tx_googlequery_pi1.maintable
 Type of information to return - Here you can specifiy the kind of information that is going to be returned by the GSA
 googleInfos : search results
 googleSuggestions : spelling suggestions
@@ -342,39 +329,40 @@ googleSynonymes : related queries
 googleKeymatches : keymatches
 This value is going to be used by the Data Consumer to make a loop on it. See tesseract documentation about maintables.
 GSS Configuration
-In the “Template” module, use the Constant Editor and choose the “GoogleQuery_GSS” category. Here you can set the following option.
+In the “Template” module, use the Constant Editor and choose the “GOOGLEQUERY_GSS” category. Here you can set the following option.
 Field name
 Description
-plugin.tx_GoogleQuery_pi1.gss_id
+plugin.tx_googlequery_pi1.gss_id
 GSS Search engine unique ID
 Find it on your search engine Control panel http://www.google.com/cse/manage/all/
 Setup
 Here is the setup.txt file loaded
-plugin.tx_GoogleQuery_pi1{
-    templateFile = {$plugin.tx_GoogleQuery_pi1.templateFile}
-    targetId = {$plugin.tx_GoogleQuery_pi1.targetId}
-    autoss = {$plugin.tx_GoogleQuery_pi1.autoss}
-    autosscss = {$plugin.tx_GoogleQuery_pi1.autosscss}
-    gsa_host = {$plugin.tx_GoogleQuery_pi1.gsa_host}
-    frontend = {$plugin.tx_GoogleQuery_pi1.frontend}
-    collection = {$plugin.tx_GoogleQuery_pi1.collection}
-    searchEngineType = {$plugin.tx_GoogleQuery_pi1.searchEngineType}
-    gss_id = {$plugin.tx_GoogleQuery_pi1.gss_id}
-    clicklog = {$plugin.tx_GoogleQuery_pi1.clicklog}
+plugin.tx_googlequery_pi1{
+    templateFile = {$plugin.tx_googlequery_pi1.templateFile}
+    targetId = {$plugin.tx_googlequery_pi1.targetId}
+    autoss = {$plugin.tx_googlequery_pi1.autoss}
+    autosscss = {$plugin.tx_googlequery_pi1.autosscss}
+    gsa_host = {$plugin.tx_googlequery_pi1.gsa_host}
+    frontend = {$plugin.tx_googlequery_pi1.frontend}
+    collection = {$plugin.tx_googlequery_pi1.collection}
+    searchEngineType = {$plugin.tx_googlequery_pi1.searchEngineType}
+    gss_id = {$plugin.tx_googlequery_pi1.gss_id}
+    clicklog = {$plugin.tx_googlequery_pi1.clicklog}
 }
-config.tx_GoogleQuery_queries {
-    server_address = {$plugin.tx_GoogleQuery_pi1.gsa_host}/search
-    client_frontend = {$plugin.tx_GoogleQuery_pi1.frontend}
-    collection = {$plugin.tx_GoogleQuery_pi1.collection}
-    maintable = {$plugin.tx_GoogleQuery_pi1.maintable}
-    cache_duration = {$plugin.tx_GoogleQuery_pi1.cache_duration}
-    searchEngineType = {$plugin.tx_GoogleQuery_pi1.searchEngineType}
-    gss_id = {$plugin.tx_GoogleQuery_pi1.gss_id}
+config.tx_tesseract.tx_googlequery_queries.default {
+    server_address = {$plugin.tx_googlequery_pi1.gsa_host}/search
+    client_frontend = {$plugin.tx_googlequery_pi1.frontend}
+    collection = {$plugin.tx_googlequery_pi1.collection}
+    maintable = {$plugin.tx_googlequery_pi1.maintable}
+    cache_duration = {$plugin.tx_googlequery_pi1.cache_duration}
+    searchEngineType = {$plugin.tx_googlequery_pi1.searchEngineType}
+    gss_id = {$plugin.tx_googlequery_pi1.gss_id}
 }
-config.tx_GoogleQuery_queries2 < config.tx_GoogleQuery_queries
+config.tx_tesseract.tx_googlequery_queries2.default < config.tx_tesseract.tx_googlequery_queries.default
 
 What about metatags ?
-Metatags are the only information that cannot be defined using TypoScript. The reason is that unlike other information, metatags is used both on frontend (to make the list of required metatags) and backend (to provide the list of metatags to the data consumer, in order to map those metatags). As long as TypoScript is only available on Frontend, we cannot set it this way.
+Metatags are the only information that cannot be defined using TypoScript. The reason is that unlike other information, metatags are used both on frontend (to make the list of required metatags) and backend (to provide the list of metatags to the data consumer, in order to map those metatags). 
+As long as TypoScript is only available on Frontend, we cannot set it this way.
 About some special GSA features
 “Auto-suggestion”
 The "Search-as-you-type" feature is only available on GSA Software version 6.0 and more.
@@ -432,7 +420,7 @@ Please install these extensions in the following order :
 5. datafilter
 6. templatedisplay
 7. pagebrowse
-8. GoogleQuery (Advice : enable the debug feature in the extension configuration)
+8. googlequery (Advice : enable the debug feature in the extension configuration)
 Note : During the configuration of Tesseract extension, the extension provides a quick way to check if the main extensions that make up Tesseract are installed. Tesseract is of a modular nature. This means that you may perfectly run without some of the suggested extensions. You can install all extensions suggested by Tesseract, but to run the examples provided by GoogleQuery, only the extension list above is required.
 
 Install the examples pages
@@ -440,13 +428,13 @@ Note : The screenshots below were taken on a brand new instance of the Introduct
 Step
 Screenshot
 Step 1
-Copy GoogleQuery_examples.t3d in the fileadmin folder. 
-This file is located in /res/GoogleQuery_examples.t3d.
+Copy googlequery_examples.t3d in the fileadmin folder. 
+This file is located in /res/googlequery_examples.t3d.
 Import the t3d file. 
 Open the Typo3 page tree. You will need to have at least one page there. If not, you must create it now. 
 Then left-click onto the start page, after which you want to restore the file into it. 
 Select 'Branch Actions' - 'Import from .t3d'. 
-Select the GoogleQuery_examples.t3d file you previously copied in the fileadmin folder and import it.
+Select the googlequery_examples.t3d file you previously copied in the fileadmin folder and import it.
 
 
 
@@ -468,8 +456,8 @@ sysfolder containing all Tesseract elements such as datafilters and templatedisp
 
 Step 3
 On “Search Examples” page, use Template Module to set constants.
-To set the GSA search engine, choose category “GoogleQuery_GSA” and set the GSA Host [plugin.tx_GoogleQuery_pi1.gsa_host]
-To set the GSS search engine, choose category “GoogleQuery_GSS” and set the GSS Search engine unique ID [plugin.tx_GoogleQuery_pi1.gss_id]
+To set the GSA search engine, choose category “GOOGLEQUERY_GSA” and set the GSA Host [plugin.tx_googlequery_pi1.gsa_host]
+To set the GSS search engine, choose category “GOOGLEQUERY_GSS” and set the GSS Search engine unique ID [plugin.tx_googlequery_pi1.gss_id]
 
 
 
@@ -506,4 +494,3 @@ DAM integration
 Customizable examples in a t3d file
 1.0.0
 Initial public release
-
