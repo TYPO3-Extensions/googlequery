@@ -987,24 +987,19 @@ class tx_googlequery extends tx_tesseract_providerbase {
 						<br/>To use googlequery with the Google Custom Search service you must <a target="_blank" href="http://www.google.com/cse/panel/business?cx=' . $this->providerData[ 'gss_id' ] . '">convert your account to "Google Site Search"</a>. <br/>
 						If your account is already a "Google Site Search", check if your Search engine unique ID is correct : <strong>' . $this->providerData[ 'gss_id' ] . '</strong><br/><br/>
 						<a href="' . $query . '" target="_blank">' . $query . '</a></br>
-						And here is the output returned by Google for this query
+						And here is the output returned by Google Custom Search for this query
 						<iframe src="' . $query . '" width="100%" height="70%" ></iframe>';
 				}
 				die( $return );
 			}
 			else {
-                if ( $this->providerData[ 'gsa_host' ] ) {
-                    $return = 'The GSA Host is not defined';
-                }
-                else {
-                    $return = 'Problem during the connection to Search server. Check Firewall access from this IP: ' .
-                         $_SERVER[ 'SERVER_ADDR' ] ;
-                }
+
+                $return = 'Problem during the connection to Search server.';
                 if ( $this->configuration[ 'debug' ] ) {
-					$return .= '<br/>
-						This url has been called : <br/>
+					$return .= '<br/><br/>Check Firewall access from this IP: ' . $_SERVER[ 'SERVER_ADDR' ] .'<br/>
+						This url has been called : <br/>ss'.$this->providerData[ 'gsa_host' ].'
 						<a href="' . $query . '" target="_blank">' . $query . '</a></br>
-						And here is the output returned by Google for this query
+						And here is the output returned by the GSA for this query
 						<iframe src="' . $query . '" width="100%" height="70%" ></iframe>';
 				}
 				die( $return );
