@@ -89,7 +89,6 @@ class tx_googlequery_parser {
 	 * This method is used to parse a list of metas required to be returned
 	 *
 	 *
-	 * @param	string		list of metas names to be parsed
 	 * @return	mixed		array containing the query parts or false if $metas was empty or invalid
 	 */
 	public function parseQuery( ) {

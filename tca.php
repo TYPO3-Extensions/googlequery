@@ -130,6 +130,15 @@ $TCA['tx_googlequery_queries'] = array(
 			),
 	        'displayCond' => 'FIELD:searchEngineType:=:gsa',
 		),
+		'cache_in_session' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:googlequery/locallang_db.xml:tca.cache_in_session',
+			'config' => array(
+                'type' => 'check',
+                'default' => '0'
+			),
+			'onchange' => 'reload',
+		),
 		'cache_duration' => array(		
 			'exclude' => 1,		
 			'label' => 'LLL:EXT:googlequery/locallang_db.xml:tca.cache_duration',
@@ -137,11 +146,12 @@ $TCA['tx_googlequery_queries'] = array(
 				'type' => 'input',	
 				'size' => 20,
 				'eval' => 'int',
-			)
+			),
+	        'displayCond' => 'FIELD:cache_in_session:=:0',
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, searchEngineType;;;;3-3-3, gss_id;;;;4-4-4, server_address;;2;;5-5-5, maintable;;;;6-6-6, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.metatags, metatags_required;;;;1-1-1, metatags_requested;;;;2-2-2, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.advanced, cache_duration')
+		'0' => array('showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, searchEngineType;;;;3-3-3, gss_id;;;;4-4-4, server_address;;2;;5-5-5, maintable;;;;6-6-6, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.metatags, metatags_required;;;;1-1-1, metatags_requested;;;;2-2-2, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.advanced, cache_in_session, cache_duration')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => 'description'),
@@ -176,7 +186,7 @@ $TCA[ 'tx_googlequery_queries2' ][ 'columns' ][ 'dam_root_folder' ] = array(
 	'displayCond' => 'EXT:dam:LOADED:true'
 );
 $TCA[ 'tx_googlequery_queries2' ][ 'types' ][ '0' ] = array(
-	'showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, searchEngineType;;;;3-3-3, gss_id;;;;4-4-4, server_address;;2;;5-5-5, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.metatags, maintable;;;;1-1-1, metatags_required;;;;2-2-2, metatags_requested;;;;3-3-3,--div--;LLL:EXT:googlequery/locallang_db.xml:tca2.tab.dam_integration, results_from_dam;;;;1-1-1,dam_root_folder;;;;2-2-2,--div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.advanced, cache_duration'
+	'showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, searchEngineType;;;;3-3-3, gss_id;;;;4-4-4, server_address;;2;;5-5-5, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.metatags, maintable;;;;1-1-1, metatags_required;;;;2-2-2, metatags_requested;;;;3-3-3,--div--;LLL:EXT:googlequery/locallang_db.xml:tca2.tab.dam_integration, results_from_dam;;;;1-1-1,dam_root_folder;;;;2-2-2,--div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.advanced, cache_in_session, cache_duration'
 );
 
 

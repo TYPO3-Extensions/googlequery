@@ -5,8 +5,8 @@ What does it do?	3
 Questions ?	4
 Keeping the developers happy	4
 Configuring the Data Provider	5
-Querying the ‚ÄúGoogle Site Search‚Äù service	5
-Querying a ‚ÄúGoogle Search Appliance‚Äù solution	5
+Querying the “Google Site Search” service	5
+Querying a “Google Search Appliance” solution	5
 Using GoogleQuery as a secondary data provider	7
 Mapping results in a data consumer	8
 Configuring the plugin (search form)	10
@@ -19,8 +19,8 @@ Constants	13
 Setup	14
 What about metatags ?	14
 About some special GSA features	15
-‚ÄúAuto-suggestion‚Äù	15
-‚ÄúAdvanced Search Reporting‚Äù 	15
+“Auto-suggestion”	15
+“Advanced Search Reporting” 	15
 Quick start : a Google search engine in 4 steps	17
 Step 1	18
 Step 2	19
@@ -32,8 +32,8 @@ ChangeLog	23
 
 Introduction
 What does it do?
-This extension is a Data Provider for the Tesseract Project. This Data Provider retrieves information from the ‚ÄúGoogle Site Search‚Äù service (hereinafter ‚ÄúGSS‚Äù) or a stand-alone ‚ÄúGoogle Search Appliance‚Äù solution (hereinafter ‚ÄúGSA‚Äù). It then returns the resulting data as a ‚Äúrecordset‚Äù-type Standardized Data Structure  (see extension ‚Äútesseract‚Äù for a general explanation).
-This extension also provides a TYPO3 plugin to display a search form. Combined with a ‚ÄúGSA‚Äù, the search form can provide some added value features such as search suggestions.
+This extension is a Data Provider for the Tesseract Project. This Data Provider retrieves information from the “Google Site Search” service (hereinafter “GSS”) or a stand-alone “Google Search Appliance” solution (hereinafter “GSA”). It then returns the resulting data as a “recordset”-type Standardized Data Structure  (see extension “tesseract” for a general explanation).
+This extension also provides a TYPO3 plugin to display a search form. Combined with a “GSA”, the search form can provide some added value features such as search suggestions.
 What does it look like 
 Here is the typical input screen of a Google Query element. In the first tab you can set information about the Search engine.
 Using a GSA search engine ...
@@ -41,43 +41,45 @@ or using the GSS service
 
 In the second tab, you can list the data you want to retrieve from GSA
 
-In the last tab you can configure the cache duration
+In the last tab you can configure the cache options
 
 Questions ?
 If you have any questions about this extension, you may want to refer to the Tesseract Project web site (http://www.typo3-tesseract.com/) for support and tutorials. You may also ask questions in the TYPO3 English mailing list (typo3.english).
 Keeping the developers happy
-If you like this extension, do not hesitate to rate it. Go the Extension Repository, search for this extension, click on its title to go to the details view, then click on the ‚ÄúRatings‚Äù tab and vote (you need to be logged in). Every new vote keeps the developers ticking. So just do it!
+If you like this extension, do not hesitate to rate it. Go the Extension Repository, search for this extension, click on its title to go to the details view, then click on the “Ratings” tab and vote (you need to be logged in). Every new vote keeps the developers ticking. So just do it!
 You may also take a step back and reflect about the beauty of sharing. Think about how much you are benefiting and how much you are is giving back to the community.
 Configuring the Data Provider
-The GoogleQuery data provider can be configured to send requests to a ‚ÄúGoogle Site Search‚Äù service (hereinafter ‚ÄúGSS‚Äù) or a stand-alone ‚ÄúGoogle Search Appliance‚Äù solution (hereinafter ‚ÄúGSA‚Äù)
+The GoogleQuery data provider can be configured to send requests to a “Google Site Search” service (hereinafter “GSS”) or a stand-alone “Google Search Appliance” solution (hereinafter “GSA”)
 In the first tab you must choose which search engine is going to be used.  
-Querying the ‚ÄúGoogle Site Search‚Äù service
-About the ‚ÄúGoogle Site Search‚Äù service
-Google provides two online ‚ÄúCustom Search Engine‚Äù services, but this extension can only interact with one of them.
-‚ÄúGoogle Custom Search‚Äù - (GCS)
+Querying the “Google Site Search” service
+About the “Google Site Search” service
+Google provides two online “Custom Search Engine” services, but this extension can only interact with one of them.
+“Google Custom Search” - (GCS)
 With GCS you can create a customized search engine for your own website. This service is free, but unfortunately does not provide XML output. As the GoogleQuery data provider parses XML results provided by the Google tools (GSS or GSA), the GCS is not compatible with GoogleQuery.
-‚ÄúGoogle Site Search‚Äù - (GSS)
+“Google Site Search” - (GSS)
 GSS is a hosted search solution which extends GCS. This solution isn't free (starting 100$USD per year) but provides XML output, which makes the GSS compatible with GoogleQuery. 
 
 To create a new GSS visit http://www.google.com/sitesearch/ .
-‚ÄúGeneral‚Äù tab
+“General” tab
 Search Engine
-Here choose ‚ÄúGoogle Site Search‚Äù
+Here choose “Google Site Search”
 Search engine unique ID
 Insert here the Search engine unique ID provided by Google. You can find it in the control panel of your search engine, on http://www.google.com/cse/manage/all
 This is a string like 999999999999999999999:srraaaaaaaa 
-‚ÄúAdvanced‚Äù tab
+“Advanced” tab
+Cache in session instead of DB
+Use this option if you want to store the last search result in the user session. This accelerates the output when results are paginated.
 Cache duration
-If you want to use the Tesseract cache option, just set the cache duration (number of seconds).  If this is set to 0, no cache will be used.
-Querying a ‚ÄúGoogle Search Appliance‚Äù solution
-About the ‚ÄúGoogle Search Appliance‚Äù solution
-‚ÄúGoogle Search Appliance‚Äù is a rack-mounted device providing document indexing functionality using a Google search-like interface for end-user retrieval. This device is supplied in two models :  ‚ÄúGoogle Mini‚Äù and ‚ÄúGoogle Search Appliance‚Äù.
-Both devices are compatible with GoogleQuery., although some features are available only with the ‚ÄúGoogle Search Appliance‚Äù.
-‚ÄúGeneral‚Äù tab
+If this value is greater than 0, the results of queries are saved in the database cache. Just set the cache duration (number of seconds). This is not available if cache in session is activated. BEWARE, this option may increase the size of your database in a significant way.
+Querying a “Google Search Appliance” solution
+About the “Google Search Appliance” solution
+“Google Search Appliance” is a rack-mounted device providing document indexing functionality using a Google search-like interface for end-user retrieval. This device is supplied in two models :  “Google Mini” and “Google Search Appliance”.
+Both devices are compatible with GoogleQuery., although some features are available only with the “Google Search Appliance”.
+“General” tab
 Search Engine
-Here choose ‚ÄúGoogle Search Appliance / Google Mini‚Äù
+Here choose “Google Search Appliance / Google Mini”
 Google Search Appliance result's url
-Your Google Search Appliance host name or IP address, with the path to the search page (usually ‚Äú/search‚Äù). 
+Your Google Search Appliance host name or IP address, with the path to the search page (usually “/search”). 
 NO SLASH AT THE END
 Example : http://search.mycompany.com/search
 Frontend
@@ -103,8 +105,8 @@ List of all related queries provided by the GSA
 Keymatches
 List of every keymatches provided by the GSA
 Configured by Typoscript
-You can also configure this information using Typoscript (see chapter ‚ÄúConfiguration via Typoscript‚Äù)
-‚ÄúMeta tags‚Äù tab ‚Äì Only for GSA
+You can also configure this information using Typoscript (see chapter “Configuration via Typoscript”)
+“Meta tags” tab – Only for GSA
 About Meta Tags
 HTML pages can contain meta tags in their source code that provides additional information on the content of the page. This information is recorded by the GSA, and available in the search results.
 It is possible to tell the GSA to only find documents that contain specific meta tags.
@@ -116,13 +118,14 @@ Selected metatags
 This is the list of every tags that could be mapped in a Data Consumer.
 You can set as many required meta tags as you want, but enter one tag per line.
 This list is optional.
-‚ÄúAdvanced‚Äù tab
+“Advanced” tab
+Cache in session instead of DB
+Use this if you want to store the last search result in the user session. It accelerates the output if results are paginated.
 Cache duration
-If you want to use the Tesseract cache option, just set the cache duration (number of seconds).  If this is set to 0, no cache will be used.
-
+If this value is greater than 0, the results of queries are saved in the database cache. Just set the cache duration (number of seconds). This is not available if cache in session is activated. BEWARE, this option may increase the size of your database in a significant way.
 Using GoogleQuery as a secondary data provider
 The following features are only available if GoogleQuery is used as a secondary provider. To understand the difference between a primary and a secondary data provider, please read the Tesseract documentation.
-‚ÄúDAM integration‚Äù tab
+“DAM integration” tab
 This feature is only available if the DAM extension is loaded.
 - Enable DAM integration
 You can tell GoogleQuery to return the tx_dam.uid of the document found instead of the document url. 
@@ -135,8 +138,8 @@ Search results
 Spelling suggestions
 Related Queries
 Keymatches
-‚ÄúSearch results‚Äù for GSS and a GSA
-Here is the list of fields returned to the Data Consumer by GoogleQuery, if you use GSS or if you selected ‚Äúsearch results‚Äù as ‚ÄúType of information returned‚Äù in the GSA configuration.
+“Search results” for GSS and a GSA
+Here is the list of fields returned to the Data Consumer by GoogleQuery, if you use GSS or if you selected “search results” as “Type of information returned” in the GSA configuration.
 Field name
 Description
 
@@ -177,9 +180,9 @@ The encoding of the cached version of the search result.
 mimetype
 The mime type of the search result.
 
-‚ÄúSpelling suggestions‚Äù in a GSA
+“Spelling suggestions” in a GSA
 This is only available when using a GSA
-Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected ‚ÄúSpelling suggestions‚Äù as ‚ÄúType of information returned‚Äù in the GSA configuration.
+Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected “Spelling suggestions” as “Type of information returned” in the GSA configuration.
 Field name
 Description
 
@@ -190,9 +193,9 @@ link
 Value for the GET q parameter for the current spelling suggestion
 
 
-‚ÄúRelated Queries‚Äù in a GSA
+“Related Queries” in a GSA
 This is only available when using a GSA
-Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected ‚ÄúRelated Queries‚Äù as ‚ÄúType of information returned‚Äù in the GSA configuration.
+Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected “Related Queries” as “Type of information returned” in the GSA configuration.
 Field name
 Description
 
@@ -202,9 +205,9 @@ Label of the related query provided by the GSA.
 link
 Value for the GET q parameter for the current related query.
 
-‚ÄúKeymatches‚Äù in a GSA
+“Keymatches” in a GSA
 This is only available when using a GSA
-Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected ‚ÄúKeymatches‚Äù as ‚ÄúType of information returned‚Äù in the GSA configuration.
+Here is the list of fields returned to the Data Consumer by GoogleQuery if you selected “Keymatches” as “Type of information returned” in the GSA configuration.
 Field name
 Description
 
@@ -253,9 +256,9 @@ The following subparts are defined on the top level:
 Subpart
 Description
 GOOGLEQUERY_SEARCHFORM
-This subpart defines the markup for the simple search form (without ‚Äúauto-suggestion‚Äù or  ‚ÄúAdvanced Search Reporting‚Äù)
+This subpart defines the markup for the simple search form (without “auto-suggestion” or  “Advanced Search Reporting”)
 GOOGLEQUERY_SEARCHFORM_SS
-This subpart defines the markup for the extended search form (with ‚Äúauto-suggestion‚Äù and ‚ÄúAdvanced Search Reporting‚Äù)
+This subpart defines the markup for the extended search form (with “auto-suggestion” and “Advanced Search Reporting”)
 The following table describes subparts inside the GOOGLEQUERY_SEARCHFORM top level subpart
 Subpart
 Description
@@ -266,7 +269,7 @@ Id of the form element
 GQ_Q
 Value of the $_GET['q'] variable
 GQ_LABEL_SEARCH
-Localized label for the ‚ÄúSearch‚Äù button
+Localized label for the “Search” button
 The following table describes subparts inside the GOOGLEQUERY_SEARCHFORM_SS top level subpart
 Subpart
 Description
@@ -277,19 +280,19 @@ Id of the form element
 GQ_Q
 Value of the $_GET['q'] variable
 GQ_LABEL_SEARCH
-Localized label for the ‚ÄúSearch‚Äù button
+Localized label for the “Search” button
 GQ_GSA_JS
-All JS code related to the ‚Äúauto-suggestion‚Äù and ‚ÄúAdvanced Search Reporting‚Äù features.
+All JS code related to the “auto-suggestion” and “Advanced Search Reporting” features.
 GQ_CLICKLOG
-JS code related to the ‚ÄúAdvanced Search Reporting‚Äù option. Is used only if ‚ÄúAdvanced Search Reporting‚Äù is enabled
+JS code related to the “Advanced Search Reporting” option. Is used only if “Advanced Search Reporting” is enabled
 
 Configuration using Typoscript
 Include static extension templates
 This step is optional, as you can fully use the GoogleQuery extension without configuring Typoscript. But if you want to set default parameters for all GoogleQuery's instances, Typoscript is the solution.
-The best way to use Typoscript with GoogleQuery is to include the static templates provided by this extension. To do so, open your main TS-template (in list view), click on the ‚ÄúIncludes‚Äù tab and include the ‚ÄúGoogleQuery‚Äù template. If you dont't know how to do this -> see section ‚ÄúTemplates‚Äù in the ‚ÄúGetting Started‚Äù document: http://typo3.org/documentation/document-library/tutorials/doc_tut_quickstart/0.1.0/view/1/9/
+The best way to use Typoscript with GoogleQuery is to include the static templates provided by this extension. To do so, open your main TS-template (in list view), click on the “Includes” tab and include the “GoogleQuery” template. If you dont't know how to do this -> see section “Templates” in the “Getting Started” document: http://typo3.org/documentation/document-library/tutorials/doc_tut_quickstart/0.1.0/view/1/9/
 Constants
 General Configuration
-In the ‚ÄúTemplate‚Äù module, use the Constant Editor and choose the ‚ÄúGoogleQuery‚Äù category. Here you can set the following options.
+In the “Template” module, use the Constant Editor and choose the “GoogleQuery” category. Here you can set the following options.
 Field name
 Description
 plugin.tx_googlequery_pi1.searchEngineType
@@ -303,7 +306,7 @@ Page results - Page id where GoogleQuery results are displayed
 plugin.tx_googlequery_pi1.cache_duration
 Cache duration - Number of seconds
 GSA Configuration
-In the ‚ÄúTemplate‚Äù module, use the Constant Editor and choose the ‚ÄúGOOGLEQUERY_GSA‚Äù category. Here you can set the following options.
+In the “Template” module, use the Constant Editor and choose the “GOOGLEQUERY_GSA” category. Here you can set the following options.
 Field name
 Description
 plugin.tx_googlequery_pi1.gsa_host
@@ -314,11 +317,11 @@ Name of the collection
 plugin.tx_googlequery_pi1.frontend
 Name of the frontend
 plugin.tx_googlequery_pi1.autoss
-"Auto-Suggestion" - Provides search suggestions when typing in the search form (See the ‚ÄúAbout some special GSA features‚Äù section)
+"Auto-Suggestion" - Provides search suggestions when typing in the search form (See the “About some special GSA features” section)
 plugin.tx_googlequery_pi1.autosscss
 "Auto-Suggestion" CSS file - CSS file for the "autoss" option
 plugin.tx_googlequery_pi1.clicklog
-"Advanced Search Reporting" - Allows the GSA to log which links are clicked by the users on the result page (See the ‚ÄúAbout some special GSA features‚Äù section)
+"Advanced Search Reporting" - Allows the GSA to log which links are clicked by the users on the result page (See the “About some special GSA features” section)
 plugin.tx_googlequery_pi1.metatags_required
 Metatags required - Only documents containing this meta tags will be returned - Comma separated values
 plugin.tx_googlequery_pi1.maintable
@@ -329,7 +332,7 @@ googleSynonymes : related queries
 googleKeymatches : keymatches
 This value is going to be used by the Data Consumer to make a loop on it. See tesseract documentation about maintables.
 GSS Configuration
-In the ‚ÄúTemplate‚Äù module, use the Constant Editor and choose the ‚ÄúGOOGLEQUERY_GSS‚Äù category. Here you can set the following option.
+In the “Template” module, use the Constant Editor and choose the “GOOGLEQUERY_GSS” category. Here you can set the following option.
 Field name
 Description
 plugin.tx_googlequery_pi1.gss_id
@@ -364,7 +367,7 @@ What about metatags ?
 Metatags are the only information that cannot be defined using TypoScript. The reason is that unlike other information, metatags are used both on frontend (to make the list of required metatags) and backend (to provide the list of metatags to the data consumer, in order to map those metatags). 
 As long as TypoScript is only available on Frontend, we cannot set it this way.
 About some special GSA features
-‚ÄúAuto-suggestion‚Äù
+“Auto-suggestion”
 The "Search-as-you-type" feature is only available on GSA Software version 6.0 and more.
 What is this ?
 The query suggestion service provides suggestions that complete a user's search query. As a user enters a query in the search box, a drop-down menu appears with suggestions to complete the query. The search appliance uses the most popular search queries of its users to determine the top suggestions that list for a query. In addition, if activated, the search appliance adds user-added results to the list of suggestions. 
@@ -377,20 +380,20 @@ You can also change the design of the drop-down menu by changing the CSS file fo
 Where to get more information
 If you need more detailed information, read
 http://code.google.com/apis/searchappliance/documentation/60/xml_reference.html#QuerySuggestionsSuggestURLParameter
-‚ÄúAdvanced Search Reporting‚Äù 
+“Advanced Search Reporting” 
 The "Advanced Search Reporting" feature is only available on GSA Software version 5.2 and more.
 What is this ?
 Advanced search reporting enables administrators to see what types of links a user chooses on a search results page, and more generally to track all actions that a user performs such as clicking navigational links. This information enables administrators to improve access and latency of search results, and to understand users click-behavior. 
 How does it works ?
-When you enable this feature, the GoogleQuery extension modifies search form by inserting Javascript that tracks all links that a user clicks. When a user clicks on a link in the search results, Javascript executes in the browser and requests an URL on the search appliance (which starts with ‚Äú/click‚Äù) that contains information about the link. The search appliance logs the arguments given in the URL on the search appliance and then returns a response to the browser. The browser then retrieves the URL on which the user clicked.
+When you enable this feature, the GoogleQuery extension modifies search form by inserting Javascript that tracks all links that a user clicks. When a user clicks on a link in the search results, Javascript executes in the browser and requests an URL on the search appliance (which starts with “/click”) that contains information about the link. The search appliance logs the arguments given in the URL on the search appliance and then returns a response to the browser. The browser then retrieves the URL on which the user clicked.
 How to configure this on your TYPO3 search pages ?
-As the search page may contain a great number of links not related to the search results (navigation menu's links, footer's links, ‚Ä¶), Javascript will track only links configured to be tracked.
+As the search page may contain a great number of links not related to the search results (navigation menu's links, footer's links, …), Javascript will track only links configured to be tracked.
 The following link attributes should be added to the tracked link. All of them are required
 Attribut
 Description
 rel
-This must be ‚Äúlogclick‚Äù
-Only links with rel=‚Äùlogclick‚Äù will be tracked
+This must be “logclick”
+Only links with rel=”logclick” will be tracked
 ctype
 Click type. A value that identifies the type of link that a user clicks. For the value, use underscores or a dot without spaces and use alpha-numeric characters. For a complete list of click types, see http://code.google.com/apis/searchappliance/documentation/52/admin_searchexp/ce_improving_search.html#clicktypes
 pos
@@ -411,7 +414,7 @@ If you need a more detailed information, read http://code.google.com/apis/search
 Quick start : a Google search engine in 4 steps
 GoogleQuery provides a t3d file which contains examples of search forms and search results both for GSS and GSA solutions.
 Requirements
-The t3d file will install different elements (pages, template files, datafilters element, displaycontroller elements, ‚Ä¶). Before installing all these elements, some extensions must be installed. Here is the list of Tesseract extensions required if you want to successfully install these examples. 
+The t3d file will install different elements (pages, template files, datafilters element, displaycontroller elements, …). Before installing all these elements, some extensions must be installed. Here is the list of Tesseract extensions required if you want to successfully install these examples. 
 Please install these extensions in the following order :
 1. expressions
 2. tesseract
@@ -455,14 +458,14 @@ sysfolder containing all Tesseract elements such as datafilters and templatedisp
 
 
 Step 3
-On ‚ÄúSearch Examples‚Äù page, use Template Module to set constants.
-To set the GSA search engine, choose category ‚ÄúGOOGLEQUERY_GSA‚Äù and set the GSA Host [plugin.tx_googlequery_pi1.gsa_host]
-To set the GSS search engine, choose category ‚ÄúGOOGLEQUERY_GSS‚Äù and set the GSS Search engine unique ID [plugin.tx_googlequery_pi1.gss_id]
+On “Search Examples” page, use Template Module to set constants.
+To set the GSA search engine, choose category “GOOGLEQUERY_GSA” and set the GSA Host [plugin.tx_googlequery_pi1.gsa_host]
+To set the GSS search engine, choose category “GOOGLEQUERY_GSS” and set the GSS Search engine unique ID [plugin.tx_googlequery_pi1.gss_id]
 
 
 
 Step 4
-In frontend, open the ‚ÄúSearch Examples‚Äù page and start searching something.
+In frontend, open the “Search Examples” page and start searching something.
 Enjoy
 
 
@@ -484,12 +487,12 @@ Changes:
 2.0.0
 Second version including
 Typoscript support
-‚ÄúGoogle Site Search‚Äù Support
-Spelling suggestions using ‚ÄúGoogle Search Appliance‚Äù devices
-Related Queries using ‚ÄúGoogle Search Appliance‚Äù devices
-Keymatches using ‚ÄúGoogle Search Appliance‚Äù devices
-‚ÄúAuto-suggestions‚Äù feature using ‚ÄúGoogle Search Appliance‚Äù devices
-‚ÄúAdvanced Search Reporting‚Äù feature using ‚ÄúGoogle Search Appliance‚Äù devices
+“Google Site Search” Support
+Spelling suggestions using “Google Search Appliance” devices
+Related Queries using “Google Search Appliance” devices
+Keymatches using “Google Search Appliance” devices
+“Auto-suggestions” feature using “Google Search Appliance” devices
+“Advanced Search Reporting” feature using “Google Search Appliance” devices
 DAM integration
 Customizable examples in a t3d file
 1.0.0

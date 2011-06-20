@@ -29,7 +29,8 @@
 			<label index="tca.maintable.tsconfig">Configured by TypoScript</label>
 			<label index="tca.metatags_requested">Selected metatags (only tags in this list can be mapped in a Data Consumer) - One tag per line</label>
 			<label index="tca.metatags_required">Required metatags (only results containing those tags will be returned) - One tag per line</label>
-			<label index="tca.cache_duration">Cache duration (in seconds)</label>
+			<label index="tca.cache_in_session">Cache in session instead of DB</label>
+			<label index="tca.cache_duration">Cache in DB duration (in seconds)</label>
 
 			<label index="tca.tab.metatags">Meta tags</label>
 			<label index="tca.tab.advanced">Advanced</label>
@@ -67,7 +68,8 @@
 			<label index="tca.maintable.tsconfig">Configuré par TypoScript</label>
 			<label index="tca.metatags_requested">Meta tags sélectionnés (seuls les meta tags de cette liste pourront être mappés dans un Data Consumer) - Un tag par ligne</label>
 			<label index="tca.metatags_required">Meta tags requis (seuls les résultats contenant ces tags seront retournés) - Un tag par ligne</label>
-			<label index="tca.cache_duration">Durée du cache (en secondes)</label>
+            <label index="tca.cache_in_session">Cache en session au lieu de base de données</label>
+			<label index="tca.cache_duration">Durée du cache en base de données (en secondes)</label>
 
 			<label index="tca.tab.metatags">Meta tags</label>
 			<label index="tca.tab.advanced">Avancé</label>

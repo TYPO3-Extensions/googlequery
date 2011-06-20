@@ -180,7 +180,17 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	protected function buildDataStructure( ) {
 
 		// If the cache duration is not set to 0, try to find a cached query
-		if ( !empty( $this->providerData[ 'cache_duration' ] ) ) {
+		if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
+			try {
+				$dataStructure = $this->getSessionStructure();
+				$hasStructure = true;
+			}
+				// No structure was found, set flag that there's no structure yet
+			catch ( Exception $e ) {
+				$hasStructure = false;
+			}
+		}		// If the cache duration is not set to 0, try to find a cached query
+		else if ( !empty( $this->providerData[ 'cache_duration' ] ) ) {
 			try {
 				$dataStructure = $this->getCachedStructure( );
 				$hasStructure = true;
@@ -386,7 +396,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 								// Multiple identical subrecords may happen when joining several tables together
 								// Take into account any limit that may have been placed on the number of subrecords in the query
 								// (using the non-SQL standard keyword MAX)
-								if ( !in_array( $subRow[ 'uid' ], $subUidList ) ) {
+								if ( !in_array( $subRow[ 'uid' ], $subUidList ) && $subRow[ 'uid' ] != '') {
 									$subRecords[ ] = $subRow;
 									$subUidList[ ] = $subRow[ 'uid' ];
 								}
@@ -432,9 +442,25 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			}
 		}
 
+
+		if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
+
+			$hashData = $this->filter;
+			unset($hashData['limit']);
+
+			$fields = array(
+				'cache_hash' => md5(print_r($hashData,1)),
+				'structure_cache' => $dataStructure,
+				'tstamp' => time( ),
+				'query_uri' => tx_expressions_parser::$extraData[ 'query_uri' ]
+			);
+
+			$GLOBALS["TSFE"]->fe_user->setKey('ses', $this->extKey, $fields);
+		}
+		
 		// Store the structure in the cache table
 		// The structure is not cached if the cache duration is set to 0
-		if ( !empty( $this->providerData[ 'cache_duration' ] ) ) {
+		elseif ( !empty( $this->providerData[ 'cache_duration' ] ) ) {
 			$fields = array(
 				'cache_hash' => $this->calculateCacheHash( array(
 				                                                $this->extKey, $this->gquery_Parser->limit_from
@@ -448,6 +474,29 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 		return $dataStructure;
 	}
+
+
+    protected function getSessionStructure() {
+
+        $cachedSessData = $GLOBALS["TSFE"]->fe_user->getKey("ses",$this->extKey);
+
+        if (is_array($cachedSessData)) {
+			
+			$hashData = $this->filter;
+			unset($hashData['limit']);
+
+                // Cache should not be older than one hour
+		    $tstampLimit = time( ) - 3600;
+            $sessionCacheHash = md5(print_r($hashData,1));
+            if ($sessionCacheHash == $cachedSessData['cache_hash'] && $cachedSessData['tstamp'] > $tstampLimit) {
+                    // We found a structure in the cache for this filter, so we show the results
+                return $cachedSessData['structure_cache'];
+            }
+            $GLOBALS["TSFE"]->fe_user->setKey("ses",$this->extKey, array());
+        }
+            // No valid structure found
+		throw new Exception( 'No cached structure' );
+    }
 
 
 	/**
@@ -764,7 +813,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		$query = tx_expressions_parser::evaluateString( $this->gquery_query );
 		$header[ ] = "Accept-language: fr";
 
-		if ( $this->configuration[ 'debug' ] ) {
+		if ( $this->configuration[ 'debug' ] || TYPO3_DLOG ) {
 			t3lib_div::devLog( $query, 'googlequery', 0 );
 		}
 		if ( $output = t3lib_div::getURL( $query, 0, $header ) ) {

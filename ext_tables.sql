@@ -29,7 +29,8 @@ CREATE TABLE tx_googlequery_queries (
 	maintable text,
 	searchEngineType text,
 	gss_id text,
-	cache_duration int(11) DEFAULT '86400' NOT NULL
+	cache_duration int(11) DEFAULT '86400' NOT NULL,
+	cache_in_session tinyint(4) DEFAULT '0' NOT NULL
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid),
@@ -75,7 +76,8 @@ CREATE TABLE tx_googlequery_queries2 (
 	maintable text,
 	searchEngineType text,
 	gss_id text,
-	cache_duration int(11) DEFAULT '86400' NOT NULL
+	cache_duration int(11) DEFAULT '86400' NOT NULL,
+	cache_in_session tinyint(4) DEFAULT '0' NOT NULL
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid),
