@@ -50,6 +50,8 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 	protected $gqueryCacheDuration = 1; // Duration of the cache (in hour)
 
+	protected $SessionCacheHash = false; // Session Cache Hash
+
 	protected $defaultMetaTags = array(
 		'googleInfos$url',
 		'googleInfos$title',
@@ -223,6 +225,8 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			// Build the complete url
 			$this->gquery_query = $this->gquery_Parser->buildQuery( );
 			// Execute the query
+
+			// Building query results
 			$res = $this->__getXmlStructure( );
 
 			// Prepare the full data structure
@@ -239,6 +243,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return    array        The full data structure
 	 */
 	protected function prepareFullStructure( $res ) {
+
 		// Initialise some variables
 		$this->mainTable = $this->gquery_Parser->getMainTableName( );
 		$subtables = $this->gquery_Parser->getSubtablesNames( );
@@ -435,27 +440,31 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		// Hook for post-processing the data structure before it is stored into cache
 		if ( is_array(
 			$GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $this->extKey ][ 'postProcessDataStructureBeforeCache' ] ) ) {
-			foreach ( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $this->extKey ][ 'postProcessDataStructureBeforeCache'
-			] as $className ) {
+			foreach ( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $this->extKey ][ 'postProcessDataStructureBeforeCache'] as $className ) {
 				$postProcessor = &t3lib_div::getUserObj( $className );
 				$dataStructure = $postProcessor->postProcessDataStructureBeforeCache( $dataStructure, $this );
 			}
 		}
 
-
+		// Store the structure in the cache session
+		// The structure is not cached if the cache_in_session option is unchecked
+		// There is a cache per maintable requested
 		if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
 
-			$hashData = $this->filter;
-			unset($hashData['limit']);
+        	$cachedSessDataArray = $GLOBALS["TSFE"]->fe_user->getKey("ses",$this->extKey.'_CachedStructures');
+			$currentMainTable = tx_expressions_parser::evaluateString($this->providerData['maintable']);
 
-			$fields = array(
-				'cache_hash' => md5(print_r($hashData,1)),
+			if (!is_array($cachedSessDataArray)) $cachedSessDataArray = array();
+
+			$cachedSessDataArray[$currentMainTable] = array(
+				'cache_hash' => $this->getSessionCacheHash(),
 				'structure_cache' => $dataStructure,
 				'tstamp' => time( ),
 				'query_uri' => tx_expressions_parser::$extraData[ 'query_uri' ]
 			);
 
-			$GLOBALS["TSFE"]->fe_user->setKey('ses', $this->extKey, $fields);
+			$this->debugLog('DataStructure saved in session');
+			$GLOBALS["TSFE"]->fe_user->setKey('ses', $this->extKey.'_CachedStructures', $cachedSessDataArray);
 		}
 		
 		// Store the structure in the cache table
@@ -475,28 +484,57 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		return $dataStructure;
 	}
 
-
+	/**
+	 * Retrieves the Structure found in the Session, if it exists.
+	 * @throws Exception
+	 * @return array
+	 */
     protected function getSessionStructure() {
 
-        $cachedSessData = $GLOBALS["TSFE"]->fe_user->getKey("ses",$this->extKey);
+        $cachedSessDataArray = $GLOBALS["TSFE"]->fe_user->getKey("ses",$this->extKey.'_CachedStructures');
+		$currentMainTable = tx_expressions_parser::evaluateString($this->providerData['maintable']);
+		$cachedSessData = $cachedSessDataArray[$currentMainTable];
 
         if (is_array($cachedSessData)) {
-			
-			$hashData = $this->filter;
-			unset($hashData['limit']);
 
                 // Cache should not be older than one hour
 		    $tstampLimit = time( ) - 3600;
-            $sessionCacheHash = md5(print_r($hashData,1));
+            $sessionCacheHash = $this->getSessionCacheHash();
+
             if ($sessionCacheHash == $cachedSessData['cache_hash'] && $cachedSessData['tstamp'] > $tstampLimit) {
                     // We found a structure in the cache for this filter, so we show the results
+				$this->debugLog('DataStructure found in session for '.$currentMainTable);
                 return $cachedSessData['structure_cache'];
             }
-            $GLOBALS["TSFE"]->fe_user->setKey("ses",$this->extKey, array());
+			$this->debugLog('No DataStructure found in session for '.$currentMainTable);
+			unset($cachedSessDataArray[$currentMainTable]);
+            $GLOBALS["TSFE"]->fe_user->setKey("ses",$this->extKey.'_CachedStructures', $cachedSessDataArray);
         }
             // No valid structure found
 		throw new Exception( 'No cached structure' );
     }
+
+	/**
+	 * Builds the session cache hash for the current request
+	 *
+	 * @return string
+	 */
+	function getSessionCacheHash() {
+
+		if (!$this->SessionCacheHash) {
+			$hashData = array (
+				'filter' => tx_tesseract_utilities::calculateFilterCacheHash($this->filter),
+				'providerData' => array(
+					'collection' => tx_expressions_parser::evaluateString($this->providerData['collection']),
+					'client_frontend' => tx_expressions_parser::evaluateString($this->providerData['client_frontend']),
+					'output_format' => tx_expressions_parser::evaluateString($this->providerData['output_format']),
+					'server_address' => tx_expressions_parser::evaluateString($this->providerData['server_address']),
+				)
+			);
+			$this->SessionCacheHash = md5(print_r($hashData,1));
+		}
+		return $this->SessionCacheHash;
+	}
 
 
 	/**
@@ -811,13 +849,40 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 */
 	protected function __getXmlStructure( ) {
 		$query = tx_expressions_parser::evaluateString( $this->gquery_query );
-		$header[ ] = "Accept-language: fr";
 
-		if ( $this->configuration[ 'debug' ] || TYPO3_DLOG ) {
-			t3lib_div::devLog( $query, 'googlequery', 0 );
+		$output = false;
+
+		// First we check if the results output is already in the session cache
+		if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
+			$this->debugLog('Looking for XML Output in session');
+
+			$queryHashed = md5( $query );
+
+			// Checks if the current query has already been executed in the current page rendering
+			$currentCache = $GLOBALS[$this->extKey][$this->extKey.'_CachedXmlOutput'];
+			if (is_array($currentCache) && $currentCache['cacheHash'] == $queryHashed ) {
+				$this->debugLog('XML Output found in current process', $currentCache);
+				$output = $currentCache['xml'];
+			}
 		}
-		if ( $output = t3lib_div::getURL( $query, 0, $header ) ) {
-			$xml = simplexml_load_string( $output );
+
+		if (!$output) {
+			$header[ ] = "Accept-language: fr";
+			$this->debugLog('Query send to the Google Service', array($query) );
+			if ( $output = t3lib_div::getURL( $query, 0, $header ) ) {
+				// We save result's output in session, if the option is checked.
+				if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
+					$this->debugLog('XML Output saved in session');
+					$dataCached = array('cacheHash' => md5( $query ), 'xml' => $output );
+					$GLOBALS[$this->extKey][$this->extKey.'_CachedXmlOutput'] = $dataCached;
+				}
+			}
+		}
+
+		$xml = simplexml_load_string( $output );
+
+		if ($xml) {
+
 			$results = array(
 			);
 			$res = 0;
@@ -1033,8 +1098,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 				$return = 'Google Site Search (GSS) unreachable. ';
 				if ( $this->configuration[ 'debug' ] ) {
 					$return .= '<br/>
-						<br/>To use googlequery with the Google Custom Search service you must <a target="_blank" href="http://www.google.com/cse/panel/business?cx=' . $this->providerData[ 'gss_id' ] . '">convert your account to "Google Site Search"</a>. <br/>
-						If your account is already a "Google Site Search", check if your Search engine unique ID is correct : <strong>' . $this->providerData[ 'gss_id' ] . '</strong><br/><br/>
+						<br/>To use googlequery with the Google Custom Search service you must
+						<a target="_blank" href="http://www.google.com/cse/panel/business?cx=' . $this->providerData[ 'gss_id' ] . '">convert
+						your account to "Google Site Search"</a>. <br/>
+						If your account is already a "Google Site Search", check if your Search engine unique ID is
+						correct : <strong>' . $this->providerData[ 'gss_id' ] . '</strong><br/><br/>
 						<a href="' . $query . '" target="_blank">' . $query . '</a></br>
 						And here is the output returned by Google Custom Search for this query
 						<iframe src="' . $query . '" width="100%" height="70%" ></iframe>';
@@ -1075,6 +1143,20 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			}
 		}
 		return $lines;
+	}
+
+	/**
+	 * Shorcut for debug logging
+	 *
+	 * @param 	string 	$title: title of the log
+	 * @param 	array 	$data: data to log
+	 * @param 	int 	$severity: severity level
+	 * @return 	void
+	 */
+	protected function debugLog( $title, $data = false, $severity = 0 ) {
+		if ( $this->configuration[ 'debug' ] || TYPO3_DLOG ) {
+			t3lib_div::devLog( $title, $this->extKey, $severity, $data );
+		}
 	}
 }
 

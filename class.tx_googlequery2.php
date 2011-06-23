@@ -131,8 +131,19 @@ class tx_googlequery2 extends tx_googlequery {
      */
     protected function buildDataStructure() {
 
+		// If the cache duration is not set to 0, try to find a cached query
+		if ( !empty( $this->providerData[ 'cache_in_session' ] ) ) {
+			try {
+				$dataStructure = $this->getSessionStructure();
+				$hasStructure = true;
+			}
+				// No structure was found, set flag that there's no structure yet
+			catch ( Exception $e ) {
+				$hasStructure = false;
+			}
+		}
         // If the cache duration is not set to 0, try to find a cached query
-        if (!empty($this->providerData['cache_duration'])) {
+        elseif (!empty($this->providerData['cache_duration'])) {
             try {
                 $dataStructure = $this->getCachedStructure();
                 $hasStructure = true;
