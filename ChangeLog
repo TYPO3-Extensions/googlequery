@@ -1,3 +1,13 @@
+2011-07-04 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v2.1.2
+	# Bug Fix : In some circonstances, metatags were no more available in search results. Fixed
+
+2011-06-23 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v2.1.1
+	# Bug fix : Better session cache management if multiple googlequery instance with different collections displayed
+	in the same page
+	# Session cache is now activated by default
+
 2011-06-20 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.1.0
 	# New Feature : User session cache
