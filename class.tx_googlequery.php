@@ -47,6 +47,7 @@
 
         protected $mainTable; // Store the name of the main table of the query
         protected $gquery_Parser; // Local instance of the Google parser class (tx_googlequery_parser)
+        protected $gsaOffset; // Offset for the search in the Google service
 
         protected $gqueryCacheDuration = 1; // Duration of the cache (in hour)
 
@@ -113,7 +114,7 @@
             }
 
             $this->gquery_Parser->limit_from = floor( $offset / 100 ) * 100;
-            $start_from = $this->gquery_Parser->limit_from;
+            $this->gsaOffset = $this->gquery_Parser->limit_from;
 
             // Retriving the DataStructure for this query
             $dataStructure = $this->buildDataStructure( );
@@ -124,8 +125,8 @@
                 if ( $offset > $dataStructure[ 'totalCount' ] ) {
                     $offset = 0;
                 }
-                if ( $start_from > 0 ) {
-                    $offset = $offset - $start_from;
+                if ( $this->gsaOffset > 0 ) {
+                    $offset = $offset - $this->gsaOffset;
                 }
                 // Initialise final structure with data that won't change
                 $returnStructure = array (
@@ -468,7 +469,7 @@
                     $cachedSessDataArray = array ( );
                 }
 
-                $cachedSessDataArray[ $currentMainTable ] = array (
+                $cachedSessDataArray[ $currentMainTable . '_' . $this->gsaOffset ] = array (
                     'cache_hash' => $this->getSessionCacheHash( ),
                     'structure_cache' => $dataStructure,
                     'tstamp' => time( ),
@@ -505,7 +506,7 @@
 
             $cachedSessDataArray = $GLOBALS[ "TSFE" ]->fe_user->getKey( "ses", $this->extKey . '_CachedStructures' );
             $currentMainTable = tx_expressions_parser::evaluateString( $this->providerData[ 'maintable' ] );
-            $cachedSessData = $cachedSessDataArray[ $currentMainTable ];
+            $cachedSessData = $cachedSessDataArray[ $currentMainTable . '_' . $this->gsaOffset ];
 
             if ( is_array( $cachedSessData ) ) {
 
@@ -519,7 +520,7 @@
                     return $cachedSessData[ 'structure_cache' ];
                 }
                 $this->debugLog( 'No DataStructure found in session for ' . $currentMainTable );
-                unset( $cachedSessDataArray[ $currentMainTable ] );
+                unset( $cachedSessDataArray[ $currentMainTable . '_' . $this->gsaOffset ] );
                 $GLOBALS[ "TSFE" ]->fe_user->setKey( "ses", $this->extKey . '_CachedStructures', $cachedSessDataArray );
             }
             // No valid structure found
