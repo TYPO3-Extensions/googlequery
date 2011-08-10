@@ -162,7 +162,9 @@
             else {
                 $returnStructure = $dataStructure;
             }
-
+				// As a last step add the filter to the data structure
+				// NOTE: not all Data Consumers may be able to handle this data, but at least it's available
+			$returnStructure['filter'] = $this->filter;
 
             // Hook for post-processing the data structure
             if ( is_array( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $this->extKey ][ 'postProcessDataStructure' ] ) ) {
@@ -862,7 +864,6 @@
          */
         protected function __getXmlStructure ( ) {
             $query = tx_expressions_parser::evaluateString( $this->gquery_query );
-
             $output = false;
 
             // First we check if the results output is already in the session cache

@@ -1,3 +1,8 @@
+2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v2.2
+	# New Feature : Add support for void filters
+	# Bug : Store filter information inside the data structure
+
 2011-07-04 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.1.3
 	# Bug Fix : Pagination was not working after 100 results, if session cache was activated. Fixed

@@ -33,8 +33,8 @@
  */
 class tx_googlequery2 extends tx_googlequery {
 	public $extKey = 'googlequery2';
-	
-	
+
+
 	/**
 	 * This method is used to get the data for the given query and return it in a standardised format
 	 *
@@ -43,7 +43,7 @@ class tx_googlequery2 extends tx_googlequery {
 	public function getData() { // OK
 
 		$dataStructure = parent::getData();
-		
+
 		$returnStructure = array();
 		$returnStructure['uniqueTable'] = $dataStructure['name'];
 		$returnStructure['count'] = $dataStructure['count'];
@@ -54,10 +54,13 @@ class tx_googlequery2 extends tx_googlequery {
 			$uidListWithTable[] = $dataStructure['name']."_".$record['uid'];
 		}
 		$returnStructure['uidListWithTable'] = implode(',', $uidListWithTable);
-		
+			// As a last step add the filter to the data structure
+			// NOTE: not all Data Consumers may be able to handle this data, but at least it's available
+		$returnStructure['filter'] = $this->filter;
+
 		return $returnStructure;
 	}
-	
+
 
 //******************************************************************************************
 //******************************************************************************************
@@ -123,7 +126,7 @@ class tx_googlequery2 extends tx_googlequery {
 		// TODO: maybe throw an exception to indicate rejection of data structure
 		return;
 	}
-    
+
     /**
      * This method gets the DataStructure from cache, if possible, otherwise builds the DataStructure from the Google query's result
      *
@@ -197,7 +200,7 @@ class tx_googlequery2 extends tx_googlequery {
      */
 	public function getTablesAndFields($language = '') {
         return null;
-    }        
+    }
 
 
     /**
@@ -207,7 +210,7 @@ class tx_googlequery2 extends tx_googlequery {
      * @param	pointer		$res: database resource from the executed query
      * @return	array		The full data structure
      */
-    protected function prepareFullStructure($res) { 
+    protected function prepareFullStructure($res) {
 
         if ($this->providerData['results_from_dam']) {
 

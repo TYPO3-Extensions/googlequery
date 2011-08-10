@@ -216,131 +216,135 @@ class tx_googlequery_parser {
 		                     $filter[ 'logicalOperator' ] == 'AND' ) ? '.' : '|';
 		if ( isset( $filter[ 'filters' ] ) && is_array( $filter[ 'filters' ] ) ) {
 			foreach ( $filter[ 'filters' ] as $filterData ) {
-				// Hack to correct filters with a '$' in it
-				$parts = explode( "$", $filterData[ 'field' ] );
-				if ( count( $parts ) == 2 ) {
-					$filterData[ 'table' ] = $parts[ 0 ];
-					$filterData[ 'field' ] = $parts[ 1 ];
-				}
-				if ( !empty( $completeFilter ) ) {
-					$completeFilter .= $logicalOperator;
-				}
-				$table = ( empty( $filterData[ 'table' ] ) ) ? $this->mainTable : $filterData[ 'table' ];
-				$field = $filterData[ 'field' ];
-				if ( $field != "q" && $field != "eq" && $field != "sort") {
-                    if ($table!='')
-					$fullField = $table . '$' . $field;
-                    else
-					$fullField = $field;
-					foreach ( $filterData[ 'conditions' ] as $conditionData ) {
+					// If the filter is not void, handle it
 
-						if ( $conditionData[ 'value' ] == '\empty' || $conditionData[ 'value' ] == '\null' ||
-						     $conditionData[ 'value' ] == '\all' ) {
-							// Those filter's values cannot be handled by a GSA
-							if ($this->configuration['debug'] || TYPO3_DLOG) {
-								t3lib_div::devLog('\empty, \null and \all filter\'s values are not usable in a Google query', $this->extKey, -1);
+				if (empty($filterData['void'])) {
+					// Hack to correct filters with a '$' in it
+					$parts = explode( "$", $filterData[ 'field' ] );
+					if ( count( $parts ) == 2 ) {
+						$filterData[ 'table' ] = $parts[ 0 ];
+						$filterData[ 'field' ] = $parts[ 1 ];
+					}
+					if ( !empty( $completeFilter ) ) {
+						$completeFilter .= $logicalOperator;
+					}
+					$table = ( empty( $filterData[ 'table' ] ) ) ? $this->mainTable : $filterData[ 'table' ];
+					$field = $filterData[ 'field' ];
+					if ( $field != "q" && $field != "eq" && $field != "sort") {
+						if ($table!='')
+						$fullField = $table . '$' . $field;
+						else
+						$fullField = $field;
+						foreach ( $filterData[ 'conditions' ] as $conditionData ) {
+
+							if ( $conditionData[ 'value' ] == '\empty' || $conditionData[ 'value' ] == '\null' ||
+								 $conditionData[ 'value' ] == '\all' ) {
+								// Those filter's values cannot be handled by a GSA
+								if ($this->configuration['debug'] || TYPO3_DLOG) {
+									t3lib_div::devLog('\empty, \null and \all filter\'s values are not usable in a Google query', $this->extKey, -1);
+								}
+
 							}
+							// "andgroup" and "orgroup" requires more handling
+							// The associated value is a list of comma-separated values and each of these values must be handled separately
+							// Furthermore each value will be tested against a comma-separated list of values too, so the test is not so simple
+							elseif ( $conditionData[ 'operator' ] == 'andgroup' ||
+								 $conditionData[ 'operator' ] == 'orgroup' ) {
 
-						}
-						// "andgroup" and "orgroup" requires more handling
-						// The associated value is a list of comma-separated values and each of these values must be handled separately
-						// Furthermore each value will be tested against a comma-separated list of values too, so the test is not so simple
-						elseif ( $conditionData[ 'operator' ] == 'andgroup' ||
-						     $conditionData[ 'operator' ] == 'orgroup' ) {
+								// If the condition value is an array, use it as is
+								// Otherwise assume a comma-separated list of values and explode it
+								$values = $conditionData[ 'value' ];
+								if ( !is_array( $values ) ) {
+									$values = t3lib_div::trimExplode( ',', $conditionData[ 'value' ], TRUE );
+								}
 
-							// If the condition value is an array, use it as is
-							// Otherwise assume a comma-separated list of values and explode it
-							$values = $conditionData[ 'value' ];
-							if ( !is_array( $values ) ) {
-								$values = t3lib_div::trimExplode( ',', $conditionData[ 'value' ], TRUE );
+								$condition = '';
+								if ( $conditionData[ 'operator' ] == 'andgroup' ) {
+									$operator = '.';
+								}
+								else {
+									$operator = '|';
+								}
+								foreach ( $values as $value ) {
+									if ( !empty( $condition ) ) {
+										$condition .= $operator;
+									}
+									$condition .= $fullField . ':' . $value;
+								}
+								$localPartialfields[ ] = "(" . $condition . ")";
 							}
+							elseif ( $conditionData[ 'operator' ] == 'like' ) {
+								// Make sure values are an array
+								$values = $conditionData[ 'value' ];
+								if ( !is_array( $values ) ) {
+									$values = array(
+										$conditionData[ 'value' ]
+									);
+								}
+								// Loop on each value and assemble condition
+								$localCondition = '';
+								foreach ( $values as $aValue ) {
+									$localRequiredfields[ ] = $fullField . ':' . $aValue;
+								}
+							}
+							elseif ( $conditionData[ 'operator' ] == 'in' ) {
+								// If the condition value is an array, use it as is
+								// Otherwise assume a comma-separated list of values and explode it
+								$conditionParts = $conditionData[ 'value' ];
+								if ( !is_array( $conditionParts ) ) {
+									$conditionParts = t3lib_div::trimExplode( ',', $conditionData[ 'value' ], TRUE );
+								}
 
-							$condition = '';
-							if ( $conditionData[ 'operator' ] == 'andgroup' ) {
-								$operator = '.';
+								$condition = array(
+								);
+								foreach ( $conditionParts as $key => $id ) {
+									$condition[ ] = $fullField . ':' . $id;
+								}
+								$localRequiredfields[ ] = "(" . implode( "|", $condition ) . ")";
+							}
+							elseif ( $conditionData[ 'operator' ] == "=" ) {
+								$localRequiredfields[ ] = $fullField . ':' . $conditionData[ 'value' ];
 							}
 							else {
-								$operator = '|';
-							}
-							foreach ( $values as $value ) {
-								if ( !empty( $condition ) ) {
-									$condition .= $operator;
+
+								// Those operators cannot be handled by a GSA
+								if ($this->configuration['debug'] || TYPO3_DLOG) {
+									t3lib_div::devLog($conditionData[ 'operator' ].' cannot be used in a Google query', $this->extKey, -1);
 								}
-								$condition .= $fullField . ':' . $value;
-							}
-							$localPartialfields[ ] = "(" . $condition . ")";
-						}
-						elseif ( $conditionData[ 'operator' ] == 'like' ) {
-							// Make sure values are an array
-							$values = $conditionData[ 'value' ];
-							if ( !is_array( $values ) ) {
-								$values = array(
-									$conditionData[ 'value' ]
-								);
-							}
-							// Loop on each value and assemble condition
-							$localCondition = '';
-							foreach ( $values as $aValue ) {
-								$localRequiredfields[ ] = $fullField . ':' . $aValue;
 							}
 						}
-						elseif ( $conditionData[ 'operator' ] == 'in' ) {
-							// If the condition value is an array, use it as is
-							// Otherwise assume a comma-separated list of values and explode it
-							$conditionParts = $conditionData[ 'value' ];
-							if ( !is_array( $conditionParts ) ) {
-								$conditionParts = t3lib_div::trimExplode( ',', $conditionData[ 'value' ], TRUE );
-							}
-
-							$condition = array(
+					}
+					else {
+						if ( $filterData[ 'field' ] == "q" ) {
+							$kw_strings[ 'kw' ] = urlencode( $filterData[ 'conditions' ][ 0 ][ 'value' ] );
+						}
+						// A excluded keyword has been set
+						if ( $filterData[ 'field' ] == "eq" ) {
+							$ekws = explode( " ", $filterData[ 'conditions' ][ 0 ][ 'value' ] );
+							$excludeds = array(
 							);
-							foreach ( $conditionParts as $key => $id ) {
-								$condition[ ] = $fullField . ':' . $id;
+							foreach ( $ekws as $ekw ) {
+								/**
+								 * @todo Passer le trim dans $ekws avant la boucle ??
+								 */
+								if ( trim( $ekw ) <> '' ) {
+									$excludeds[ ] = "-" . urlencode( trim( $ekw ) );
+								}
 							}
-							$localRequiredfields[ ] = "(" . implode( "|", $condition ) . ")";
+							$kw_strings[ 'ekw' ] = implode( "+", $excludeds );
 						}
-						elseif ( $conditionData[ 'operator' ] == "=" ) {
-							$localRequiredfields[ ] = $fullField . ':' . $conditionData[ 'value' ];
+						if ( $kw_strings[ 'kw' ] != '' || $kw_strings[ 'ekw' ] != '' ) {
+							$this->gquery_queryparams[ 'q' ] = implode( "+", $kw_strings );
 						}
-						else {
-
-							// Those operators cannot be handled by a GSA
-							if ($this->configuration['debug'] || TYPO3_DLOG) {
-								t3lib_div::devLog($conditionData[ 'operator' ].' cannot be used in a Google query', $this->extKey, -1);
+						if ( $filterData[ 'field' ] == "sort" ) {
+							if ($filterData[ 'conditions' ][ 0 ][ 'value' ] == 'date') {
+								$this->gquery_queryparams[ 'sort' ] = 'date:D:S:d1';
 							}
-						}
-					}
-				}
-				else {
-					if ( $filterData[ 'field' ] == "q" ) {
-						$kw_strings[ 'kw' ] = urlencode( $filterData[ 'conditions' ][ 0 ][ 'value' ] );
-					}
-					// A excluded keyword has been set
-					if ( $filterData[ 'field' ] == "eq" ) {
-						$ekws = explode( " ", $filterData[ 'conditions' ][ 0 ][ 'value' ] );
-						$excludeds = array(
-						);
-						foreach ( $ekws as $ekw ) {
-							/**
-							 * @todo Passer le trim dans $ekws avant la boucle ??
-							 */
-							if ( trim( $ekw ) <> '' ) {
-								$excludeds[ ] = "-" . urlencode( trim( $ekw ) );
+							if ($filterData[ 'conditions' ][ 0 ][ 'value' ] == 'etad') {
+								$this->gquery_queryparams[ 'sort' ] = 'date:A:S:d1';
 							}
 						}
-						$kw_strings[ 'ekw' ] = implode( "+", $excludeds );
 					}
-					if ( $kw_strings[ 'kw' ] != '' || $kw_strings[ 'ekw' ] != '' ) {
-						$this->gquery_queryparams[ 'q' ] = implode( "+", $kw_strings );
-					}
-					if ( $filterData[ 'field' ] == "sort" ) {
-                        if ($filterData[ 'conditions' ][ 0 ][ 'value' ] == 'date') {
-                            $this->gquery_queryparams[ 'sort' ] = 'date:D:S:d1';
-                        }
-                        if ($filterData[ 'conditions' ][ 0 ][ 'value' ] == 'etad') {
-                            $this->gquery_queryparams[ 'sort' ] = 'date:A:S:d1';
-                        }
-                    }
 				}
 			}
 			if ( count( $localRequiredfields ) > 0 ) {
