@@ -433,10 +433,10 @@ class tx_googlequery_parser {
 		$gets = '';
 		foreach ( $args as $key => $value ) {
 			if ( $first ) {
-				$gets = '?' . $key . '=' . $value;
+				$gets = '?' . $key . '=' . urlencode( $value );
 				$first = false;
 			} else {
-				$gets .= '&' . $key . '=' . $value;
+				$gets .= '&' . $key . '=' . urlencode( $value );
 			}
 		}
 

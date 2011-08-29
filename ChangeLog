@@ -1,4 +1,8 @@
 2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+	v2.2.1
+	# Bug : Now encodes query uri
+	
+2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.2
 	# New Feature : Add support for void filters
 	# Bug : Store filter information inside the data structure
