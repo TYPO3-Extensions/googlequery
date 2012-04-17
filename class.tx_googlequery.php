@@ -741,6 +741,7 @@
          */
         public function getDataStructure ( ) {
 
+
             // Checking it this is a Google Site Search or a GSA request
             if ( $this->providerData[ 'searchEngineType' ] == 'gss' ) {
                 $this->providerData[ 'maintable' ] = 'googleInfos';
@@ -759,8 +760,11 @@
                 }
             }
 
+            // Setting current mainTable
+            $this->mainTable = $this->providerData[ 'maintable' ];
+
             if ( $this->hasEmptyOutputStructure ) {
-                return $this->outputStructure;
+                return $this->initEmptyDataStructure($this->mainTable, tx_tesseract::IDLIST_STRUCTURE_TYPE);
             }
             else {
                 return $this->getData( );

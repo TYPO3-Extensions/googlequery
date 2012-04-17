@@ -17,7 +17,7 @@
 			<label index="tca.searchEngine">Search Engine</label>
 			<label index="tca.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
 			<label index="tca.SearchEngineTypeGSS">Google Site Search</label>
-			<label index="tca.gss_id">Search engine unique ID (see control panel on http://www.google.com/cse/manage/all/)</label>
+			<label index="tca.gss_id">Search engine unique ID (see control panel on http://www.google.com/cse/manage/all)</label>
 			<label index="tca.gsa_host">Google Search Appliance result's url (example : https://www.mygsa.com/search)</label>
 			<label index="tca.frontend">Frontend</label>
 			<label index="tca.collection">Collection</label>
@@ -56,7 +56,7 @@
 			<label index="tca.searchEngine">Moteur de recherche</label>
 			<label index="tca.SearchEngineTypeGSA">Google Search Appliance / Mini</label>
 			<label index="tca.SearchEngineTypeGSS">Google Site Search</label>
-			<label index="tca.gss_id">ID unique du moteur de recherche GSS (Voir sur le panneau de configuration de votre moteur de recherche sur http://www.google.com/cse/manage/all/)</label>
+			<label index="tca.gss_id">ID unique du moteur de recherche GSS (Voir sur le panneau de configuration de votre moteur de recherche sur http://www.google.com/cse/manage/all)</label>
 			<label index="tca.gsa_host">Url des résultats du Google Search Appliance (example : https://www.mongsa.com/search)</label>
 			<label index="tca.frontend">Frontal</label>
 			<label index="tca.collection">Collection</label>

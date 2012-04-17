@@ -1,3 +1,7 @@
+2012-04-03 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
+	v2.2.2
+	* Implemented new workflow for empty data structure creation, resolves #35054
+
 2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.2.1
 	# Bug : Now encodes query uri
