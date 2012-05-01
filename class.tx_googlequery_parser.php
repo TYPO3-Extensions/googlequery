@@ -29,20 +29,20 @@
  *
  *
  *   62: class tx_googlequery_parser
- *   80:	 public function parseQuery($query)
- *  309:	 public function getLocalizedLabels($language = '')
- *  387:	 public function addTypo3Mechanisms($settings)
- *  497:	 public function addFilter($filter)
- *  597:	 public function addIdList($idList)
- *  637:	 public function buildQuery()
- *  682:	 public function addWhereClause($clause)
- *  694:	 public function getMainTableName()
- *  704:	 public function getSubtablesNames()
- *  714:	 public function getTrueTableName($alias)
- *  723:	 public function hasMergedResults()
- *  734:	 public function mustHandleLanguageOverlay($table)
- *  744:	 public function isLimitAlreadyApplied()
- *  755:	 public function getSubTableLimit($table)
+ *   80:     public function parseQuery($query)
+ *  309:     public function getLocalizedLabels($language = '')
+ *  387:     public function addTypo3Mechanisms($settings)
+ *  497:     public function addFilter($filter)
+ *  597:     public function addIdList($idList)
+ *  637:     public function buildQuery()
+ *  682:     public function addWhereClause($clause)
+ *  694:     public function getMainTableName()
+ *  704:     public function getSubtablesNames()
+ *  714:     public function getTrueTableName($alias)
+ *  723:     public function hasMergedResults()
+ *  734:     public function mustHandleLanguageOverlay($table)
+ *  744:     public function isLimitAlreadyApplied()
+ *  755:     public function getSubTableLimit($table)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -53,9 +53,9 @@
  * This class is used to parse a SELECT SQL query into a structured array
  * It can automatically handle a number of TYPO3 constructs, like enable fields and language overlays
  *
- * @author	Roberto Presedo (Cobweb) <typo3@cobweb.ch>
- * @package	TYPO3
- * @subpackage	tx_googlequery
+ * @author    Roberto Presedo (Cobweb) <typo3@cobweb.ch>
+ * @package    TYPO3
+ * @subpackage    tx_googlequery
  */
 class tx_googlequery_parser {
 
@@ -86,7 +86,7 @@ class tx_googlequery_parser {
 	 * This method is used to parse a list of metas required to be returned
 	 *
 	 *
-	 * @return	mixed		array containing the query parts or false if $metas was empty or invalid
+	 * @return    mixed        array containing the query parts or false if $metas was empty or invalid
 	 */
 	public function parseQuery() {
 		foreach ($this->gquery_getfields as $key => $name) {
@@ -122,8 +122,8 @@ class tx_googlequery_parser {
 	/**
 	 * This method gets the localized labels for all tables and fields in the query in the given language
 	 *
-	 * @param	string		$language: two-letter ISO code of a language
-	 * @return	array		list of all localized labels
+	 * @param    string        $language: two-letter ISO code of a language
+	 * @return    array        list of all localized labels
 	 */
 	public function getLocalizedLabels($language = '') {
 		// Make sure we have a lang object available
@@ -197,11 +197,11 @@ class tx_googlequery_parser {
 	/**
 	 * This method takes a Data Filter structure and processes its instructions
 	 *
-	 * @param	array		$filter: Data Filter structure
-	 * @return	void
+	 * @param    array        $filter: Data Filter structure
+	 * @return    void
 	 *
-	 * @see		Note: All specified meta tag names and values must be double URL-encoded. See example above.
-	 *			just over http://code.google.com/apis/searchappliance/documentation/46/xml_reference.html#inmeta_filter
+	 * @see        Note: All specified meta tag names and values must be double URL-encoded. See example above.
+	 *            just over http://code.google.com/apis/searchappliance/documentation/46/xml_reference.html#inmeta_filter
 	 */
 	public function addFilter($filter) {
 
@@ -231,8 +231,7 @@ class tx_googlequery_parser {
 						if ($table != '') {
 							$fullField = $table . '$' . $field;
 						}
-						else
-						{
+						else {
 							$fullField = $field;
 						}
 						foreach ($filterData['conditions'] as $conditionData) {
@@ -349,6 +348,8 @@ class tx_googlequery_parser {
 					}
 				}
 			}
+
+
 			if (count($localRequiredfields) > 0) {
 				$this->__requiredfields[] = '(' . implode('.', $localRequiredfields) . ')';
 			}
@@ -363,8 +364,8 @@ class tx_googlequery_parser {
 	 * This method takes a list of uid's prepended by their table name,
 	 * as returned in the "uidListWithTable" property of a idList-type SDS,
 	 *
-	 * @param	array		$idList: Comma-separated list of uid's prepended by their table name
-	 * @return	void
+	 * @param    array        $idList: Comma-separated list of uid's prepended by their table name
+	 * @return    void
 	 */
 	public function addIdList($idList) { // OK
 		if (!empty($idList)) {
@@ -412,7 +413,7 @@ class tx_googlequery_parser {
 	/**
 	 * This method builds the complete url to call Google Mini results
 	 *
-	 * @return	string
+	 * @return    string
 	 */
 	public function buildQuery() { // OK
 
@@ -431,6 +432,18 @@ class tx_googlequery_parser {
 		}
 
 		$args = array_merge($this->gquery_queryparams, $this->args_request);
+
+
+		// Hook to modify the args before submitting them to Google
+		if (is_array(
+			$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['googlequery']['argsPreProcessing'])
+		) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['googlequery']['argsPreProcessing'] as $className) {
+				$preProcessor = &t3lib_div::getUserObj($className);
+				$args = $preProcessor->argsPreProcessing($args, $this);
+			}
+		}
+
 		$first = true;
 		$gets = '';
 		foreach ($args as $key => $value) {
@@ -457,7 +470,7 @@ class tx_googlequery_parser {
 	 * This method returns the name (alias) of the main table of the query,
 	 * which is the table name that appears in the FROM clause, or the alias, if any
 	 *
-	 * @return	string		main table name (alias)
+	 * @return    string        main table name (alias)
 	 */
 	public function getMainTableName() {
 
@@ -471,7 +484,7 @@ class tx_googlequery_parser {
 	 * This method returns an array containing the list of all subtables in the query,
 	 * i.e. the tables that appear in any of the JOIN statements
 	 *
-	 * @return	array		names of all the joined tables
+	 * @return    array        names of all the joined tables
 	 */
 	public function getSubtablesNames() {
 		return $this->subtables;
