@@ -425,7 +425,7 @@ class tx_googlequery_parser {
 		}
 
 		// Always return 100 items
-		$this->args_request['num'] = 100;
+		$this->args_request['num'] = 20;
 
 		if ($this->limit_from) {
 			$this->args_request['start'] = $this->limit_from;

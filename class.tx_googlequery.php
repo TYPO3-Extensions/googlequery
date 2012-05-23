@@ -113,7 +113,7 @@
                 $offset = 0;
             }
 
-            $this->gquery_Parser->limit_from = floor( $offset / 100 ) * 100;
+            $this->gquery_Parser->limit_from = floor( $offset / 20 ) * 20;
             $this->gsaOffset = $this->gquery_Parser->limit_from;
 
             // Retriving the DataStructure for this query
@@ -224,7 +224,7 @@
 
                 // Use idList from input SDS, if defined
                 if ( is_array( $this->structure ) && isset( $this->structure[ 'uidListWithTable' ] ) ) {
-                    $this->addIdList( $this->structure[ 'uidListWithTable' ] );
+                    $this->gquery_Parser->addIdList( $this->structure[ 'uidListWithTable' ] );
                 }
 
                 // Build the complete url
@@ -868,6 +868,7 @@
          */
         protected function __getXmlStructure ( ) {
             $query = tx_expressions_parser::evaluateString( $this->gquery_query );
+
             $output = false;
 
             // First we check if the results output is already in the session cache
