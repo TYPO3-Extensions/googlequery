@@ -317,7 +317,7 @@ class tx_googlequery_parser {
 					}
 					else {
 						if ($filterData['field'] == "q") {
-							$kw_strings['kw'] = urlencode($filterData['conditions'][0]['value']);
+							$kw_strings['kw'] = $filterData['conditions'][0]['value'];
 						}
 						// A excluded keyword has been set
 						if ($filterData['field'] == "eq") {
