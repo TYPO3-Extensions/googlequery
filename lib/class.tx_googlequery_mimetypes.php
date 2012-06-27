@@ -687,4 +687,3 @@ class tx_googlequery_mimetypes {
 	}
 }
 
-?>

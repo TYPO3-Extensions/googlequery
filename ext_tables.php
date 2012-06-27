@@ -108,4 +108,3 @@ t3lib_extMgm::addLLrefForTCAdescr('tx_googlequery_queries2', 'EXT:' . $_EXTKEY .
 t3lib_extMgm::addLLrefForTCAdescr('tt_content.pi_flexform.googlequery_pi1.list', 'EXT:' . $_EXTKEY . '/locallang_csh_googlequery.xml');
 
 
-?>

@@ -12,4 +12,4 @@ return array(
 	'tx_googlequery_cache' => $extensionPath . 'class.tx_googlequery_cache.php',
 	'tx_googlequery_mimetypes' => $extensionPath . 'lib/class.tx_googlequery_mimetypes.php',
 );
-?>
+

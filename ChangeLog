@@ -1,3 +1,9 @@
+2012-06-27 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
+	v2.2.3
+	* Cleaned up unused bits of code, completed phpDoc comments
+	* Returned number of elements is now 20 max... GSS limitation
+	* Bug fix : wrong objects called
+
 2012-04-03 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
 	v2.2.2
 	* Implemented new workflow for empty data structure creation, resolves #35054

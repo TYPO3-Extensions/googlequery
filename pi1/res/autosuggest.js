@@ -12,7 +12,7 @@ var useBSNns;
 
 if (useBSNns) {
 	if (typeof(bsn) == "undefined")
-		bsn = {}
+		bsn = {};
 	_bsn = bsn;
 }
 else {
@@ -21,7 +21,7 @@ else {
 
 
 if (typeof(_bsn.Autosuggest) == "undefined")
-	_bsn.Autosuggest = {}
+	_bsn.Autosuggest = {};
 
 
 _bsn.AutoSuggest = function (fldID, param) {
@@ -78,13 +78,13 @@ _bsn.AutoSuggest = function (fldID, param) {
 
 	this.fld.onkeypress = function(ev) {
 		return pointer.onKeyPress(ev);
-	}
+	};
 	this.fld.onkeyup = function(ev) {
 		return pointer.onKeyUp(ev);
-	}
+	};
 
 	this.fld.setAttribute("autocomplete", "off");
-}
+};
 
 
 _bsn.AutoSuggest.prototype.onKeyPress = function(ev) {
@@ -118,7 +118,7 @@ _bsn.AutoSuggest.prototype.onKeyPress = function(ev) {
 	}
 
 	return bubble;
-}
+};
 
 
 _bsn.AutoSuggest.prototype.onKeyUp = function(ev) {
@@ -158,7 +158,7 @@ _bsn.AutoSuggest.prototype.onKeyUp = function(ev) {
 	return bubble;
 
 
-}
+};
 
 
 _bsn.AutoSuggest.prototype.getSuggestions = function (val) {
@@ -215,7 +215,7 @@ _bsn.AutoSuggest.prototype.getSuggestions = function (val) {
 	}
 
 	return false;
-}
+};
 
 
 _bsn.AutoSuggest.prototype.doAjaxRequest = function () {
@@ -236,7 +236,7 @@ _bsn.AutoSuggest.prototype.doAjaxRequest = function () {
 
 	var myAjax = new _bsn.Ajax();
 	myAjax.makeRequest(url, meth, onSuccessFunc, onErrorFunc);
-}
+};
 
 
 _bsn.AutoSuggest.prototype.setSuggestions = function (req) {
@@ -271,7 +271,7 @@ _bsn.AutoSuggest.prototype.setSuggestions = function (req) {
 
 	this.createList(this.aSuggestions);
 
-}
+};
 
 
 _bsn.AutoSuggest.prototype.createList = function(arr) {
@@ -342,10 +342,10 @@ _bsn.AutoSuggest.prototype.createList = function(arr) {
 		a.onclick = function () {
 			pointer.setHighlightedValue();
 			return false;
-		}
+		};
 		a.onmouseover = function () {
 			pointer.setHighlight(this.name);
-		}
+		};
 
 		var li = _bsn.DOM.createElement("li", {}, a);
 
@@ -390,10 +390,10 @@ _bsn.AutoSuggest.prototype.createList = function(arr) {
 	//
 	div.onmouseover = function() {
 		pointer.killTimeout()
-	}
+	};
 	div.onmouseout = function() {
 		pointer.resetTimeout()
-	}
+	};
 
 
 	// add DIV to document
@@ -412,13 +412,13 @@ _bsn.AutoSuggest.prototype.createList = function(arr) {
 	this.toID = setTimeout(function () {
 		pointer.clearSuggestions()
 	}, this.oP.timeout);
-}
+};
 
 
 _bsn.AutoSuggest.prototype.submitForm = function () {
 	theForm = document.getElementById(this.oP.GSformName);
-	document.theForm.submit();
-}
+	theForm.submit();
+};
 
 _bsn.AutoSuggest.prototype.changeHighlight = function(key) {
 	var list = _bsn.DOM.getElement("as_ul");
@@ -440,7 +440,7 @@ _bsn.AutoSuggest.prototype.changeHighlight = function(key) {
 
 
 	this.setHighlight(n);
-}
+};
 
 
 _bsn.AutoSuggest.prototype.setHighlight = function(n) {
@@ -457,7 +457,7 @@ _bsn.AutoSuggest.prototype.setHighlight = function(n) {
 
 
 	this.killTimeout();
-}
+};
 
 
 _bsn.AutoSuggest.prototype.clearHighlight = function() {
@@ -469,7 +469,7 @@ _bsn.AutoSuggest.prototype.clearHighlight = function() {
 		list.childNodes[this.iHighlighted - 1].className = "";
 		this.iHighlighted = 0;
 	}
-}
+};
 
 
 _bsn.AutoSuggest.prototype.setHighlightedValue = function () {
@@ -490,12 +490,12 @@ _bsn.AutoSuggest.prototype.setHighlightedValue = function () {
 		if (typeof(this.oP.callback) == "function")
 			this.oP.callback(this.aSuggestions[this.iHighlighted - 1]);
 	}
-}
+};
 
 
 _bsn.AutoSuggest.prototype.killTimeout = function() {
 	clearTimeout(this.toID);
-}
+};
 
 _bsn.AutoSuggest.prototype.resetTimeout = function() {
 	clearTimeout(this.toID);
@@ -503,7 +503,7 @@ _bsn.AutoSuggest.prototype.resetTimeout = function() {
 	this.toID = setTimeout(function () {
 		pointer.clearSuggestions()
 	}, 1000);
-}
+};
 
 
 _bsn.AutoSuggest.prototype.clearSuggestions = function () {
@@ -519,20 +519,20 @@ _bsn.AutoSuggest.prototype.clearSuggestions = function () {
 			_bsn.DOM.removeElement(pointer.idAs)
 		});
 	}
-}
+};
 
 
 // AJAX PROTOTYPE _____________________________________________
 
 
 if (typeof(_bsn.Ajax) == "undefined")
-	_bsn.Ajax = {}
+	_bsn.Ajax = {};
 
 
 _bsn.Ajax = function () {
 	this.req = {};
 	this.isIE = false;
-}
+};
 
 
 _bsn.Ajax.prototype.makeRequest = function (url, meth, onComp, onErr) {
@@ -565,7 +565,7 @@ _bsn.Ajax.prototype.makeRequest = function (url, meth, onComp, onErr) {
 			this.req.send();
 		}
 	}
-}
+};
 
 
 _bsn.Ajax.prototype.processReqChange = function() {
@@ -579,14 +579,14 @@ _bsn.Ajax.prototype.processReqChange = function() {
 			this.onError(this.req.status);
 		}
 	}
-}
+};
 
 
 // DOM PROTOTYPE _____________________________________________
 
 
 if (typeof(_bsn.DOM) == "undefined")
-	_bsn.DOM = {}
+	_bsn.DOM = {};
 
 
 _bsn.DOM.createElement = function (type, attr, cont, html) {
@@ -605,7 +605,7 @@ _bsn.DOM.createElement = function (type, attr, cont, html) {
 		ne.appendChild(cont);
 
 	return ne;
-}
+};
 
 
 _bsn.DOM.clearElement = function (id) {
@@ -618,7 +618,7 @@ _bsn.DOM.clearElement = function (id) {
 		ele.removeChild(ele.childNodes[0]);
 
 	return true;
-}
+};
 
 
 _bsn.DOM.removeElement = function (ele) {
@@ -630,7 +630,7 @@ _bsn.DOM.removeElement = function (ele) {
 		return true;
 	else
 		return false;
-}
+};
 
 
 _bsn.DOM.replaceContent = function (id, cont, html) {
@@ -647,7 +647,7 @@ _bsn.DOM.replaceContent = function (id, cont, html) {
 		ele.innerHTML = cont;
 	else if (typeof(cont) == "object")
 		ele.appendChild(cont);
-}
+};
 
 
 _bsn.DOM.getElement = function (ele) {
@@ -668,7 +668,7 @@ _bsn.DOM.getElement = function (ele) {
 		return ele;
 	else
 		return false;
-}
+};
 
 
 _bsn.DOM.appendChildren = function (id, arr) {
@@ -688,7 +688,7 @@ _bsn.DOM.appendChildren = function (id, arr) {
 		else if (typeof(cont) == "object")
 			ele.appendChild(cont);
 	}
-}
+};
 
 
 _bsn.DOM.getPos = function (ele) {
@@ -699,7 +699,7 @@ _bsn.DOM.getPos = function (ele) {
 	var curleft = 0;
 	if (obj.offsetParent) {
 		while (obj.offsetParent) {
-			curleft += obj.offsetLeft
+			curleft += obj.offsetLeft;
 			obj = obj.offsetParent;
 		}
 	}
@@ -712,7 +712,7 @@ _bsn.DOM.getPos = function (ele) {
 	var curtop = 0;
 	if (obj.offsetParent) {
 		while (obj.offsetParent) {
-			curtop += obj.offsetTop
+			curtop += obj.offsetTop;
 			obj = obj.offsetParent;
 		}
 	}
@@ -720,14 +720,14 @@ _bsn.DOM.getPos = function (ele) {
 		curtop += obj.y;
 
 	return {x:curleft, y:curtop}
-}
+};
 
 
 // FADER PROTOTYPE _____________________________________________
 
 
 if (typeof(_bsn.Fader) == "undefined")
-	_bsn.Fader = {}
+	_bsn.Fader = {};
 
 
 _bsn.Fader = function (ele, from, to, fadetime, callback) {
@@ -750,7 +750,7 @@ _bsn.Fader = function (ele, from, to, fadetime, callback) {
 	this.nID = setInterval(function() {
 		p._fade()
 	}, this.nInt);
-}
+};
 
 
 _bsn.Fader.prototype._fade = function() {
@@ -779,9 +779,9 @@ _bsn.Fader.prototype._fade = function() {
 		if (this.callback != undefined)
 			this.callback();
 	}
-}
+};
 
 
-_bsn.Fader.prototype._tween = function(t, b, c, d) {
+_bsn.Fader.prototype._tween = function (t, b, c, d) {
 	return b + ( (c - b) * (t / d) );
-}
+};

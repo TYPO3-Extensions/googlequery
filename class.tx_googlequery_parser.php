@@ -77,10 +77,13 @@ class tx_googlequery_parser {
 	public $gquery_serverurl = false; // Google's URL server
 	protected $gquery_query; // Full url returning the xml results from Google Mini
 	public $gquery_uri; // Full uri returning the xml results from Google Mini
+	public $gquery_queryparams = array();
 
 	public $limit_from = false;
 	public $limit_numitems = false;
 	public $total_counter = 0;
+
+	var $extKey = 'googlequery'; // The extension key.
 
 	/**
 	 * This method is used to parse a list of metas required to be returned
@@ -134,6 +137,7 @@ class tx_googlequery_parser {
 		// If no language object is available, create one
 		else {
 			require_once(PATH_typo3 . 'sysext/lang/lang.php');
+			/** @var $lang language */
 			$lang = t3lib_div::makeInstance('language');
 			// Find out which language to use
 			if (empty($language)) {
@@ -207,7 +211,7 @@ class tx_googlequery_parser {
 
 		// First handle the "filter" part, which will be turned into uri string
 		$completeFilter = '';
-		$localPartialfields = $localRequiredfields = array(
+		$localPartialfields = $localRequiredfields = $kw_strings = array(
 		);
 		$logicalOperator = (empty($filter['logicalOperator']) ||
 				$filter['logicalOperator'] == 'AND') ? '.' : '|';
@@ -239,10 +243,7 @@ class tx_googlequery_parser {
 							if ($conditionData['value'] == '\empty' || $conditionData['value'] == '\null' ||
 									$conditionData['value'] == '\all'
 							) {
-								// Those filter's values cannot be handled by a GSA
-								if ($this->configuration['debug'] || TYPO3_DLOG) {
-									t3lib_div::devLog('\empty, \null and \all filter\'s values are not usable in a Google query', $this->extKey, -1);
-								}
+								/** @todo Throw warning when unhelded special values are used */
 
 							}
 							// "andgroup" and "orgroup" requires more handling
@@ -283,7 +284,7 @@ class tx_googlequery_parser {
 									);
 								}
 								// Loop on each value and assemble condition
-								$localCondition = '';
+
 								foreach ($values as $aValue) {
 									$localRequiredfields[] = $fullField . ':' . $aValue;
 								}
@@ -307,11 +308,7 @@ class tx_googlequery_parser {
 								$localRequiredfields[] = $fullField . ':' . $conditionData['value'];
 							}
 							else {
-
-								// Those operators cannot be handled by a GSA
-								if ($this->configuration['debug'] || TYPO3_DLOG) {
-									t3lib_div::devLog($conditionData['operator'] . ' cannot be used in a Google query', $this->extKey, -1);
-								}
+								/** @todo Throw warning when unhelded operator is used */
 							}
 						}
 					}
@@ -424,7 +421,7 @@ class tx_googlequery_parser {
 			$this->args_request['partialfields'] = implode('.', $this->__partialfields);
 		}
 
-		// Always return 100 items
+		// Always return 20 items
 		$this->args_request['num'] = 20;
 
 		if ($this->limit_from) {
@@ -498,4 +495,3 @@ if (defined('TYPO3_MODE') &&
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/googlequery/class.tx_googlequery_parser.php']);
 }
 
-?>

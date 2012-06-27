@@ -34,34 +34,37 @@ class tx_googlequery_pi1 extends tslib_pibase {
 
 	var $formId = 'gsa_form';
 	var $templateFile = 'EXT:googlequery/pi1/res/template.html';
+	var $template = '';
 	var $markerArray = array(
 	);
+
+	protected $gquery_query; // Full url returning the xml results from Google Mini
 
 	/**
 	 * The main method of the PlugIn
 	 *
-	 * @param	string		$content: The PlugIn content
-	 * @param	array		$conf: The PlugIn configuration
-	 * @return	The content that is displayed on the website
+	 * @param    string        $content: The PlugIn content
+	 * @param    array        $conf: The PlugIn configuration
+	 * @return    string        The content that is displayed on the website
 	 */
-	function main( $content, $conf ) {
+	function main($content, $conf) {
 		$this->conf = $conf;
-		$this->pi_setPiVarDefaults( );
-		$this->pi_loadLL( );
+		$this->pi_setPiVarDefaults();
+		$this->pi_loadLL();
 		$this->pi_USER_INT_obj = 1; // Configuring so caching is not expected. This value means that no cHash params are ever set. We do this, because it's a USER_INT object!
 
-		$this->pi_initPIflexForm( );
-		$this->initConf( );
-		$this->doOutput( );
+		$this->pi_initPIflexForm();
+		$this->initConf();
+		$this->doOutput();
 
-		return $this->cObj->substituteMarkerArrayCached( $this->template, $this->markerArray );
+		return $this->cObj->substituteMarkerArrayCached($this->template, $this->markerArray);
 	}
 
 	/**********************************************************************************************************/
 	/************************************* INIT ***************************************************************/
 	/**********************************************************************************************************/
 
-	function initConf( ) {
+	function initConf() {
 
 		$flexformElements = array(
 			'templateFile',
@@ -76,109 +79,104 @@ class tx_googlequery_pi1 extends tslib_pibase {
 			'gss_id'
 		);
 
-		foreach ( $flexformElements as $field ) {
-			$value = $this->pi_getFFvalue( $this->cObj->data[ 'pi_flexform' ], $field, 'sDEF' );
-			if ( !empty( $value ) ) {
-				$this->conf[ $field ] = $value;
+		foreach ($flexformElements as $field) {
+			$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $field, 'sDEF');
+			if (!empty($value)) {
+				$this->conf[$field] = $value;
 			}
 		}
 
-		$this->conf[ 'gsa_host' ] = parse_url( $this->conf[ 'gsa_host' ] );
+		$this->conf['gsa_host'] = parse_url($this->conf['gsa_host']);
 	}
 
 
-	function doOutput( ) {
+	function doOutput() {
 
-		if ( t3lib_div::_GP( 'q' ) ) {
-			$this->markerArray[ '###GQ_Q###' ] = stripslashes( htmlspecialchars( t3lib_div::_GP( 'q' ) ) );
-		}
-		else {
-			$this->markerArray[ '###GQ_Q###' ] = '';
+		if (t3lib_div::_GP('q')) {
+			$this->markerArray['###GQ_Q###'] = stripslashes(htmlspecialchars(t3lib_div::_GP('q')));
+		} else {
+			$this->markerArray['###GQ_Q###'] = '';
 		}
 
-		if ( $this->conf[ 'templateFile' ] || $this->conf[ 'templateFile' ] != '' ) {
-			$this->templateFile = $this->conf[ 'templateFile' ];
+		if ($this->conf['templateFile'] || $this->conf['templateFile'] != '') {
+			$this->templateFile = $this->conf['templateFile'];
 		}
 
 		// Form id
-		$this->markerArray[ '###GQ_FORM_ID###' ] = $this->formId;
+		$this->markerArray['###GQ_FORM_ID###'] = $this->formId;
 
 		// Form target
-		if ( $this->conf[ 'targetId' ] > 0 ) {
-			$targetId = $this->conf[ 'targetId' ];
-		}
-		else {
-			$targetId = $GLOBALS[ 'TSFE' ]->id;
+		if ($this->conf['targetId'] > 0) {
+			$targetId = $this->conf['targetId'];
+		} else {
+			$targetId = $GLOBALS['TSFE']->id;
 		}
 
-		$this->markerArray[ '###GQ_FORM_TARGET###' ] = $this->cObj->typolink( 'x', array(
-		                                                                                'parameter' =>
-		                                                                                $targetId,
-		                                                                                'returnLast' => 'url'
-		                                                                           ) );
+		$this->markerArray['###GQ_FORM_TARGET###'] = $this->cObj->typolink('x', array(
+			'parameter' =>
+			$targetId,
+			'returnLast' => 'url'
+		));
 
 		// Form target
-		if ( $this->conf[ 'clicklog' ] == 1 && t3lib_div::_GP( 'q' ) != '' && $this->conf[ 'searchEngineType' ] == 'gsa' ) {
-			$this->markerArray[ '###GQ_CLICKLOG###' ] = '
+		if ($this->conf['clicklog'] == 1 && t3lib_div::_GP('q') != '' && $this->conf['searchEngineType'] == 'gsa') {
+			$this->markerArray['###GQ_CLICKLOG###'] = '
 			<script type="text/javascript">
-				var page_query = " ' . t3lib_div::_GP( 'q' ) . '";
-				var page_site = "' . $this->conf[ 'collection' ] . '";
-				var gsa_host = "' . $this->conf[ 'gsa_host' ][ 'scheme' ] . '://' . $this->conf[ 'gsa_host' ][ 'host' ] . '";
+				var page_query = " ' . t3lib_div::_GP('q') . '";
+				var page_site = "' . $this->conf['collection'] . '";
+				var gsa_host = "' . $this->conf['gsa_host']['scheme'] . '://' . $this->conf['gsa_host']['host'] . '";
 			</script>
 			<script src="/typo3conf/ext/googlequery/pi1/res/clicklog.js" type="text/javascript"></script>';
-		}
-		else {
-			$this->markerArray[ '###GQ_CLICKLOG###' ] = '';
+		} else {
+			$this->markerArray['###GQ_CLICKLOG###'] = '';
 		}
 
-		$this->markerArray[ '###GQ_LABEL_SEARCH###' ] = htmlspecialchars( $this->pi_getLL( 'label.searchBtn' ) );
+		$this->markerArray['###GQ_LABEL_SEARCH###'] = htmlspecialchars($this->pi_getLL('label.searchBtn'));
 
-		$this->template = $this->cObj->getSubpart( tslib_cObj::fileResource( $this->templateFile ), '###GOOGLEQUERY_SEARCHFORM###' );
+		$this->template = $this->cObj->getSubpart($this->cObj->fileResource($this->templateFile), '###GOOGLEQUERY_SEARCHFORM###');
 
 		// Search as you type configuration
-		if ( $this->conf[ 'autoss' ] && $this->conf[ 'searchEngineType' ] == 'gsa' ) {
-			$this->load_SS( );
+		if ($this->conf['autoss'] && $this->conf['searchEngineType'] == 'gsa') {
+			$this->load_SS();
 		}
 
 	}
 
-	function load_SS( ) {
+	function load_SS() {
 
 		$cssFileRelUrl = str_replace(
-			$_SERVER[ 'DOCUMENT_ROOT' ], '', t3lib_div::getFileAbsFileName( $this->conf[ 'autosscss' ], true, true ) );
+			$_SERVER['DOCUMENT_ROOT'], '', t3lib_div::getFileAbsFileName($this->conf['autosscss'], true, true));
 
-		if ( $cssFileRelUrl != '' ) {
+		if ($cssFileRelUrl != '') {
 			$cssFile = $cssFileRelUrl;
-		}
-		else
-		{
+		} else {
 			$cssFile = '/typo3conf/ext/googlequery/pi1/res/css/autosuggest.css';
 		}
 
-		$this->markerArray[ '###GQ_GSA_JS###' ] = '
+		$this->markerArray['###GQ_GSA_JS###'] = '
 			<script type="text/javascript" src="/typo3conf/ext/googlequery/pi1/res/autosuggest.js"></script>
 			<link rel="stylesheet" href="' . $cssFile . '" type="text/css" media="screen" charset="utf-8" />
 			<script type="text/javascript">
 				var options = {
-					script:"?max=10&site=' . $this->conf[ 'collection' ] .
-		                                          '&client=' . $this->conf[ 'frontend' ] .
-		                                          '&access=p&format=rich&gsahost=' . $this->conf[ 'gsa_host' ][ 'scheme' ] . '://' . $this->conf[ 'gsa_host' ][ 'host' ] .
-		                                          '&eID=google_suggestions&",
+					script:"?max=10&site=' . $this->conf['collection'] .
+				'&client=' . $this->conf['frontend'] .
+				'&access=p&format=rich&gsahost=' . $this->conf['gsa_host']['scheme'] . '://' . $this->conf['gsa_host']['host'] .
+				'&eID=google_suggestions&",
 					varname:"q",
 					json:true,
 					GSformName: "' . $this->formId . '",
 					shownoresults:false,
-					noresults: "' . $this->pi_getLL( 'label.noresults' ) . '",
+					noresults: "' . $this->pi_getLL('label.noresults') . '",
 					cache: false
 				};
 				var as_json = new AutoSuggest( \'tx_googlequery_searchform_ss_q\', options);
 
 			</script>';
 
-		$this->markerArray[ '###GQ_FRONTEND###' ] = $this->conf[ 'frontend' ];
-		$this->markerArray[ '###GQ_COLLECTION###' ] = $this->conf[ 'collection' ];
+		$this->markerArray['###GQ_FRONTEND###'] = $this->conf['frontend'];
+		$this->markerArray['###GQ_COLLECTION###'] = $this->conf['collection'];
 
-		$this->template = $this->cObj->getSubpart( tslib_cObj::fileResource( $this->templateFile ), '###GOOGLEQUERY_SEARCHFORM_SS###' );
+		$this->template = $this->cObj->getSubpart($this->cObj->fileResource($this->templateFile), '###GOOGLEQUERY_SEARCHFORM_SS###');
 
 	}
 

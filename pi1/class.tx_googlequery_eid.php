@@ -24,40 +24,41 @@
 
 class tx_googlequery_eID {
 
-	function main( ) {
+	function main() {
 
-		$gsahost = parse_url( t3lib_div::_GP( 'gsahost' ) );
+		$gsahost = parse_url(t3lib_div::_GP('gsahost'));
 
-		$url =  $gsahost[ 'scheme' ] . "://" . $gsahost[ 'host' ] .
-				   "/suggest?" .
-				   "q=" . $this->encodeGP( 'q' ).
-				   "&site=" . $this->encodeGP( 'site' ) .
-				   "&client=" . $this->encodeGP( 'client' ) .
-				   "&access=" . $this->encodeGP( 'access' ) .
-				   "&format=" . $this->encodeGP( 'format' ) .
-				   "&max=" . $this->encodeGP( 'max' );
+		$url = $gsahost['scheme'] . "://" . $gsahost['host'] .
+				"/suggest?" .
+				"q=" . $this->encodeGP('q') .
+				"&site=" . $this->encodeGP('site') .
+				"&client=" . $this->encodeGP('client') .
+				"&access=" . $this->encodeGP('access') .
+				"&format=" . $this->encodeGP('format') .
+				"&max=" . $this->encodeGP('max');
 
-		$json = t3lib_div::getURL( $url );
+		$json = t3lib_div::getURL($url);
 
-		header( "Cache-Control: no-cache" );
-		header( "Content-Type: text/javascript; charset=UTF-8" );
+		header("Cache-Control: no-cache");
+		header("Content-Type: text/javascript; charset=UTF-8");
 
 		echo $json;
 	}
 
-    function encodeGP ( $var ) {
-        return urlencode( t3lib_div::_GP( $var ) );
-    }
+	function encodeGP($var) {
+		return urlencode(t3lib_div::_GP($var));
+	}
 
 }
 
-if ( defined( 'TYPO3_MODE' ) &&
-     $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/tx_googlequery/pi1/class.tx_googlequery_eid.php' ] ) {
-	include_once( $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/tx_googlequery/pi1/class.tx_googlequery_eid.php' ] );
+if (defined('TYPO3_MODE') &&
+		$TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tx_googlequery/pi1/class.tx_googlequery_eid.php']
+) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tx_googlequery/pi1/class.tx_googlequery_eid.php']);
 }
 
 // new instance
-$SOBE = t3lib_div::makeInstance( 'tx_googlequery_eID' );
-$SOBE->main( );
+/** @var $SOBE tx_googlequery_eID */
+$SOBE = t3lib_div::makeInstance('tx_googlequery_eID');
+$SOBE->main();
 
-?>
