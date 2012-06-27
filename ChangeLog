@@ -1,5 +1,9 @@
+2012-06-22 Francois Suter (Cobweb)  <typo3@cobweb.ch>
+	v2.3.0
+	* Verified compatibility with TYPO3 4.7, raised requirement to TYPO3 4.5, resolves #38393
+
 2012-06-27 Roberto Presedo (Cobweb)  <typo3@cobweb.ch>
-	v2.2.3
+	v2.3.0
 	* Cleaned up unused bits of code, completed phpDoc comments
 	* Returned number of elements is now 20 max... GSS limitation
 	* Bug fix : wrong objects called
@@ -11,7 +15,7 @@
 2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.2.1
 	# Bug : Now encodes query uri
-	
+
 2011-08-10 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.2
 	# New Feature : Add support for void filters
@@ -38,17 +42,17 @@
 2011-05-18 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.0.0
 	# t3d examples file updated
-	
+
 2011-05-16 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.0.0-beta4
 	# Documentation updated
 	# Typoscript configuration updated
-	
+
 2011-04-06 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.0.0-beta3
 	# Documentation updated
 	# Several small bugs fixes
-	
+
 2011-03-18 Roberto Presedo (Cobweb) <typo3@cobweb.ch>
 	v2.0.0_beta1
 	# New Feature : TypoScript Configuration

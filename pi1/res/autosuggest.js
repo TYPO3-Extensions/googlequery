@@ -51,7 +51,7 @@ _bsn.AutoSuggest = function (fldID, param) {
 	//
 	this.oP = (param) ? param : {};
 
-	// defaults	
+	// defaults
 	//
 	if (!this.oP.minchars)									this.oP.minchars = 3;
 	if (!this.oP.method)									this.oP.meth = "get";
@@ -309,7 +309,7 @@ _bsn.AutoSuggest.prototype.createList = function(arr) {
 	var ul = _bsn.DOM.createElement("ul", {id:"as_ul"});
 
 
-	// loop throught arr of suggestions
+	// loop through arr of suggestions
 	// creating an LI element for each suggestion
 	//
 	for (var i = 0; i < arr.length; i++) {

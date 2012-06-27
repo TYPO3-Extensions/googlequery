@@ -299,7 +299,7 @@ class tx_googlequery_parser {
 
 								$condition = array(
 								);
-								foreach ($conditionParts as $key => $id) {
+								foreach ($conditionParts as $id) {
 									$condition[] = $fullField . ':' . $id;
 								}
 								$localRequiredfields[] = "(" . implode("|", $condition) . ")";

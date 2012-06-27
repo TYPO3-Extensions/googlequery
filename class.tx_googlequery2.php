@@ -220,7 +220,7 @@ class tx_googlequery2 extends tx_googlequery {
 			if (count($res) > 0) {
 				$where = ' deleted=0 AND hidden=0 AND ( ';
 				$x = 0;
-				foreach ($res as $id => $record) {
+				foreach ($res as $record) {
 					// $totalCount = $record['googleInfos$total'];
 					$url = parse_url($record['googleInfos$url']);
 					$pathinfo = pathinfo($url['path']);

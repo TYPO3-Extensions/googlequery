@@ -10,16 +10,16 @@ t3lib_extMgm::allowTableOnStandardPages('tx_googlequery_queries2');
 
 $TCA['tx_googlequery_queries'] = array (
 	'ctrl' => array (
-		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries',		
-		'label'     => 'title',	
+		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries',
+		'label'     => 'title',
 		'tstamp'    => 'tstamp',
 		'crdate'    => 'crdate',
 		'cruser_id' => 'cruser_id',
-		'versioningWS' => TRUE, 
+		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
-		'default_sortby' => 'ORDER BY title',	
-		'delete' => 'deleted',	
-		'enablecolumns' => array (		
+		'default_sortby' => 'ORDER BY title',
+		'delete' => 'deleted',
+		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
@@ -32,16 +32,16 @@ $TCA['tx_googlequery_queries'] = array (
 );
 $TCA['tx_googlequery_queries2'] = array (
 	'ctrl' => array (
-		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries2',		
-		'label'     => 'title',	
+		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries2',
+		'label'     => 'title',
 		'tstamp'    => 'tstamp',
 		'crdate'    => 'crdate',
 		'cruser_id' => 'cruser_id',
-		'versioningWS' => TRUE, 
+		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
-		'default_sortby' => 'ORDER BY title',	
-		'delete' => 'deleted',	
-		'enablecolumns' => array (		
+		'default_sortby' => 'ORDER BY title',
+		'delete' => 'deleted',
+		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
@@ -88,7 +88,7 @@ $TCA['tt_content']['columns']['tx_displaycontroller_provider']['config']['wizard
 $TCA['tt_content']['columns']['tx_displaycontroller_provider2']['config']['wizards']['add_googlequery2'] = $addgooglequery2Wizard;
 
 
-// Activate the display of the plug-in flexform field and set FlexForm defintion
+// Activate the display of the plug-in flexform field and set FlexForm definition
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:googlequery/flexform_ds.xml');
 

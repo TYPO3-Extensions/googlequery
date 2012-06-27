@@ -41,7 +41,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	public $extKey = 'googlequery';
 	protected $configuration; // Extension configuration
 
-	protected $gquery_queryparams; // Condiguration arguments
+	protected $gquery_queryparams; // Configuration arguments
 	protected $gquery_getfields; // Array of every field selected in the query
 	protected $gquery_serverurl; // Root url of the Google mini server
 
@@ -659,7 +659,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			$this->gquery_Parser->gquery_getfields = $this->defaultMetaTags;
 		}
 
-		foreach ($getfields as $key => $value) {
+		foreach ($getfields as $value) {
 			$parts = explode('$', $value);
 			if (count($parts) == 2) {
 				if (!in_array($parts[0] . '$uid', $this->gquery_Parser->gquery_getfields)) {
@@ -744,7 +744,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 				/**
 				 * @todo    Building a cleaned error declaration
 				 */
-				// No Search engine unique ID setted for the Google Site Search
+				// No Search engine unique ID set for the Google Site Search
 			}
 		}
 
@@ -1041,7 +1041,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 							}
 
-							// More informations about the current result cache page
+							// More information about the current result cache page
 							if ($infos->HAS->C) {
 								$cachedAtt = $infos->HAS->C->attributes();
 								$cacheParams = $this->gquery_Parser->gquery_queryparams;
@@ -1146,9 +1146,10 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	}
 
 	/**
-	 * Shorcut for debug logging
-	 * @param $title title of the log
-	 * @param bool $data data to log
+	 * Shortcut for debug logging
+	 *
+	 * @param string $title title of the log
+	 * @param mixed $data data to log
 	 * @param int $severity severity level
 	 */
 	protected function debugLog($title, $data = false, $severity = 0) {
