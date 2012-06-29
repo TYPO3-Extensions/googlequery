@@ -22,6 +22,9 @@ $TCA['tx_googlequery_queries'] = array (
 		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
+		'searchFields' => '
+			title,description,server_address,client_frontend,collection,metatags_requested,metatags_required,maintable
+		',
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'res/icons/icon_tx_googlequery_queries.gif',
 		'dividers2tabs' => 1,
@@ -44,6 +47,9 @@ $TCA['tx_googlequery_queries2'] = array (
 		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
+		'searchFields' => '
+			title,description,server_address,client_frontend,collection,metatags_requested,metatags_required,maintable
+		',
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'res/icons/icon_tx_googlequery_queries2.gif',
 		'dividers2tabs' => 1,
