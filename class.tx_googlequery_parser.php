@@ -472,7 +472,7 @@ class tx_googlequery_parser {
 	public function getMainTableName() {
 
 		if ($this->mainTable == 'tsConfig') {
-			$this->mainTable = $GLOBALS['TSFE']->tmpl->setup['config.']['tx_tesseract.']['tx_googlequery_queries.']['maintable'];
+			$this->mainTable = $GLOBALS['TSFE']->tmpl->setup['config.']['tx_tesseract.']['tx_googlequery_queries.']['default.']['maintable'];
 		}
 		return $this->mainTable;
 	}
