@@ -49,11 +49,18 @@ class tx_googlequery2 extends tx_googlequery {
 		$returnStructure['count'] = $dataStructure['count'];
 		$returnStructure['totalCount'] = $dataStructure['totalCount'];
 		$returnStructure['uidList'] = $dataStructure['uidList'];
-		$uidListWithTable = array();
-		foreach ($dataStructure['records'] as $record) {
-			$uidListWithTable[] = $dataStructure['name'] . "_" . $record['uid'];
+		
+		// If we must get uids from dam
+		if ($this->providerData['results_from_dam']) {
+			$returnStructure['uidListWithTable'] = $dataStructure['uidListWithTable'];
 		}
-		$returnStructure['uidListWithTable'] = implode(',', $uidListWithTable);
+		else {
+			$uidListWithTable = array();
+			foreach ($dataStructure['records'] as $record) {
+				$uidListWithTable[] = $dataStructure['name'] . "_" . $record['uid'];
+			}
+			$returnStructure['uidListWithTable'] = implode(',', $uidListWithTable);
+		}
 		// As a last step add the filter to the data structure
 		// NOTE: not all Data Consumers may be able to handle this data, but at least it's available
 		$returnStructure['filter'] = $this->filter;
@@ -174,7 +181,7 @@ class tx_googlequery2 extends tx_googlequery {
 				$this->gquery_Parser->addIdList($this->structure['uidListWithTable']);
 
 			if ($this->providerData['results_from_dam']) {
-				$this->gquery_Parser->gquery_queryparams['q'] = $this->gquery_Parser->gquery_queryparams['q'] . urlencode(' inurl:' . $this->providerData['dam_root_folder']);
+				$this->gquery_Parser->gquery_queryparams['q'] = $this->gquery_Parser->gquery_queryparams['q'] . ' inurl:' . urlencode($this->providerData['dam_root_folder']);
 			}
 
 			// Build the complete url
@@ -185,6 +192,7 @@ class tx_googlequery2 extends tx_googlequery {
 			// Prepare the full data structure
 			$dataStructure = $this->prepareFullStructure($res);
 		}
+		
 		return $dataStructure;
 	}
 

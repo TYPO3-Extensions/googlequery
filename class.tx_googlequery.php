@@ -120,47 +120,54 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		// Retriving the DataStructure for this query
 		$dataStructure = $this->buildDataStructure();
 
-		// Take the structure and apply limit and offset, if defined
-		if ($limit > 0 || $offset > 0) {
-			// Reset offset if beyond total number of records
-			if ($offset > $dataStructure['totalCount']) {
-				$offset = 0;
-			}
-			if ($this->gsaOffset > 0) {
-				$offset = $offset - $this->gsaOffset;
-			}
-			// Initialise final structure with data that won't change
-			$returnStructure = array(
-				'name' => $dataStructure['name'],
-				'trueName' => $dataStructure['trueName'],
-				'totalCount' => $dataStructure['totalCount'],
-				'header' => $dataStructure['header'],
-				'records' => array(
-				)
-			);
-			$counter = 0;
-			$uidList = array(
-			);
-			foreach ($dataStructure['records'] as $record) {
-				// Get only those records that are after the offset and within the limit
-				if ($counter >= $offset && ($limit == 0 || ($limit > 0 && $counter - $offset < $limit))) {
-					$counter++;
-					$returnStructure['records'][] = $record;
-					$uidList[] = $record['uid'];
-				} // If the offset has not been reached yet, just increase the counter
-				elseif ($counter < $offset) {
-					$counter++;
-				}
-				else {
-					break;
-				}
-			}
-			$returnStructure['count'] = count($returnStructure['records']);
-			$returnStructure['uidList'] = implode(',', $uidList);
-		} // If there's no limit take the structure as is
-		else {
+		// If this is a secondary provider, we just return the datastructure we already have
+		if ($this->getProvidedDataStructure() == tx_tesseract::IDLIST_STRUCTURE_TYPE) {
 			$returnStructure = $dataStructure;
 		}
+		else {
+			// Take the structure and apply limit and offset, if defined
+			if ($limit > 0 || $offset > 0) {
+				// Reset offset if beyond total number of records
+				if ($offset > $dataStructure['totalCount']) {
+					$offset = 0;
+				}
+				if ($this->gsaOffset > 0) {
+					$offset = $offset - $this->gsaOffset;
+				}
+				// Initialise final structure with data that won't change
+				$returnStructure = array(
+					'name' => $dataStructure['name'],
+					'trueName' => $dataStructure['trueName'],
+					'totalCount' => $dataStructure['totalCount'],
+					'header' => $dataStructure['header'],
+					'records' => array(
+					)
+				);
+				$counter = 0;
+				$uidList = array(
+				);
+				foreach ($dataStructure['records'] as $record) {
+					// Get only those records that are after the offset and within the limit
+					if ($counter >= $offset && ($limit == 0 || ($limit > 0 && $counter - $offset < $limit))) {
+						$counter++;
+						$returnStructure['records'][] = $record;
+						$uidList[] = $record['uid'];
+					} // If the offset has not been reached yet, just increase the counter
+					elseif ($counter < $offset) {
+						$counter++;
+					}
+					else {
+						break;
+					}
+				}
+				$returnStructure['count'] = count($returnStructure['records']);
+				$returnStructure['uidList'] = implode(',', $uidList);
+			} // If there's no limit take the structure as is
+			else {
+				$returnStructure = $dataStructure;
+			}
+		}
+				
 		// As a last step add the filter to the data structure
 		// NOTE: not all Data Consumers may be able to handle this data, but at least it's available
 		$returnStructure['filter'] = $this->filter;
