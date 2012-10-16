@@ -114,7 +114,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			$offset = 0;
 		}
 
-		$this->gquery_Parser->limit_from = floor($offset / 20) * 20;
+		// If this is a GSA call, we set the limit to 100 items returned… otherwise, it's 20
+		if ($this->providerData['searchEngineType'] == 'gsa') {
+			$this->gquery_Parser->setReturnedItems(100);
+		}
+		$this->gquery_Parser->limit_from = floor($offset / $this->gquery_Parser->getReturnedItems()) * $this->gquery_Parser->getReturnedItems();
 		$this->gsaOffset = $this->gquery_Parser->limit_from;
 
 		// Retriving the DataStructure for this query

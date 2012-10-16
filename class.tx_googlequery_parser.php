@@ -82,6 +82,8 @@ class tx_googlequery_parser {
 	public $limit_from = false;
 	public $limit_numitems = false;
 	public $total_counter = 0;
+	
+	protected $returnedItems = 20;
 
 	var $extKey = 'googlequery'; // The extension key.
 
@@ -421,8 +423,8 @@ class tx_googlequery_parser {
 			$this->args_request['partialfields'] = implode('.', $this->__partialfields);
 		}
 
-		// Always return 20 items
-		$this->args_request['num'] = 20;
+		// Sets the number of items to return
+		$this->args_request['num'] = $this->getReturnedItems();
 
 		if ($this->limit_from) {
 			$this->args_request['start'] = $this->limit_from;
@@ -485,6 +487,27 @@ class tx_googlequery_parser {
 	 */
 	public function getSubtablesNames() {
 		return $this->subtables;
+	}
+	
+	
+	/**
+	 * This method sets the maximun number of items that will be returned by Google
+	 *
+	 * @param    integer	$numberOfItems
+	 * @return void
+	*/
+	public function setReturnedItems($numberOfItems) {
+		$this->returnedItems = intval($numberOfItems);
+	}
+	
+	
+	/**
+	 * This method returns the maximun number of items that will be returned by Google
+	 *
+	 * @return integer Number of items
+	*/
+	public function getReturnedItems() {
+		return $this->returnedItems;
 	}
 }
 

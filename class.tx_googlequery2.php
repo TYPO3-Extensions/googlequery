@@ -181,7 +181,7 @@ class tx_googlequery2 extends tx_googlequery {
 				$this->gquery_Parser->addIdList($this->structure['uidListWithTable']);
 
 			if ($this->providerData['results_from_dam']) {
-				$this->gquery_Parser->gquery_queryparams['q'] = $this->gquery_Parser->gquery_queryparams['q'] . ' inurl:' . urlencode($this->providerData['dam_root_folder']);
+				$this->gquery_Parser->gquery_queryparams['q'] = $this->gquery_Parser->gquery_queryparams['q'] . ' inurl:' . $this->providerData['dam_root_folder'];
 			}
 
 			// Build the complete url

@@ -1,4 +1,4 @@
-﻿
+
 EXT: Google Query (Data Provider)
 Extension Key: googlequery
 Language: en
