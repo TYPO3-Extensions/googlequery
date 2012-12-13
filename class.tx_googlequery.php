@@ -127,8 +127,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		// If this is a secondary provider, we just return the datastructure we already have
 		if ($this->getProvidedDataStructure() == tx_tesseract::IDLIST_STRUCTURE_TYPE) {
 			$returnStructure = $dataStructure;
-		}
-		else {
+		} else {
 			// Take the structure and apply limit and offset, if defined
 			if ($limit > 0 || $offset > 0) {
 				// Reset offset if beyond total number of records
@@ -144,12 +143,10 @@ class tx_googlequery extends tx_tesseract_providerbase {
 					'trueName' => $dataStructure['trueName'],
 					'totalCount' => $dataStructure['totalCount'],
 					'header' => $dataStructure['header'],
-					'records' => array(
-					)
+					'records' => array()
 				);
 				$counter = 0;
-				$uidList = array(
-				);
+				$uidList = array();
 				foreach ($dataStructure['records'] as $record) {
 					// Get only those records that are after the offset and within the limit
 					if ($counter >= $offset && ($limit == 0 || ($limit > 0 && $counter - $offset < $limit))) {
@@ -159,8 +156,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 					} // If the offset has not been reached yet, just increase the counter
 					elseif ($counter < $offset) {
 						$counter++;
-					}
-					else {
+					} else {
 						break;
 					}
 				}
@@ -171,7 +167,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 				$returnStructure = $dataStructure;
 			}
 		}
-				
+
 		// As a last step add the filter to the data structure
 		// NOTE: not all Data Consumers may be able to handle this data, but at least it's available
 		$returnStructure['filter'] = $this->filter;
@@ -180,7 +176,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['postProcessDataStructure'])) {
 			foreach (
 				$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['postProcessDataStructure'] as $className) {
-				$postProcessor = &t3lib_div::getUserObj($className);
+				$postProcessor = & t3lib_div::getUserObj($className);
 				$returnStructure = $postProcessor->postProcessDataStructure($returnStructure, $this);
 			}
 		}
@@ -269,20 +265,16 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		// Initialise array for storing records and uid's per table
 		$rows = array(
 			$this->mainTable => array(
-				0 => array(
-				)
+				0 => array()
 			)
 		);
 		$uids = array(
-			$this->mainTable => array(
-			)
+			$this->mainTable => array()
 		);
 		if ($numSubtables > 0) {
 			foreach ($subtables as $table) {
-				$rows[$table] = array(
-				);
-				$uids[$table] = array(
-				);
+				$rows[$table] = array();
+				$uids[$table] = array();
 			}
 		}
 
@@ -302,13 +294,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			if ($currentUID != $oldUID) {
 				if ($numSubtables > 0) {
 					foreach ($subtables as $table) {
-						$rows[$table][$currentUID] = array(
-						);
+						$rows[$table][$currentUID] = array();
 					}
 				}
 			}
-			$recordsPerTable = array(
-			);
+			$recordsPerTable = array();
 			foreach ($row as $fieldName => $fieldValue) {
 				$fieldNameParts = t3lib_div::trimExplode('$', $fieldName);
 				// The query contains no joined table
@@ -366,12 +356,10 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 
 		// Prepare the header parts for all tables
-		$headers = array(
-		);
+		$headers = array();
 		foreach ($allTables as $table) {
 			if (isset($tableAndFieldLabels[$table]['fields'])) {
-				$headers[$table] = array(
-				);
+				$headers[$table] = array();
 				foreach ($tableAndFieldLabels[$table]['fields'] as $key => $label) {
 					$headers[$table][$key] = array(
 						'label' => $label
@@ -385,15 +373,12 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 		// Now loop on all the overlaid records of the main table and join them to their subtables
 		// Overlays are applied to subtables as needed
-		$uidList = array(
-		);
-		$fullRecords = array(
-		);
+		$uidList = array();
+		$fullRecords = array();
 		foreach ($mainRecords as $aRecord) {
 			$uidList[] = $aRecord['uid'];
 			$theFullRecord = $aRecord;
-			$theFullRecord['__substructure'] = array(
-			);
+			$theFullRecord['__substructure'] = array();
 			// Check if there are any subtables in the query
 			if ($numSubtables > 0) {
 				foreach ($subtables as $table) {
@@ -405,17 +390,19 @@ class tx_googlequery extends tx_tesseract_providerbase {
 						if ($numSubrecords > 0) {
 							//$sublimit = $this->sqlParser->getSubTableLimit($table);
 							// Perform overlays only if language is not default and if necessary for table
-							$subRecords = array(
-							);
-							$subUidList = array(
-							);
+							$subRecords = array();
+							$subUidList = array();
 							// Loop on all subrecords and perform overlays if necessary
 							foreach ($rows[$table][$aRecord['uid']] as $subRow) {
 								// Add the subrecord to the subtable only if it hasn't been included yet
 								// Multiple identical subrecords may happen when joining several tables together
 								// Take into account any limit that may have been placed on the number of subrecords in the query
 								// (using the non-SQL standard keyword MAX)
-
+								/// Fake uid for meta tags "tables" without uids
+								if (!$subRow['uid']) {
+									$subRow['uid'] = rand(0, 10000000);
+								}
+								
 								if ((!in_array($subRow['uid'], $subUidList) && $subRow['uid'] != '') ||
 										(!in_array($subRow['uid'], $subUidList) && $table == 'more_metas')
 								) {
@@ -459,7 +446,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['postProcessDataStructureBeforeCache'])
 		) {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['postProcessDataStructureBeforeCache'] as $className) {
-				$postProcessor = &t3lib_div::getUserObj($className);
+				$postProcessor = & t3lib_div::getUserObj($className);
 				$dataStructure = $postProcessor->postProcessDataStructureBeforeCache($dataStructure, $this);
 			}
 		}
@@ -660,13 +647,11 @@ class tx_googlequery extends tx_tesseract_providerbase {
 			$this->gquery_Parser->gquery_getfields = array(
 				'googleSynonymes$uid', 'googleSynonymes$link', 'googleSynonymes$label'
 			);
-		}
-		elseif ($this->providerData['maintable'] == 'googleKeymatches') {
+		} elseif ($this->providerData['maintable'] == 'googleKeymatches') {
 			$this->gquery_Parser->gquery_getfields = array(
 				'googleKeymatches$uid', 'googleKeymatches$link', 'googleKeymatches$label'
 			);
-		}
-		else {
+		} else {
 			$this->gquery_Parser->gquery_getfields = $this->defaultMetaTags;
 		}
 
@@ -899,8 +884,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 
 		if ($xml) {
 
-			$results = array(
-			);
+			$results = array();
 			$res = 0;
 			$start_from = $next_value = false;
 			$this->gquery_Parser->mainTable = $this->providerData['maintable'];
@@ -967,9 +951,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 						$results['total'] = $i;
 					}
 				}
-			}
-
-			// Keymatchs
+			} // Keymatchs
 			elseif ($this->gquery_Parser->mainTable == 'googleKeymatches') {
 
 				if ($xml->GM) {
@@ -984,8 +966,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 						$results['total'] = $i;
 					}
 				}
-			}
-			// Any other type of returned value
+			} // Any other type of returned value
 			else {
 				if ($start_from < $total) {
 					if ($xml->RES->R) {
@@ -1039,14 +1020,12 @@ class tx_googlequery extends tx_tesseract_providerbase {
 								}
 								if (isset($results[$res][$name]) && !is_array($results[$res][$name])) {
 									$first = $results[$res][$name];
-									$results[$res][$name] = array(
-									);
+									$results[$res][$name] = array();
 									$results[$res][$name][] = $first;
 									$results[$res][$name][] = $value;
 								} elseif (is_array($results[$res][$name])) {
 									$results[$res][$name][] = $value;
-								}
-								else {
+								} else {
 									$results[$res][$name] = $value;
 								}
 
@@ -1143,8 +1122,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 	 * @return    array    List of configuration statements
 	 */
 	protected function parseConfiguration($text) {
-		$lines = array(
-		);
+		$lines = array();
 		// Explode all the lines on the return character
 		$allLines = t3lib_div::trimExplode("\n", $text, 1);
 		foreach ($allLines as $aLine) {
