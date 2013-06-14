@@ -1,3 +1,7 @@
+2013-06-14 Francois Suter (Cobweb)  <typo3@cobweb.ch>
+	v2.4.0
+	* Corrected return of empty date structure, resolves #44528
+
 2012-06-29 Francois Suter (Cobweb)  <typo3@cobweb.ch>
 	v2.3.0
 	* Added definition of search fields, resolves #38484

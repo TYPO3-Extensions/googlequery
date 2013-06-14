@@ -402,7 +402,7 @@ class tx_googlequery extends tx_tesseract_providerbase {
 								if (!$subRow['uid']) {
 									$subRow['uid'] = rand(0, 10000000);
 								}
-								
+
 								if ((!in_array($subRow['uid'], $subUidList) && $subRow['uid'] != '') ||
 										(!in_array($subRow['uid'], $subUidList) && $table == 'more_metas')
 								) {
@@ -748,7 +748,8 @@ class tx_googlequery extends tx_tesseract_providerbase {
 		$this->mainTable = $this->providerData['maintable'];
 
 		if ($this->hasEmptyOutputStructure) {
-			return $this->initEmptyDataStructure($this->mainTable, tx_tesseract::IDLIST_STRUCTURE_TYPE);
+			$this->initEmptyDataStructure($this->mainTable, tx_tesseract::IDLIST_STRUCTURE_TYPE);
+			return $this->outputStructure;
 		} else {
 			return $this->getData();
 		}
