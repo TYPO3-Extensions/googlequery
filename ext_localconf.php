@@ -57,9 +57,9 @@ t3lib_extMgm::addService($_EXTKEY, 'dataprovider' /* sv type */, 'tx_googlequery
 );
 
 // Register the googlequery cache table to be deleted when all caches are cleared
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearAllCache_additionalTables']['tx_googlequery_cache'] = 'tx_googlequery_cache';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearAllCache_additionalTables']['tx_googlequery_cache'] = 'tx_googlequery_cache';
 
 // Register a hook to clear the cache for a given page
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearPageCacheEval']['tx_googlequery'] = 'EXT:googlequery/class.tx_googlequery_cache.php:&tx_googlequery_cache->clearCache';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearPageCacheEval']['tx_googlequery'] = 'EXT:googlequery/class.tx_googlequery_cache.php:&tx_googlequery_cache->clearCache';
 
 

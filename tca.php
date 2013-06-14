@@ -1,12 +1,12 @@
 <?php
 if (!defined('TYPO3_MODE')) die ('Access denied.');
 
-$TCA['tx_googlequery_queries'] = array(
-	'ctrl' => $TCA['tx_googlequery_queries']['ctrl'],
+$GLOBALS['TCA']['tx_googlequery_queries'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_googlequery_queries']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,title,description,sql_query,t3_mechanisms'
 	),
-	'feInterface' => $TCA['tx_googlequery_queries']['feInterface'],
+	'feInterface' => $GLOBALS['TCA']['tx_googlequery_queries']['feInterface'],
 	'columns' => array(
 		't3ver_label' => array(
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
@@ -158,14 +158,14 @@ $TCA['tx_googlequery_queries'] = array(
 		'2' => array('showitem' => 'client_frontend;;;;1-1-1, collection;;;;2-2-2'),
 	)
 );
-$TCA['tx_googlequery_queries']['ctrl']['requestUpdate'] = 'searchEngineType';
+$GLOBALS['TCA']['tx_googlequery_queries']['ctrl']['requestUpdate'] = 'searchEngineType';
 
 
 // SECONDARY DATA PROVIDER
 
-$TCA['tx_googlequery_queries2'] = $TCA['tx_googlequery_queries'];
+$GLOBALS['TCA']['tx_googlequery_queries2'] = $GLOBALS['TCA']['tx_googlequery_queries'];
 
-$TCA['tx_googlequery_queries2']['columns']['results_from_dam'] = array(
+$GLOBALS['TCA']['tx_googlequery_queries2']['columns']['results_from_dam'] = array(
 	'exclude' => 1,
 	'label' => 'LLL:EXT:googlequery/locallang_db.xml:tca2.results_from_dam',
 	'config' => array(
@@ -174,7 +174,7 @@ $TCA['tx_googlequery_queries2']['columns']['results_from_dam'] = array(
 	),
 	'displayCond' => 'EXT:dam:LOADED:true'
 );
-$TCA['tx_googlequery_queries2']['columns']['dam_root_folder'] = array(
+$GLOBALS['TCA']['tx_googlequery_queries2']['columns']['dam_root_folder'] = array(
 	'exclude' => 0,
 	'label' => 'LLL:EXT:googlequery/locallang_db.xml:tca2.dam_root_folder',
 	'config' => array(
@@ -185,7 +185,7 @@ $TCA['tx_googlequery_queries2']['columns']['dam_root_folder'] = array(
 	),
 	'displayCond' => 'EXT:dam:LOADED:true'
 );
-$TCA['tx_googlequery_queries2']['types']['0'] = array(
+$GLOBALS['TCA']['tx_googlequery_queries2']['types']['0'] = array(
 	'showitem' => 'hidden;;;;1-1-1, title;;1;;2-2-2, searchEngineType;;;;3-3-3, gss_id;;;;4-4-4, server_address;;2;;5-5-5, --div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.metatags, maintable;;;;1-1-1, metatags_required;;;;2-2-2, metatags_requested;;;;3-3-3,--div--;LLL:EXT:googlequery/locallang_db.xml:tca2.tab.dam_integration, results_from_dam;;;;1-1-1,dam_root_folder;;;;2-2-2,--div--;LLL:EXT:googlequery/locallang_db.xml:tca.tab.advanced, cache_in_session, cache_duration'
 );
 

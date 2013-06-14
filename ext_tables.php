@@ -8,7 +8,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 t3lib_extMgm::allowTableOnStandardPages('tx_googlequery_queries');
 t3lib_extMgm::allowTableOnStandardPages('tx_googlequery_queries2');
 
-$TCA['tx_googlequery_queries'] = array (
+$GLOBALS['TCA']['tx_googlequery_queries'] = array (
 	'ctrl' => array (
 		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries',
 		'label'     => 'title',
@@ -33,7 +33,7 @@ $TCA['tx_googlequery_queries'] = array (
 		'fe_admin_fieldList' => 'hidden, title, description',
 	)
 );
-$TCA['tx_googlequery_queries2'] = array (
+$GLOBALS['TCA']['tx_googlequery_queries2'] = array (
 	'ctrl' => array (
 		'title'     => 'LLL:EXT:googlequery/locallang_db.xml:tx_googlequery_queries2',
 		'label'     => 'title',
@@ -62,8 +62,8 @@ $TCA['tx_googlequery_queries2'] = array (
 // Register googlequery as a Data Provider
 
 t3lib_div::loadTCA('tt_content');
-$TCA['tt_content']['columns']['tx_displaycontroller_provider']['config']['allowed'] .= ',tx_googlequery_queries';
-$TCA['tt_content']['columns']['tx_displaycontroller_provider2']['config']['allowed'] .= ',tx_googlequery_queries2';
+$GLOBALS['TCA']['tt_content']['columns']['tx_displaycontroller_provider']['config']['allowed'] .= ',tx_googlequery_queries';
+$GLOBALS['TCA']['tt_content']['columns']['tx_displaycontroller_provider2']['config']['allowed'] .= ',tx_googlequery_queries2';
 
 // Add a wizard for adding a googlequery
 
@@ -90,12 +90,12 @@ $addgooglequery2Wizard = array(
 								'setValue' => 'append'
 							)
 						);
-$TCA['tt_content']['columns']['tx_displaycontroller_provider']['config']['wizards']['add_googlequery'] = $addgooglequeryWizard;
-$TCA['tt_content']['columns']['tx_displaycontroller_provider2']['config']['wizards']['add_googlequery2'] = $addgooglequery2Wizard;
+$GLOBALS['TCA']['tt_content']['columns']['tx_displaycontroller_provider']['config']['wizards']['add_googlequery'] = $addgooglequeryWizard;
+$GLOBALS['TCA']['tt_content']['columns']['tx_displaycontroller_provider2']['config']['wizards']['add_googlequery2'] = $addgooglequery2Wizard;
 
 
 // Activate the display of the plug-in flexform field and set FlexForm definition
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:googlequery/flexform_ds.xml');
 
 t3lib_extMgm::addPlugin(array(
